@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="Object1"
+            type="com.newsapp.news.data.models.ModelItem" />
+    </data>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_name"
+    android:text="@{Object1.name}"
+    android:layout_margin="5dp"
+    tools:text="test"
+    android:layout_height="wrap_content">
+</TextView>
+</layout>
