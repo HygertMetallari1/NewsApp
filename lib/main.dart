@@ -15,7 +15,7 @@ void main() async {
       supportedLocales: const [
         Locale('en'),
       ],
-      path: 'assets/app_texts', 
+      path: 'assets/app_texts',
   );
 }
 
