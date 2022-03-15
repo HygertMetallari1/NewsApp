@@ -7,6 +7,7 @@ class NAColors {
   static const Color error = Color(0xFFFF3B30);
   static const Color white = Color(0xFFFFFFFF);
   static const Color _white16 = Color(0x29FFFFFF);
+  static const Color gray = Colors.grey;
   static Color blackBlendWithWhite = Color.alphaBlend(_white16, black);
   static const Color white38 = Color(0x61FFFFFF);
   static const Color blue = Color.fromRGBO(72, 133, 237, 1);
@@ -31,10 +32,29 @@ final ThemeData naTheme = ThemeData(
   scaffoldBackgroundColor: NAColors.background,
   splashColor: Colors.transparent,
   highlightColor: Colors.transparent,
+
+  //APP BAR
   appBarTheme: const AppBarTheme(
     color: NAColors.background,
     elevation: 0,
     centerTitle: true
+  ),
+
+  //BOTTOM NAV BAR
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    elevation: 1,
+    showSelectedLabels: true,
+    showUnselectedLabels: true,
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: NAColors.background,
+    selectedItemColor: NAColors.blue,
+    unselectedItemColor: NAColors.black,
+    selectedIconTheme: IconThemeData(
+      color: NAColors.blue
+    ),
+    unselectedIconTheme: IconThemeData(
+      color: NAColors.black
+    ),
   ),
 
   ///COLOR SCHEME
