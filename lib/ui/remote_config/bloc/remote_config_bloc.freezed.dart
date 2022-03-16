@@ -184,9 +184,9 @@ class _$RemoteConfigStateTearOff {
     return const _Initial();
   }
 
-  _RemoteConfig remoteConfig({required String apiKey}) {
+  _RemoteConfig remoteConfig({required NARemoteConfig naRemoteConfig}) {
     return _RemoteConfig(
-      apiKey: apiKey,
+      naRemoteConfig: naRemoteConfig,
     );
   }
 }
@@ -199,19 +199,19 @@ mixin _$RemoteConfigState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String apiKey) remoteConfig,
+    required TResult Function(NARemoteConfig naRemoteConfig) remoteConfig,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String apiKey)? remoteConfig,
+    TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String apiKey)? remoteConfig,
+    TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -292,7 +292,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String apiKey) remoteConfig,
+    required TResult Function(NARemoteConfig naRemoteConfig) remoteConfig,
   }) {
     return initial();
   }
@@ -301,7 +301,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String apiKey)? remoteConfig,
+    TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
   }) {
     return initial?.call();
   }
@@ -310,7 +310,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String apiKey)? remoteConfig,
+    TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -360,7 +360,9 @@ abstract class _$RemoteConfigCopyWith<$Res> {
   factory _$RemoteConfigCopyWith(
           _RemoteConfig value, $Res Function(_RemoteConfig) then) =
       __$RemoteConfigCopyWithImpl<$Res>;
-  $Res call({String apiKey});
+  $Res call({NARemoteConfig naRemoteConfig});
+
+  $NARemoteConfigCopyWith<$Res> get naRemoteConfig;
 }
 
 /// @nodoc
@@ -376,28 +378,35 @@ class __$RemoteConfigCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? apiKey = freezed,
+    Object? naRemoteConfig = freezed,
   }) {
     return _then(_RemoteConfig(
-      apiKey: apiKey == freezed
-          ? _value.apiKey
-          : apiKey // ignore: cast_nullable_to_non_nullable
-              as String,
+      naRemoteConfig: naRemoteConfig == freezed
+          ? _value.naRemoteConfig
+          : naRemoteConfig // ignore: cast_nullable_to_non_nullable
+              as NARemoteConfig,
     ));
+  }
+
+  @override
+  $NARemoteConfigCopyWith<$Res> get naRemoteConfig {
+    return $NARemoteConfigCopyWith<$Res>(_value.naRemoteConfig, (value) {
+      return _then(_value.copyWith(naRemoteConfig: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_RemoteConfig implements _RemoteConfig {
-  const _$_RemoteConfig({required this.apiKey});
+  const _$_RemoteConfig({required this.naRemoteConfig});
 
   @override
-  final String apiKey;
+  final NARemoteConfig naRemoteConfig;
 
   @override
   String toString() {
-    return 'RemoteConfigState.remoteConfig(apiKey: $apiKey)';
+    return 'RemoteConfigState.remoteConfig(naRemoteConfig: $naRemoteConfig)';
   }
 
   @override
@@ -405,12 +414,13 @@ class _$_RemoteConfig implements _RemoteConfig {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _RemoteConfig &&
-            const DeepCollectionEquality().equals(other.apiKey, apiKey));
+            const DeepCollectionEquality()
+                .equals(other.naRemoteConfig, naRemoteConfig));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(apiKey));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(naRemoteConfig));
 
   @JsonKey(ignore: true)
   @override
@@ -421,29 +431,29 @@ class _$_RemoteConfig implements _RemoteConfig {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String apiKey) remoteConfig,
+    required TResult Function(NARemoteConfig naRemoteConfig) remoteConfig,
   }) {
-    return remoteConfig(apiKey);
+    return remoteConfig(naRemoteConfig);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String apiKey)? remoteConfig,
+    TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
   }) {
-    return remoteConfig?.call(apiKey);
+    return remoteConfig?.call(naRemoteConfig);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String apiKey)? remoteConfig,
+    TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
     required TResult orElse(),
   }) {
     if (remoteConfig != null) {
-      return remoteConfig(apiKey);
+      return remoteConfig(naRemoteConfig);
     }
     return orElse();
   }
@@ -481,9 +491,10 @@ class _$_RemoteConfig implements _RemoteConfig {
 }
 
 abstract class _RemoteConfig implements RemoteConfigState {
-  const factory _RemoteConfig({required String apiKey}) = _$_RemoteConfig;
+  const factory _RemoteConfig({required NARemoteConfig naRemoteConfig}) =
+      _$_RemoteConfig;
 
-  String get apiKey;
+  NARemoteConfig get naRemoteConfig;
   @JsonKey(ignore: true)
   _$RemoteConfigCopyWith<_RemoteConfig> get copyWith =>
       throw _privateConstructorUsedError;

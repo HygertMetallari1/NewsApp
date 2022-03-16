@@ -15,6 +15,7 @@ dependencies:
   flutter_bloc: 8.0.1
   bloc: 8.0.3
   dio: 4.0.4
+  storage_wrapper: 2.0.0
   flutter_local_notifications: ^9.4.0
   flutter_app_name: ^0.1.1
   flutter_native_splash: ^2.1.1
@@ -24,6 +25,7 @@ dependencies:
   firebase_remote_config: ^2.0.2
   cloud_firestore: ^3.1.10
   firebase_analytics: ^5.0.2
+  webview_flutter: ^3.0.1
 
   freezed_annotation:
   hive: ^2.0.6
