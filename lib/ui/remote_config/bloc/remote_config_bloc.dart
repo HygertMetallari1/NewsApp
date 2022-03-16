@@ -1,0 +1,39 @@
+import 'dart:async';
+
+import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'remote_config_bloc.freezed.dart';
+part 'remote_config_event.dart';
+part 'remote_config_state.dart';
+
+class RemoteConfigBloc extends Bloc<RemoteConfigEvent, RemoteConfigState> {
+  RemoteConfigBloc() : super(const RemoteConfigState.initial()){
+    on<RemoteConfigEvent> ((event, emit) async {
+     await  event.when(
+          getValues: () async {
+            final firebaseRemoteConfig = await _setupRemoteConfig();
+            emit(RemoteConfigState.remoteConfig(apiKey: firebaseRemoteConfig.getString("apiKey")));
+          }
+      );
+    });
+  }
+
+
+  Future<FirebaseRemoteConfig> _setupRemoteConfig() async {
+    await Firebase.initializeApp();
+    FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.instance;
+    await firebaseRemoteConfig.setConfigSettings(
+      RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: const Duration(minutes: 30),
+      ),
+    );
+    await firebaseRemoteConfig.fetchAndActivate();
+    return firebaseRemoteConfig;
+  }
+
+
+}

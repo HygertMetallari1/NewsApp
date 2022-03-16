@@ -26,7 +26,7 @@ class _HomeTabNavigatorState extends State<HomeTabNavigator> {
       body: BlocBuilder<TabCubit, TabState>(
         builder: (context, state) {
           switch(state.selectedTab) {
-            case "/home" : {
+            case "/home": {
               return const HomeScreen();
             }
             case "/headlines": {
