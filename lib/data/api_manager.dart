@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/app/utils.dart';
+import 'package:newsapp/data/secure_storage.dart';
 import 'models/na_remote_config/na_remote_config.dart';
 
 class APIManager {
@@ -19,16 +20,18 @@ class APIManager {
   late final NARemoteConfig _naRemoteConfig;
   setupWithConfig(NARemoteConfig naRemoteConfig) async {
     _naRemoteConfig = naRemoteConfig;
+    String? weatherApiKey = _naRemoteConfig.weatherApiKey;
     String? apiKey = _naRemoteConfig.apiKey;
-    if( apiKey != null) {
-      storeApiKey(apiKey);
+    if( apiKey != null && weatherApiKey != null) {
+      SecureStorage().storeApiKey(apiKey);
+      SecureStorage().storeWeatherApiKey(weatherApiKey);
     }
   }
 
   _interceptorOnRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     Map<String, dynamic> newHeaders = <String, dynamic> {};
     final RequestOptions newOptions;
-    String? apiKey = await loadApiKey();
+    String? apiKey = await SecureStorage().loadApiKey();
     if(apiKey != null) {
       newHeaders = {...options.headers};
       newHeaders['Authorization'] = 'Bearer' + apiKey;

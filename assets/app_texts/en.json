@@ -3,5 +3,8 @@
     "home_tab": "Home",
     "headlines_tab": "Headlines",
     "saved_tab": "Saved"
+  },
+  "home": {
+    "your_briefings": "Your\nbriefing"
   }
 }

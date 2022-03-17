@@ -6,12 +6,12 @@ part 'na_remote_config.freezed.dart';
 
 @freezed
 class NARemoteConfig with _$NARemoteConfig {
-  factory NARemoteConfig({String? apiKey}) = _NaRemoteConfig;
+  factory NARemoteConfig({String? weatherApiKey, String? apiKey}) = _NaRemoteConfig;
 
   static NARemoteConfig fromRemoteConfig(FirebaseRemoteConfig remoteConfig) {
+    final weatherApiKey = remoteConfig.getString("weatherApiKey");
     final apiKey = remoteConfig.getString("apiKey");
-    final naRC = NARemoteConfig(apiKey: apiKey);
-
-    return naRC;
+    final naRCObj = NARemoteConfig(weatherApiKey: weatherApiKey, apiKey: apiKey);
+    return naRCObj;
   }
 }

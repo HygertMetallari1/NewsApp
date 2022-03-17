@@ -17,8 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NARemoteConfigTearOff {
   const _$NARemoteConfigTearOff();
 
-  _NaRemoteConfig call({String? apiKey}) {
+  _NaRemoteConfig call({String? weatherApiKey, String? apiKey}) {
     return _NaRemoteConfig(
+      weatherApiKey: weatherApiKey,
       apiKey: apiKey,
     );
   }
@@ -29,6 +30,7 @@ const $NARemoteConfig = _$NARemoteConfigTearOff();
 
 /// @nodoc
 mixin _$NARemoteConfig {
+  String? get weatherApiKey => throw _privateConstructorUsedError;
   String? get apiKey => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -41,7 +43,7 @@ abstract class $NARemoteConfigCopyWith<$Res> {
   factory $NARemoteConfigCopyWith(
           NARemoteConfig value, $Res Function(NARemoteConfig) then) =
       _$NARemoteConfigCopyWithImpl<$Res>;
-  $Res call({String? apiKey});
+  $Res call({String? weatherApiKey, String? apiKey});
 }
 
 /// @nodoc
@@ -55,9 +57,14 @@ class _$NARemoteConfigCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? weatherApiKey = freezed,
     Object? apiKey = freezed,
   }) {
     return _then(_value.copyWith(
+      weatherApiKey: weatherApiKey == freezed
+          ? _value.weatherApiKey
+          : weatherApiKey // ignore: cast_nullable_to_non_nullable
+              as String?,
       apiKey: apiKey == freezed
           ? _value.apiKey
           : apiKey // ignore: cast_nullable_to_non_nullable
@@ -73,7 +80,7 @@ abstract class _$NaRemoteConfigCopyWith<$Res>
           _NaRemoteConfig value, $Res Function(_NaRemoteConfig) then) =
       __$NaRemoteConfigCopyWithImpl<$Res>;
   @override
-  $Res call({String? apiKey});
+  $Res call({String? weatherApiKey, String? apiKey});
 }
 
 /// @nodoc
@@ -89,9 +96,14 @@ class __$NaRemoteConfigCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? weatherApiKey = freezed,
     Object? apiKey = freezed,
   }) {
     return _then(_NaRemoteConfig(
+      weatherApiKey: weatherApiKey == freezed
+          ? _value.weatherApiKey
+          : weatherApiKey // ignore: cast_nullable_to_non_nullable
+              as String?,
       apiKey: apiKey == freezed
           ? _value.apiKey
           : apiKey // ignore: cast_nullable_to_non_nullable
@@ -103,14 +115,16 @@ class __$NaRemoteConfigCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_NaRemoteConfig implements _NaRemoteConfig {
-  _$_NaRemoteConfig({this.apiKey});
+  _$_NaRemoteConfig({this.weatherApiKey, this.apiKey});
 
+  @override
+  final String? weatherApiKey;
   @override
   final String? apiKey;
 
   @override
   String toString() {
-    return 'NARemoteConfig(apiKey: $apiKey)';
+    return 'NARemoteConfig(weatherApiKey: $weatherApiKey, apiKey: $apiKey)';
   }
 
   @override
@@ -118,12 +132,16 @@ class _$_NaRemoteConfig implements _NaRemoteConfig {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _NaRemoteConfig &&
+            const DeepCollectionEquality()
+                .equals(other.weatherApiKey, weatherApiKey) &&
             const DeepCollectionEquality().equals(other.apiKey, apiKey));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(apiKey));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(weatherApiKey),
+      const DeepCollectionEquality().hash(apiKey));
 
   @JsonKey(ignore: true)
   @override
@@ -132,8 +150,11 @@ class _$_NaRemoteConfig implements _NaRemoteConfig {
 }
 
 abstract class _NaRemoteConfig implements NARemoteConfig {
-  factory _NaRemoteConfig({String? apiKey}) = _$_NaRemoteConfig;
+  factory _NaRemoteConfig({String? weatherApiKey, String? apiKey}) =
+      _$_NaRemoteConfig;
 
+  @override
+  String? get weatherApiKey;
   @override
   String? get apiKey;
   @override

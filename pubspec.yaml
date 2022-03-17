@@ -16,6 +16,8 @@ dependencies:
   bloc: 8.0.3
   dio: 4.0.4
   storage_wrapper: 2.0.0
+  geolocator: ^8.2.0
+  intl: ^0.17.0
   flutter_local_notifications: ^9.4.0
   flutter_app_name: ^0.1.1
   flutter_native_splash: ^2.1.1
