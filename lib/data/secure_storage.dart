@@ -1,4 +1,5 @@
 import 'package:storage_wrapper/storage_wrapper.dart';
+import 'package:newsapp/app/utils.dart';
 
 class SecureStorage {
   SecureStorage._();
@@ -9,7 +10,8 @@ class SecureStorage {
 
   static final Map<String, String> secureStorageKeys = <String, String>{
     "weatherApiStoreKey": "weatherApiKey",
-    "apiStoreKey": "apiKey"
+    "apiStoreKey": "apiKey",
+    "locationPermissionKey": "locationPermissionState"
   };
 
   void storeWeatherApiKey(String weatherApiKey) async{
@@ -36,5 +38,22 @@ class SecureStorage {
         .secure()
         .read(key: secureStorageKeys["apiStoreKey"]!);
     return apiKey;
+  }
+
+  void storeLocationPermissionState(bool permission)  async{
+    await StorageWrapper
+        .secure()
+        .write(key: secureStorageKeys["locationPermissionKey"]!, value: permission.toString());
+  }
+
+  Future<bool> loadLocationPermissionState() async {
+    String? state = await StorageWrapper
+        .secure()
+        .read(key: secureStorageKeys["locationPermissionKey"]!);
+    bool convertedState = true;
+    if(state != null) {
+      convertedState = state.toBool();
+    }
+    return convertedState;
   }
 }

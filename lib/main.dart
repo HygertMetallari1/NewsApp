@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/api_manager.dart';
 import 'package:newsapp/ui/home/screens/home_screen.dart';
 import 'package:newsapp/ui/home_tab_navigator/cubit/tab_cubit.dart';
@@ -13,6 +14,7 @@ import 'app/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await checkLocationServices();
   final startUpBlocs = await createStartUpBlocs();
  return runApp(
       EasyLocalization(
@@ -64,6 +66,14 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
       theme: naTheme,
       home: const HomeTabNavigator(),
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if(state == AppLifecycleState.resumed) {
+      await checkLocationServices();
+    }
+    super.didChangeAppLifecycleState(state);
   }
 
   @override

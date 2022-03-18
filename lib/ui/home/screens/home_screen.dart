@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Text(
-                convertedCurrentTime(),
+                convertCurrentTime(),
                 style: theme.textTheme.caption?.copyWith(
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.1,

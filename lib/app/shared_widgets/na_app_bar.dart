@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
+import 'package:newsapp/data/services/weather_service.dart';
 
 class NAAppBar extends StatelessWidget implements PreferredSize{
   final String appBarTitle;
@@ -13,7 +14,7 @@ class NAAppBar extends StatelessWidget implements PreferredSize{
     return AppBar(
       elevation: 1,
       leading: TouchableOpacity(
-        onPressed: () {},
+        onPressed: () async => await WeatherService().getWeather(),
         child: NewsAppAssets.search,
       ),
       title: Text(appBarTitle),
