@@ -34,7 +34,7 @@ class WeatherService {
   }
 
   Future<Map<String, dynamic>> _queryParams() async {
-    
+
     Map<String, dynamic> parameters = <String, dynamic> {};
     String? weatherApiKey = await SecureStorage().loadWeatherApiKey();
     Set<double> location = await getLocation();
