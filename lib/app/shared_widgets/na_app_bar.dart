@@ -11,19 +11,29 @@ class NAAppBar extends StatelessWidget implements PreferredSize{
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return AppBar(
-      elevation: 1,
-      leading: TouchableOpacity(
-        onPressed: () async => await WeatherService().getWeather(),
-        child: NewsAppAssets.search,
+    return Container(
+      decoration: const BoxDecoration(
+          color: NAColors.white,
+          border: Border(
+              bottom: BorderSide(
+                  color: NAColors.gray
+              )
+          )
       ),
-      title: Text(appBarTitle),
-      titleTextStyle: theme.textTheme.headline6?.copyWith(
-        fontWeight: FontWeight.w600,
-        fontSize: 24,
-        letterSpacing: 1
+      child: AppBar(
+        elevation: 0,
+        leading: TouchableOpacity(
+          onPressed: () async => await WeatherService().getWeather(),
+          child: NewsAppAssets.search,
+        ),
+        title: Text(appBarTitle),
+        titleTextStyle: theme.textTheme.headline6?.copyWith(
+          fontWeight: FontWeight.w600,
+          fontSize: 24,
+          letterSpacing: 1
+        ),
+        shadowColor: NAColors.gray,
       ),
-      shadowColor: NAColors.gray,
     );
   }
 

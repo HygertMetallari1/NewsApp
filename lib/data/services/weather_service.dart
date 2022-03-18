@@ -41,7 +41,6 @@ class WeatherService {
     double latitude =  location.first;
     double longitude = location.last;
 
-    debugPrint("Location 📍$latitude $longitude}");
     if(weatherApiKey != null) {
       parameters = <String, dynamic> {
         "lat": latitude,
@@ -51,6 +50,7 @@ class WeatherService {
         "units": "metric"
       };
     }
+
     return parameters;
   }
 

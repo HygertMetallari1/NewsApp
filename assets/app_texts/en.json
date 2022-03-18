@@ -5,6 +5,17 @@
     "saved_tab": "Saved"
   },
   "home": {
-    "your_briefings": "Your\nbriefing"
+    "your_briefings": "Your\nbriefing",
+    "your_local_weather": "Your local weather"
+  },
+  "errors": {
+    "request_failed": "Request failed",
+    "internet_error": "No internet connection",
+    "error_404": "Data not found",
+    "error_500": "Internal server error",
+    "connection_timeout": "Connection timeout with the server",
+    "receive_timeout": "Receive timeout in connection with the server",
+    "send_timeout": "Send timeout in connection with the server",
+    "unexpected_error": "An unexpected error occurred"
   }
 }

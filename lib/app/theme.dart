@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class NAColors {
-  static const Color background = Color(0xFFF8F8F8);
-  static const Color backgroundModal = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF070707);
   static const Color error = Color(0xFFFF3B30);
   static const Color white = Color(0xFFFFFFFF);
@@ -28,14 +26,14 @@ double fontMultiplier = isSmallScreen ? 0.8 : 1;
 final ThemeData naTheme = ThemeData(
   primaryColor: NAColors.white,
   dialogBackgroundColor: NAColors.white,
-  backgroundColor: NAColors.background,
-  scaffoldBackgroundColor: NAColors.background,
+  backgroundColor: NAColors.white,
+  scaffoldBackgroundColor: NAColors.white,
   splashColor: Colors.transparent,
   highlightColor: Colors.transparent,
 
   //APP BAR
   appBarTheme: const AppBarTheme(
-    color: NAColors.background,
+    color: NAColors.white,
     elevation: 0,
     centerTitle: true
   ),
@@ -46,7 +44,7 @@ final ThemeData naTheme = ThemeData(
     showSelectedLabels: true,
     showUnselectedLabels: true,
     type: BottomNavigationBarType.fixed,
-    backgroundColor: NAColors.background,
+    backgroundColor: NAColors.white,
     selectedItemColor: NAColors.blue,
     unselectedItemColor: NAColors.black,
     selectedIconTheme: IconThemeData(
@@ -59,10 +57,8 @@ final ThemeData naTheme = ThemeData(
 
   ///COLOR SCHEME
   colorScheme: ThemeData.light().colorScheme.copyWith(
-    primary: NAColors.background,
-    primaryVariant: NAColors.white.withOpacity(0.6),
+    primary: NAColors.white,
     secondary: NAColors.white,
-    secondaryVariant: NAColors.white.withOpacity(0.6),
   ),
 
   ///ICON SCHEME

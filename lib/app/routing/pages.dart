@@ -1,4 +1,5 @@
 import 'package:newsapp/app/routing/routes.dart';
+import 'package:newsapp/app/shared_widgets/na_error_screen.dart';
 import 'package:newsapp/ui/headlines/screens/headlines_screen.dart';
 import 'package:newsapp/ui/home/screens/home_screen.dart';
 import 'package:newsapp/ui/saved/screens/saved_screen.dart';

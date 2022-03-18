@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/api_manager.dart';
+import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home/screens/home_screen.dart';
 import 'package:newsapp/ui/home_tab_navigator/cubit/tab_cubit.dart';
 import 'package:newsapp/ui/home_tab_navigator/screen/home_tab_navigator.dart';
@@ -26,6 +27,7 @@ void main() async {
         child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => startUpBlocs.remoteConfigBloc),
+            BlocProvider(create: (_) => startUpBlocs.weatherBloc),
             BlocProvider(create: (_) => startUpBlocs.tabCubit)
           ], child: const NewsApp(),
         ),
@@ -85,9 +87,11 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
 
 class _StartupBlocs {
   late final RemoteConfigBloc remoteConfigBloc;
+  late final WeatherBloc weatherBloc;
   late final TabCubit tabCubit;
   _StartupBlocs() {
     remoteConfigBloc = RemoteConfigBloc()..add(const RemoteConfigEvent.getValues());
+    weatherBloc = WeatherBloc()..add(const WeatherEvent.appStarted());
     tabCubit = TabCubit();
   }
 }
