@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/data/secure_storage.dart';
 
 String convertCurrentTime() {
@@ -79,6 +80,23 @@ Future<void> checkLocationServices() async {
   }
 }
 
+List<NewsItem> convertedNewsList (dynamic responseData) {
+  List<NewsItem> newsList = [];
+  final results = responseData["response"]["results"];
+  for(int i = 0; i < 10; i++) {
+    Map<String, dynamic> json = {
+      "headline" : results[i]["fields"]["headline"],
+      "trailText": results[i]["fields"]["trailText"],
+      "publishDate": results[i]["webPublicationDate"],
+      "author": results[i]["fields"]["byline"],
+      "content": results[i]["fields"]["body"],
+      "thumbnail": results[i]["fields"]["thumbnail"]
+    };
+    newsList.add(NewsItem.fromJson(json));
+  }
+  return newsList;
+}
+
 extension StringExtension on String {
   bool toBool() {
     bool value = true;
@@ -89,5 +107,9 @@ extension StringExtension on String {
       value = false;
     }
     return value;
+  }
+
+  String stripHTML() {
+    return replaceAll(RegExp(r'<[^>]*>|&[^;]+;'),'');
   }
 }

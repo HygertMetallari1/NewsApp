@@ -27,20 +27,18 @@ class NAErrorScreen extends StatelessWidget {
       body: SizedBox(
         width: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset("assets/images/error.png"),
-                  Expanded(
-                    child: Text(
-                      errorMessage,
-                      style: theme.textTheme.headline6?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20
-                      ),
+                  Text(
+                    errorMessage,
+                    style: theme.textTheme.headline6?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20
                     ),
                   ),
                 ],

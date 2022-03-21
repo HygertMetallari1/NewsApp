@@ -11,6 +11,7 @@ class APIManager {
   final int _defaultTimeout = 10 * 1000;
 
   configDio() {
+    debugPrint("Dio configured☑️");
     _client.options.receiveTimeout = _defaultTimeout;
     _client.interceptors.add(InterceptorsWrapper(
       onRequest: _interceptorOnRequest,
@@ -34,8 +35,9 @@ class APIManager {
     String? apiKey = await SecureStorage().loadApiKey();
     if(apiKey != null) {
       newHeaders = {...options.headers};
-      newHeaders['Authorization'] = 'Bearer' + apiKey;
+      newHeaders.addAll({"api-key": apiKey});
       newHeaders["content-type"] = Headers.formUrlEncodedContentType;
+      debugPrint("QueryParams ${options.queryParameters}");
       newOptions = options.copyWith(headers: newHeaders);
       handler.next(newOptions);
     }

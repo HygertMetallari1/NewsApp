@@ -85,6 +85,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
         return state.maybeWhen(
+          loading: () {
+            return const Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: NAColors.blue,
+                  ),
+                ),
+              ),
+            );
+          },
           weatherLoaded: (forecastingList) {
             WeatherItem currentDay = forecastingList[0];
             return OutlinedButton(
