@@ -14,6 +14,7 @@ class _SavedScreenState extends State<SavedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NAAppBar(
+        showSearchButton: false,
         appBarTitle: tr("navigation.saved_tab"),
       ),
     );

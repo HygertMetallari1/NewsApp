@@ -54,11 +54,10 @@ Future<bool> get _isPermitted async {
   } else {
     state = false;
   }
-  debugPrint("Permission state $state");
   return state;
 }
 
-Future<void> checkLocationServices() async {
+Future<bool> checkLocationServices() async {
   LocationPermission permission;
   permission = await Geolocator.requestPermission();
   switch(permission) {
@@ -78,6 +77,7 @@ Future<void> checkLocationServices() async {
       SecureStorage().storeLocationPermissionState(false);
       break;
   }
+  return true;
 }
 
 List<NewsItem> convertedNewsList (dynamic responseData) {
@@ -89,7 +89,7 @@ List<NewsItem> convertedNewsList (dynamic responseData) {
       "trailText": results[i]["fields"]["trailText"],
       "publishDate": results[i]["webPublicationDate"],
       "author": results[i]["fields"]["byline"],
-      "content": results[i]["fields"]["body"],
+      "content": results[i]["fields"]["body"].toString().stripHTML(),
       "thumbnail": results[i]["fields"]["thumbnail"]
     };
     newsList.add(NewsItem.fromJson(json));

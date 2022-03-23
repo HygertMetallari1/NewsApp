@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/utils.dart';
@@ -15,8 +16,10 @@ import 'app/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await checkLocationServices();
-  final startUpBlocs = await createStartUpBlocs();
+  late final _StartupBlocs startUpBlocs;
+  await checkLocationServices().then((_) async {
+    startUpBlocs = await createStartUpBlocs();
+  });
  return runApp(
       EasyLocalization(
         supportedLocales: const [
@@ -51,6 +54,7 @@ class NewsApp extends StatefulWidget {
 }
 
 class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
+  bool appShown = true;
 
   @override
   void initState() {
@@ -72,8 +76,19 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if(state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
+      setState(() {
+        appShown = false;
+      });
+    }
     if(state == AppLifecycleState.resumed) {
-      await checkLocationServices();
+      if(appShown == false) {
+        setState(() {
+          appShown = true;
+        });
+        await checkLocationServices();
+        BlocProvider.of<WeatherBloc>(context).add(const WeatherEvent.appStarted());
+      }
     }
     super.didChangeAppLifecycleState(state);
   }

@@ -8,7 +8,8 @@ import 'package:newsapp/data/services/weather_service/weather_service.dart';
 
 class NAAppBar extends StatelessWidget implements PreferredSize{
   final String appBarTitle;
-  const NAAppBar({Key? key, required this.appBarTitle}) : super(key: key);
+  final bool showSearchButton;
+  const NAAppBar({Key? key, required this.appBarTitle, required this.showSearchButton}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class NAAppBar extends StatelessWidget implements PreferredSize{
       ),
       child: AppBar(
         elevation: 0,
-        leading: TouchableOpacity(
+        leading: showSearchButton ? TouchableOpacity(
           onPressed: () {
             SearchNewsService().getNews(currentPage: 2);
            /* Navigator.push(
@@ -39,7 +40,7 @@ class NAAppBar extends StatelessWidget implements PreferredSize{
             );*/
           },
           child: NewsAppAssets.search,
-        ),
+        ) : const SizedBox(),
         title: Text(appBarTitle),
         titleTextStyle: theme.textTheme.headline6?.copyWith(
           fontWeight: FontWeight.w600,

@@ -27,8 +27,8 @@ class APIError {
 
   String? _handleLogInError(int? statusCode){
     switch(statusCode){
-      case 400: return tr("internet_error");
-      case 401: return tr("internet_error");
+      case 400: return tr("errors.internet_error");
+      case 401: return tr("errors.internet_error");
       case 404: return tr("errors.error_404");
       case 500: return tr ("errors.error_500");
       default: return tr("errors.unexpected_error");

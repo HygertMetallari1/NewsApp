@@ -1,12 +1,9 @@
-
-import 'dart:developer';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/api_manager.dart';
-import 'package:newsapp/data/enpoints.dart';
+import 'package:newsapp/data/endpoints.dart';
 import 'package:newsapp/data/models/weather/weather.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:newsapp/data/secure_storage.dart';
 
 class WeatherService {
@@ -14,10 +11,14 @@ class WeatherService {
   Future<List<WeatherItem>> getWeather() async {
     List<WeatherItem> listForecasting = [];
     Map<String, dynamic> json = <String, dynamic> {};
-    final response = await APIManager.client.get(
-      Endpoints.weatherUrl,
-      queryParameters: await _queryParams()
-    );
+
+    late final Response response;
+    await _queryParams().then((parameters) async {
+      response = await APIManager.client.get(
+          Endpoints.weatherUrl,
+          queryParameters: parameters
+      );
+    });
 
     for (int i = 0; i < 5; i++) {
       var index = response.data["daily"][i];
@@ -34,23 +35,20 @@ class WeatherService {
   }
 
   Future<Map<String, dynamic>> _queryParams() async {
-
     Map<String, dynamic> parameters = <String, dynamic> {};
-    String? weatherApiKey = await SecureStorage().loadWeatherApiKey();
     Set<double> location = await getLocation();
     double latitude =  location.first;
     double longitude = location.last;
 
-    if(weatherApiKey != null) {
+    if(await SecureStorage().loadWeatherApiKey() != null) {
       parameters = <String, dynamic> {
         "lat": latitude,
         "lon": longitude,
         "exclude": "minutely,hourly,alerts",
-        "appid": weatherApiKey,
+        "appid": await SecureStorage().loadWeatherApiKey(),
         "units": "metric"
       };
     }
-
     return parameters;
   }
 

@@ -6,7 +6,8 @@
   },
   "home": {
     "your_briefings": "Your\nbriefing",
-    "your_local_weather": "Your local weather"
+    "your_local_weather": "Your local weather",
+    "turn_on_location": "Enable location service on your device to see weather on your current location "
   },
   "errors": {
     "request_failed": "Request failed",

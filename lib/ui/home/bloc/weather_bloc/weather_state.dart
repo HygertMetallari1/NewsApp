@@ -7,5 +7,5 @@ class WeatherState with _$WeatherState {
   const factory WeatherState.weatherLoaded({
     required List<WeatherItem> forecastingList
   })  = _WeatherLoaded;
-  const factory WeatherState.weatherError({required String weatherError} ) = _WeatherError;
+  const factory WeatherState.weatherError({required String? weatherError} ) = _WeatherError;
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:storage_wrapper/storage_wrapper.dart';
 import 'package:newsapp/app/utils.dart';
 
@@ -21,6 +22,7 @@ class SecureStorage {
   }
 
   Future<String?> loadWeatherApiKey() async{
+    debugPrint("Weather store key ${secureStorageKeys["weatherApiStoreKey"]}");
     String? weatherApiKey = await StorageWrapper
         .secure()
         .read(key: secureStorageKeys["weatherApiStoreKey"]!);

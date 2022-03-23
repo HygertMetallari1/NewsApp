@@ -14,6 +14,7 @@ class _HeadlinesScreenState extends State<HeadlinesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NAAppBar(
+        showSearchButton: false,
         appBarTitle: tr("navigation.headlines_tab"),
       ),
     );

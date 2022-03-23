@@ -7,7 +7,7 @@ import 'package:newsapp/app/shared_widgets/na_app_bar.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
-import 'package:newsapp/data/enpoints.dart';
+import 'package:newsapp/data/endpoints.dart';
 import 'package:newsapp/data/models/weather/weather.dart';
 import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home/screens/weather_bottom_sheet.dart';
@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var theme = Theme.of(context);
     return Scaffold(
       appBar: NAAppBar(
+        showSearchButton: true,
         appBarTitle: tr("navigation.home_tab"),
       ),
       body: _buildBody(context, theme),
@@ -36,8 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
       child: SingleChildScrollView(
-        child: ListView(
-          shrinkWrap: true,
+        child: Column(
           children: <Widget>[
             _buildTopRow(context, theme)
           ],
@@ -52,27 +52,15 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                tr("home.your_briefings"),
-                maxLines: 2,
-                style: theme.textTheme.headline4?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.1,
-                  fontSize: 27,
-                ),
+          Expanded(
+            child: Text(
+              convertCurrentTime(),
+              style: theme.textTheme.bodyText1?.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.1,
               ),
-              Text(
-                convertCurrentTime(),
-                style: theme.textTheme.caption?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.1,
-                  fontSize: 13
-                ),
-              )
-            ],
+            ),
           ),
           _buildWeatherButton(context, theme)
         ],
@@ -145,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
           weatherError: (weatherError) {
             return SizedBox(
               child: Text(
-                weatherError,
+                weatherError ?? tr("errors.unexpected_error"),
                 style: theme.textTheme.caption?.copyWith(
                     fontWeight: FontWeight.w400,
                     color: NAColors.error,
@@ -170,4 +158,5 @@ class _HomeScreenState extends State<HomeScreen> {
         }
     );
   }
+  
 }

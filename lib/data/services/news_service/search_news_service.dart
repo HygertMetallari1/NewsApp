@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/api_manager.dart';
-import 'package:newsapp/data/enpoints.dart';
+import 'package:newsapp/data/endpoints.dart';
 import 'package:newsapp/data/models/news/news.dart';
 
 class SearchNewsService {
@@ -25,7 +25,8 @@ class SearchNewsService {
       Endpoints.searchNews,
       queryParameters: _queryParams,
     );
-    return  convertedNewsList(response);
+
+    return  convertedNewsList(response.data);
   }
 
   void _checkParameters(

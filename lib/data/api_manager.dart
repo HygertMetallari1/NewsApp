@@ -19,25 +19,28 @@ class APIManager {
   }
 
   late final NARemoteConfig _naRemoteConfig;
+
   setupWithConfig(NARemoteConfig naRemoteConfig) async {
+
     _naRemoteConfig = naRemoteConfig;
     String? weatherApiKey = _naRemoteConfig.weatherApiKey;
     String? apiKey = _naRemoteConfig.apiKey;
+
     if( apiKey != null && weatherApiKey != null) {
       SecureStorage().storeApiKey(apiKey);
       SecureStorage().storeWeatherApiKey(weatherApiKey);
     }
+
   }
 
   _interceptorOnRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     Map<String, dynamic> newHeaders = <String, dynamic> {};
     final RequestOptions newOptions;
-    String? apiKey = await SecureStorage().loadApiKey();
-    if(apiKey != null) {
+
+    if(await SecureStorage().loadApiKey() != null) {
       newHeaders = {...options.headers};
-      newHeaders.addAll({"api-key": apiKey});
+      newHeaders.addAll({"api-key": await SecureStorage().loadApiKey()});
       newHeaders["content-type"] = Headers.formUrlEncodedContentType;
-      debugPrint("QueryParams ${options.queryParameters}");
       newOptions = options.copyWith(headers: newHeaders);
       handler.next(newOptions);
     }

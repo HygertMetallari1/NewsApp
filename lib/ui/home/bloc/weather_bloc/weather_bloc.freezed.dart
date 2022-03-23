@@ -193,7 +193,7 @@ class _$WeatherStateTearOff {
     );
   }
 
-  _WeatherError weatherError({required String weatherError}) {
+  _WeatherError weatherError({required String? weatherError}) {
     return _WeatherError(
       weatherError: weatherError,
     );
@@ -210,7 +210,7 @@ mixin _$WeatherState {
     required TResult Function() initialState,
     required TResult Function() loading,
     required TResult Function(List<WeatherItem> forecastingList) weatherLoaded,
-    required TResult Function(String weatherError) weatherError,
+    required TResult Function(String? weatherError) weatherError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -218,7 +218,7 @@ mixin _$WeatherState {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -226,7 +226,7 @@ mixin _$WeatherState {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -316,7 +316,7 @@ class _$_IntialState implements _IntialState {
     required TResult Function() initialState,
     required TResult Function() loading,
     required TResult Function(List<WeatherItem> forecastingList) weatherLoaded,
-    required TResult Function(String weatherError) weatherError,
+    required TResult Function(String? weatherError) weatherError,
   }) {
     return initialState();
   }
@@ -327,7 +327,7 @@ class _$_IntialState implements _IntialState {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
   }) {
     return initialState?.call();
   }
@@ -338,7 +338,7 @@ class _$_IntialState implements _IntialState {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
     required TResult orElse(),
   }) {
     if (initialState != null) {
@@ -430,7 +430,7 @@ class _$_Loading implements _Loading {
     required TResult Function() initialState,
     required TResult Function() loading,
     required TResult Function(List<WeatherItem> forecastingList) weatherLoaded,
-    required TResult Function(String weatherError) weatherError,
+    required TResult Function(String? weatherError) weatherError,
   }) {
     return loading();
   }
@@ -441,7 +441,7 @@ class _$_Loading implements _Loading {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
   }) {
     return loading?.call();
   }
@@ -452,7 +452,7 @@ class _$_Loading implements _Loading {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -572,7 +572,7 @@ class _$_WeatherLoaded implements _WeatherLoaded {
     required TResult Function() initialState,
     required TResult Function() loading,
     required TResult Function(List<WeatherItem> forecastingList) weatherLoaded,
-    required TResult Function(String weatherError) weatherError,
+    required TResult Function(String? weatherError) weatherError,
   }) {
     return weatherLoaded(forecastingList);
   }
@@ -583,7 +583,7 @@ class _$_WeatherLoaded implements _WeatherLoaded {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
   }) {
     return weatherLoaded?.call(forecastingList);
   }
@@ -594,7 +594,7 @@ class _$_WeatherLoaded implements _WeatherLoaded {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
     required TResult orElse(),
   }) {
     if (weatherLoaded != null) {
@@ -656,7 +656,7 @@ abstract class _$WeatherErrorCopyWith<$Res> {
   factory _$WeatherErrorCopyWith(
           _WeatherError value, $Res Function(_WeatherError) then) =
       __$WeatherErrorCopyWithImpl<$Res>;
-  $Res call({String weatherError});
+  $Res call({String? weatherError});
 }
 
 /// @nodoc
@@ -677,7 +677,7 @@ class __$WeatherErrorCopyWithImpl<$Res> extends _$WeatherStateCopyWithImpl<$Res>
       weatherError: weatherError == freezed
           ? _value.weatherError
           : weatherError // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -688,7 +688,7 @@ class _$_WeatherError implements _WeatherError {
   const _$_WeatherError({required this.weatherError});
 
   @override
-  final String weatherError;
+  final String? weatherError;
 
   @override
   String toString() {
@@ -719,7 +719,7 @@ class _$_WeatherError implements _WeatherError {
     required TResult Function() initialState,
     required TResult Function() loading,
     required TResult Function(List<WeatherItem> forecastingList) weatherLoaded,
-    required TResult Function(String weatherError) weatherError,
+    required TResult Function(String? weatherError) weatherError,
   }) {
     return weatherError(this.weatherError);
   }
@@ -730,7 +730,7 @@ class _$_WeatherError implements _WeatherError {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
   }) {
     return weatherError?.call(this.weatherError);
   }
@@ -741,7 +741,7 @@ class _$_WeatherError implements _WeatherError {
     TResult Function()? initialState,
     TResult Function()? loading,
     TResult Function(List<WeatherItem> forecastingList)? weatherLoaded,
-    TResult Function(String weatherError)? weatherError,
+    TResult Function(String? weatherError)? weatherError,
     required TResult orElse(),
   }) {
     if (weatherError != null) {
@@ -789,9 +789,10 @@ class _$_WeatherError implements _WeatherError {
 }
 
 abstract class _WeatherError implements WeatherState {
-  const factory _WeatherError({required String weatherError}) = _$_WeatherError;
+  const factory _WeatherError({required String? weatherError}) =
+      _$_WeatherError;
 
-  String get weatherError;
+  String? get weatherError;
   @JsonKey(ignore: true)
   _$WeatherErrorCopyWith<_WeatherError> get copyWith =>
       throw _privateConstructorUsedError;

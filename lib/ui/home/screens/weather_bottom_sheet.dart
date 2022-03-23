@@ -1,19 +1,37 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
-import 'package:newsapp/data/enpoints.dart';
+import 'package:newsapp/data/endpoints.dart';
 import 'package:newsapp/data/models/weather/weather.dart';
 
-class WeatherBottomSheet extends StatelessWidget {
+
+class WeatherBottomSheet extends StatefulWidget {
   final List<WeatherItem> forecastingList;
   const WeatherBottomSheet({Key? key, required this.forecastingList}) : super(key: key);
 
   @override
+  State<WeatherBottomSheet> createState() => _WeatherBottomSheetState();
+}
+
+class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
+  bool locationService = false;
+  
+  @override
+  void didChangeDependencies() async {
+    bool _locationService = await Geolocator.isLocationServiceEnabled();
+    setState(() {
+      locationService = _locationService;
+    });
+    super.didChangeDependencies();
+  }
+  
+  @override
   Widget build(BuildContext context) {
-    WeatherItem currentDay = forecastingList[0];
+    WeatherItem currentDay = widget.forecastingList[0];
     var theme = Theme.of(context);
     return Container(
       width: double.infinity,
@@ -75,10 +93,35 @@ class WeatherBottomSheet extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                ...forecastingList.map((weatherItem) => _buildWeatherItem(context, theme, weatherItem))
+                ...widget.forecastingList.map((weatherItem) => _buildWeatherItem(context, theme, weatherItem))
               ],
             ),
-          )
+          ),
+          if(locationService == false) ...[
+            TouchableOpacity(
+              onPressed: () async {
+                await Geolocator.openAppSettings();
+              },
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0,
+                            vertical: 10.0
+                        ),
+                        child: Text(
+                          tr("home.turn_on_location"),
+                          style: theme.textTheme.caption?.copyWith(
+                            color: NAColors.gray
+                          )
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+            )
+          ]
         ],
       ),
     );
