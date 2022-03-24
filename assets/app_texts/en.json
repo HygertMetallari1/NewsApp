@@ -9,6 +9,17 @@
     "your_local_weather": "Your local weather",
     "turn_on_location": "Enable location service on your device to see weather on your current location "
   },
+  "pop_menu": {
+    "order_by": "Order by",
+    "relevance": "Relevance",
+    "newest": "Newest",
+    "oldest": "Oldest"
+  },
+  "date_selector": {
+    "select_date": "Select date",
+    "from_date": "From",
+    "to_date": "To"
+  },
   "errors": {
     "request_failed": "Request failed",
     "internet_error": "No internet connection",

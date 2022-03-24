@@ -9,49 +9,49 @@ class SecureStorage {
     return _singleton;
   }
 
-  static final Map<String, String> secureStorageKeys = <String, String>{
+  static final Map<String, String> _secureStorageKeys = <String, String>{
     "weatherApiStoreKey": "weatherApiKey",
     "apiStoreKey": "apiKey",
-    "locationPermissionKey": "locationPermissionState"
+    "locationPermissionKey": "locationPermissionState",
   };
 
   void storeWeatherApiKey(String weatherApiKey) async{
     await StorageWrapper
         .secure()
-        .write(key: secureStorageKeys["weatherApiStoreKey"]!, value: weatherApiKey);
+        .write(key: _secureStorageKeys["weatherApiStoreKey"]!, value: weatherApiKey);
   }
 
   Future<String?> loadWeatherApiKey() async{
-    debugPrint("Weather store key ${secureStorageKeys["weatherApiStoreKey"]}");
+    debugPrint("Weather store key ${_secureStorageKeys["weatherApiStoreKey"]}");
     String? weatherApiKey = await StorageWrapper
         .secure()
-        .read(key: secureStorageKeys["weatherApiStoreKey"]!);
+        .read(key: _secureStorageKeys["weatherApiStoreKey"]!);
     return weatherApiKey;
   }
 
   void storeApiKey (String apiKey) async {
     await StorageWrapper
         .secure()
-        .write(key: secureStorageKeys["apiStoreKey"]!, value: apiKey);
+        .write(key: _secureStorageKeys["apiStoreKey"]!, value: apiKey);
   }
 
   Future<String?> loadApiKey() async {
     String? apiKey = await StorageWrapper
         .secure()
-        .read(key: secureStorageKeys["apiStoreKey"]!);
+        .read(key: _secureStorageKeys["apiStoreKey"]!);
     return apiKey;
   }
 
   void storeLocationPermissionState(bool permission)  async{
     await StorageWrapper
         .secure()
-        .write(key: secureStorageKeys["locationPermissionKey"]!, value: permission.toString());
+        .write(key: _secureStorageKeys["locationPermissionKey"]!, value: permission.toString());
   }
 
   Future<bool> loadLocationPermissionState() async {
     String? state = await StorageWrapper
         .secure()
-        .read(key: secureStorageKeys["locationPermissionKey"]!);
+        .read(key: _secureStorageKeys["locationPermissionKey"]!);
     bool convertedState = true;
     if(state != null) {
       convertedState = state.toBool();

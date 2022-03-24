@@ -11,6 +11,8 @@ import 'package:newsapp/data/endpoints.dart';
 import 'package:newsapp/data/models/weather/weather.dart';
 import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home/screens/weather_bottom_sheet.dart';
+import 'package:newsapp/ui/home/widgets/filters/date_selector.dart';
+import 'package:newsapp/ui/home/widgets/filters/order_by_pop_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -39,7 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            _buildTopRow(context, theme)
+            _buildTopRow(context, theme),
+            _buildSecondTopRow()
           ],
         ),
       ),
@@ -94,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: ButtonStyle (
                   shape: MaterialStateProperty
                       .all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0))
+                      borderRadius: BorderRadius.circular(30.0),
+                    )
                   ),
                 ),
                 onPressed: () => _showWeatherBottomSheet(context, theme, forecastingList),
@@ -158,5 +162,19 @@ class _HomeScreenState extends State<HomeScreen> {
         }
     );
   }
-  
+
+  @swidget
+  _buildSecondTopRow() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 50.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: const <Widget>[
+          OrderByMenu(),
+          DateSelector(),
+        ],
+      ),
+    );
+  }
 }

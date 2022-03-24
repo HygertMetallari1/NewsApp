@@ -72,7 +72,6 @@ final ThemeData naTheme = ThemeData(
     overlayShape: RoundSliderOverlayShape(overlayRadius: 0),
     inactiveTrackColor: Colors.white12,
   ),
-
   //PAGE TRANSITIONS THEME
   pageTransitionsTheme: const PageTransitionsTheme(
     builders: {

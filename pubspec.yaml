@@ -29,6 +29,7 @@ dependencies:
   firebase_analytics: ^5.0.2
   webview_flutter: ^3.0.1
 
+
   freezed_annotation:
   hive: ^2.0.6
   cupertino_icons: ^1.0.2

@@ -10,6 +10,11 @@ String convertCurrentTime() {
   return convTime;
 }
 
+String convertQueryTime(DateTime date) {
+  String convQueryTime = DateFormat("yyyy-MM-dd").format(date);
+  return convQueryTime;
+}
+
 String convertWeatherTimestamp (int timestamp) {
   DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
   String converted =  DateFormat("EEE").format(date);
