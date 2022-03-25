@@ -10,9 +10,9 @@ _$_NewsItem _$$_NewsItemFromJson(Map<String, dynamic> json) => _$_NewsItem(
       headline: json['headline'] as String,
       trailText: json['trailText'] as String,
       publishDate: json['publishDate'] as String,
-      author: json['author'] as String,
+      author: json['author'] as String?,
       content: json['content'] as String,
-      thumbnail: json['thumbnail'] as String,
+      thumbnail: json['thumbnail'] as String?,
     );
 
 Map<String, dynamic> _$$_NewsItemToJson(_$_NewsItem instance) =>

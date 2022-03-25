@@ -25,9 +25,9 @@ class _$NewsItemTearOff {
       {required String headline,
       required String trailText,
       required String publishDate,
-      required String author,
+      required String? author,
       required String content,
-      required String thumbnail}) {
+      required String? thumbnail}) {
     return _NewsItem(
       headline: headline,
       trailText: trailText,
@@ -51,9 +51,9 @@ mixin _$NewsItem {
   String get headline => throw _privateConstructorUsedError;
   String get trailText => throw _privateConstructorUsedError;
   String get publishDate => throw _privateConstructorUsedError;
-  String get author => throw _privateConstructorUsedError;
+  String? get author => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
-  String get thumbnail => throw _privateConstructorUsedError;
+  String? get thumbnail => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,9 +69,9 @@ abstract class $NewsItemCopyWith<$Res> {
       {String headline,
       String trailText,
       String publishDate,
-      String author,
+      String? author,
       String content,
-      String thumbnail});
+      String? thumbnail});
 }
 
 /// @nodoc
@@ -107,7 +107,7 @@ class _$NewsItemCopyWithImpl<$Res> implements $NewsItemCopyWith<$Res> {
       author: author == freezed
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       content: content == freezed
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ class _$NewsItemCopyWithImpl<$Res> implements $NewsItemCopyWith<$Res> {
       thumbnail: thumbnail == freezed
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -129,9 +129,9 @@ abstract class _$NewsItemCopyWith<$Res> implements $NewsItemCopyWith<$Res> {
       {String headline,
       String trailText,
       String publishDate,
-      String author,
+      String? author,
       String content,
-      String thumbnail});
+      String? thumbnail});
 }
 
 /// @nodoc
@@ -168,7 +168,7 @@ class __$NewsItemCopyWithImpl<$Res> extends _$NewsItemCopyWithImpl<$Res>
       author: author == freezed
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       content: content == freezed
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -176,7 +176,7 @@ class __$NewsItemCopyWithImpl<$Res> extends _$NewsItemCopyWithImpl<$Res>
       thumbnail: thumbnail == freezed
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -202,11 +202,11 @@ class _$_NewsItem implements _NewsItem {
   @override
   final String publishDate;
   @override
-  final String author;
+  final String? author;
   @override
   final String content;
   @override
-  final String thumbnail;
+  final String? thumbnail;
 
   @override
   String toString() {
@@ -253,9 +253,9 @@ abstract class _NewsItem implements NewsItem {
       {required String headline,
       required String trailText,
       required String publishDate,
-      required String author,
+      required String? author,
       required String content,
-      required String thumbnail}) = _$_NewsItem;
+      required String? thumbnail}) = _$_NewsItem;
 
   factory _NewsItem.fromJson(Map<String, dynamic> json) = _$_NewsItem.fromJson;
 
@@ -266,11 +266,11 @@ abstract class _NewsItem implements NewsItem {
   @override
   String get publishDate;
   @override
-  String get author;
+  String? get author;
   @override
   String get content;
   @override
-  String get thumbnail;
+  String? get thumbnail;
   @override
   @JsonKey(ignore: true)
   _$NewsItemCopyWith<_NewsItem> get copyWith =>

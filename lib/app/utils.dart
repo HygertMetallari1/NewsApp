@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/data/secure_storage.dart';
 
@@ -92,14 +93,38 @@ List<NewsItem> convertedNewsList (dynamic responseData) {
     Map<String, dynamic> json = {
       "headline" : results[i]["fields"]["headline"],
       "trailText": results[i]["fields"]["trailText"],
-      "publishDate": results[i]["webPublicationDate"],
+      "publishDate": convertPublishDate(results[i]["webPublicationDate"].toString()),
       "author": results[i]["fields"]["byline"],
-      "content": results[i]["fields"]["body"].toString().stripHTML(),
+      "content": stripHTML(results[i]["fields"]["body"].toString()),
       "thumbnail": results[i]["fields"]["thumbnail"]
     };
     newsList.add(NewsItem.fromJson(json));
   }
   return newsList;
+}
+
+String stripHTML(String htmlBody) {
+  return htmlBody.replaceAll(RegExp("<[^>]*>"),'');
+}
+
+String convertPublishDate(String date) {
+  String now = DateTime.now().toString();
+
+  String convTime = "";
+  if(date.substring(8, 10) == now.substring(8, 10)){
+    convTime = date.substring(11, 16);
+  } else {
+    convTime = date.substring(0,10);
+  }
+  return convTime;
+}
+
+Widget buildLoaderListItem() {
+  return const Center(
+    child: CircularProgressIndicator(
+      color: NAColors.blue,
+    ),
+  );
 }
 
 extension StringExtension on String {
@@ -112,9 +137,5 @@ extension StringExtension on String {
       value = false;
     }
     return value;
-  }
-
-  String stripHTML() {
-    return replaceAll(RegExp(r'<[^>]*>|&[^;]+;'),'');
   }
 }

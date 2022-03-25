@@ -9,7 +9,8 @@ import 'package:newsapp/data/models/news/news.dart';
 class SearchNewsService {
   static const  String _showFields = "headline,trailText,body,thumbnail,byline,liveBloggingNow=false";
   final Map<String, dynamic> _queryParams = <String, dynamic> {
-    "show-fields": _showFields
+    "show-fields": _showFields,
+    "api-key": "5d2e9675-04c4-4cfb-ada0-997dae38c42a"
   };
 
   Future<List<NewsItem>> getNews({
@@ -49,7 +50,7 @@ class SearchNewsService {
       _queryParams.addAll({"to-date": toDate});
     }
     else if (currentPage != null) {
-      _queryParams.addAll({"currentPage": currentPage});
+      _queryParams.addAll({"page": currentPage});
     }
   }
 

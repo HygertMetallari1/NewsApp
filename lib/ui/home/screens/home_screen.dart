@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/shared_widgets/na_app_bar.dart';
+import 'package:newsapp/app/shared_widgets/na_news_item.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/endpoints.dart';
+import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/data/models/weather/weather.dart';
+import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home/screens/weather_bottom_sheet.dart';
 import 'package:newsapp/ui/home/widgets/filters/date_selector.dart';
@@ -22,10 +25,39 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final ScrollController _scrollController = ScrollController();
+  HomeBlocNews homeBlocNews = HomeBlocNews();
+  @override
+  void didChangeDependencies() {
+    homeBlocNews = BlocProvider.of<HomeBlocNews>(context);
+    _scrollController.addListener(() {
+      if (isScrollAtBottom()) {
+        homeBlocNews.add(const HomeNewsEvent.loadNextPage());
+      }
+    });
+    super.didChangeDependencies();
+  }
+
+
+  bool isScrollAtBottom() {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= maxScroll * .9;
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: NAAppBar(
         showSearchButton: true,
         appBarTitle: tr("navigation.home_tab"),
@@ -38,13 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
   _buildBody(BuildContext context, ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            _buildTopRow(context, theme),
-            _buildSecondTopRow()
-          ],
-        ),
+      child: Column(
+        children: <Widget>[
+          _buildTopRow(context, theme),
+          _buildSecondTopRow(),
+          _buildNewsList(context)
+        ],
       ),
     );
   }
@@ -169,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.only(top: 50.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[
           OrderByMenu(),
           DateSelector(),
@@ -177,4 +208,53 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+ @swidget
+  _buildNewsList(BuildContext context) {
+    return BlocBuilder<HomeBlocNews, HomeNewsState>(
+      builder: (context, state) {
+        return state.maybeWhen(
+            loadingNews: () {
+              return Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: NAColors.blue,
+                  ),
+                ),
+              );
+            },
+            loadedNews: (news) {
+              debugPrint("List length ${news.length}");
+              return _buildListView(context, news);
+            },
+            orElse: () => const SizedBox()
+        );
+      },
+    );
+  }
+  
+  @swidget
+  _buildListView(BuildContext context, List<NewsItem> news) {
+    return Expanded(
+      child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          controller: _scrollController,
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          itemCount: news.length,
+          itemBuilder: (context, index) {
+            return NewsItemUi(
+                headline: news[index].headline,
+                trailText: news[index].trailText,
+                publishDate:  news[index].publishDate,
+                author:  news[index].author,
+                content:  news[index].content,
+                thumbnail:  news[index].thumbnail
+            );
+          }
+      ),
+    );
+  }
 }
+

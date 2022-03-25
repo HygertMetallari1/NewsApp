@@ -4,16 +4,25 @@ class FiltersData {
   factory FiltersData () {
     return _instance;
   }
+  String? _searchQuery;
+  String? _orderBy;
+  String? _fromDate;
+  String? _toDate;
 
-  String _orderBy = "";
-  String _fromDate = "";
-  String _toDate = "";
+
+  void setSearchQuery(String searchQuery) {
+    _searchQuery = searchQuery;
+  }
+
+  String? get searchQuery {
+    return _searchQuery;
+  }
 
   void setOrderByFilter(String orderBy) {
     _orderBy = orderBy;
   }
 
-  String get orderBy{
+  String? get orderBy{
     return _orderBy;
   }
 
@@ -21,7 +30,7 @@ class FiltersData {
     _fromDate = fromDate;
   }
 
-  String get fromDate {
+  String? get fromDate {
     return _fromDate;
   }
 
@@ -29,7 +38,7 @@ class FiltersData {
     _toDate = toDate;
   }
 
-  String get toDate {
+  String? get toDate {
     return _toDate;
   }
 }

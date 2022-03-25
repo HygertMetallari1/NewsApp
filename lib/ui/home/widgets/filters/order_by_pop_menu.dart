@@ -11,7 +11,17 @@ class OrderByMenu extends StatefulWidget {
 }
 
 class _OrderByMenuState extends State<OrderByMenu> {
-  String selectedItem = FiltersData().orderBy.isEmpty ? tr("pop_menu.order_by") : FiltersData().orderBy;
+  late String selectedItem;
+
+  @override
+  void initState() {
+    if(FiltersData().orderBy != null) {
+      selectedItem = FiltersData().orderBy!;
+    } else {
+      selectedItem = tr("pop_menu.order_by");
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

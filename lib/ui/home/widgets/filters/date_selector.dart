@@ -20,8 +20,8 @@ class DateSelector extends StatefulWidget {
 }
 
 class _DateSelectorState extends State<DateSelector> {
-  bool isFdEmpty = FiltersData().fromDate.isEmpty;
-  bool isTdEmpty = FiltersData().toDate.isEmpty;
+  bool isFdEmpty = FiltersData().fromDate == null;
+  bool isTdEmpty = FiltersData().toDate == null;
   DateTime now = DateTime.now();
 
   late String datePickerChipLabel;
@@ -29,7 +29,7 @@ class _DateSelectorState extends State<DateSelector> {
   @override
   void initState() {
       if(isFdEmpty != true && isTdEmpty != true) {
-        datePickerChipLabel =  FiltersData().fromDate + " / " + FiltersData().toDate;
+        datePickerChipLabel =  FiltersData().fromDate! + " / " + FiltersData().toDate!;
       } else {
         datePickerChipLabel = tr("date_selector.select_date");
       }
@@ -83,7 +83,7 @@ class _DateSelectorState extends State<DateSelector> {
       child: Chip(
           label: Text(
             label,
-            style: theme.textTheme.bodyText1,
+            style: theme.textTheme.bodyText2,
           ),
           backgroundColor: NAColors.white,
           shape: RoundedRectangleBorder(
