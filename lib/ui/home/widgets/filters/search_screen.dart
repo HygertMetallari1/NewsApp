@@ -16,22 +16,21 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchFieldController = TextEditingController();
-  FocusNode focusNode = FocusNode();
-  String?  initialValue;
   HomeBlocNews homeNewsBloc = HomeBlocNews();
+  bool isFilled = false;
 
   @override
   void didChangeDependencies() {
     homeNewsBloc = BlocProvider.of<HomeBlocNews>(context);
     if(FiltersData().searchQuery != null) {
-      initialValue = FiltersData().searchQuery!;
+      searchFieldController = TextEditingController(text: FiltersData().searchQuery!);
+      isFilled = true;
     }
     super.didChangeDependencies();
   }
   @override
   void dispose() {
       searchFieldController.dispose();
-      focusNode.dispose();
     super.dispose();
   }
 
@@ -44,39 +43,54 @@ class _SearchScreenState extends State<SearchScreen> {
     );
     return Container(
       width: double.infinity,
+      height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(
         shape: BoxShape.rectangle
       ),
-      child: TextFormField(
-        focusNode: focusNode,
-        controller: searchFieldController,
-        autofocus: true,
-        initialValue: initialValue,
-        onFieldSubmitted: (queryString) {
-          FiltersData().setSearchQuery(queryString);
-          homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: queryString));
-        },
-        style: theme.textTheme.bodyText1?.copyWith(
-          color: NAColors.black,
-          fontSize: 15,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 5.0),
+        child: TextFormField(
+          controller: searchFieldController,
+          autofocus: true,
+          onFieldSubmitted: (queryString) {
+            FiltersData().setSearchQuery(queryString);
+            Navigator.pop(context);
+            homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: queryString));
+          },
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: NAColors.black,
+            fontSize: 15,
+          ),
+          decoration: InputDecoration(
+            isDense: true,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            hintText: tr("home.search.search_news"),
+            fillColor: NAColors.gray.withOpacity(0.06),
+            filled: true,
+            enabledBorder: border,
+            focusedBorder: border,
+            suffixIcon: isFilled
+                ? TouchableOpacity(
+                  onPressed: () {
+                    setState(() {
+                      searchFieldController = TextEditingController();
+                    });
+                    homeNewsBloc.add(const HomeNewsEvent.appStarted());
+                    Navigator.pop(context);
+                    FiltersData().setSearchQuery(null);
+                  },
+                   child: NewsAppAssets.delete)
+                :TouchableOpacity(
+                onPressed: () {
+                  FiltersData().setSearchQuery(searchFieldController.text);
+                  Navigator.pop(context);
+                  homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: searchFieldController.text));
+                },
+                child: NewsAppAssets.search,
+            )
+          ),
+          cursorColor: NAColors.blue,
         ),
-        decoration: InputDecoration(
-          isDense: true,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          hintText: tr("home.search.search_news"),
-          fillColor: NAColors.gray.withOpacity(0.06),
-          filled: true,
-          enabledBorder: border,
-          focusedBorder: border,
-          suffixIcon: TouchableOpacity(
-            onPressed: () {
-              FiltersData().setSearchQuery(searchFieldController.text);
-              homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: searchFieldController.text));
-            },
-            child: NewsAppAssets.search,
-          )
-        ),
-        cursorColor: NAColors.blue,
       ),
     );
   }

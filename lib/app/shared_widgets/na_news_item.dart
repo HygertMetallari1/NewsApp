@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:newsapp/app/shared_widgets/na_news_detail.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
 
@@ -31,7 +32,19 @@ class _NewsItemUiState extends State<NewsItemUi> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NewsDetail(
+              headline: widget.headline,
+              trailText: widget.trailText,
+              publishDate: widget.publishDate,
+              author: widget.author,
+              content: widget.content,
+              thumbnail: widget.thumbnail,
+          )),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.only(top: 12),
         child: ClipRRect(

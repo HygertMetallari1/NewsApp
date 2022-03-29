@@ -88,17 +88,19 @@ Future<bool> checkLocationServices() async {
 
 List<NewsItem> convertedNewsList (dynamic responseData) {
   List<NewsItem> newsList = [];
-  final results = responseData["response"]["results"];
-  for(int i = 0; i < 10; i++) {
-    Map<String, dynamic> json = {
-      "headline" : results[i]["fields"]["headline"],
-      "trailText": results[i]["fields"]["trailText"],
-      "publishDate": convertPublishDate(results[i]["webPublicationDate"].toString()),
-      "author": results[i]["fields"]["byline"],
-      "content": stripHTML(results[i]["fields"]["body"].toString()),
-      "thumbnail": results[i]["fields"]["thumbnail"]
-    };
-    newsList.add(NewsItem.fromJson(json));
+  final results = responseData["response"]["results"] as List;
+  if(results.isNotEmpty) {
+    for(int i = 0; i < 10; i++) {
+      Map<String, dynamic> json = {
+        "headline" : results[i]["fields"]["headline"],
+        "trailText": results[i]["fields"]["trailText"],
+        "publishDate": convertPublishDate(results[i]["webPublicationDate"].toString()),
+        "author": results[i]["fields"]["byline"],
+        "content": stripHTML(results[i]["fields"]["body"].toString()),
+        "thumbnail": results[i]["fields"]["thumbnail"]
+      };
+      newsList.add(NewsItem.fromJson(json));
+    }
   }
   return newsList;
 }

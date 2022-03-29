@@ -23,4 +23,9 @@ class NewsAppAssets {
       color: NAColors.black,
       size: 24,
   );
+  static const Icon delete = Icon(
+    Icons.delete_outline_outlined,
+    color: NAColors.black,
+    size: 24,
+  );
 }

@@ -93,21 +93,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocListener<HomeBlocNews, HomeNewsState>(
       listener: (context, state) {
         state.maybeWhen(
-            loadingNews: () {
-                isLoading = true;
-            },
-            loadedNews: (news) {
-              setState(() {
-                isLoading = false;
-                _news.addAll(news);
-              });
-              debugPrint("_newsLength ${_news.length}");
+            resetList: () {
+              _news = [];
               saveToPageStorage(_news);
             },
-            newsError: (newsError) {
-              return NAErrorScreen(
-                errorMessage: newsError,
-              );
+            loadedNews: (news) {
+              if(news.isNotEmpty) {
+                setState(() {
+                  isLoading = false;
+                  _news.addAll(news);
+                });
+                saveToPageStorage(_news);
+              }
             },
             orElse: () => const SizedBox()
         );
@@ -118,18 +115,39 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             _buildTopRow(context, theme),
             _buildSecondTopRow(),
-            if(isLoading == true)... [
-              Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-                child: const Center(
-                    child: CircularProgressIndicator(
-                    color: NAColors.blue,
-                 ),
-                ),
-              )
-            ] else ... [
-              _buildListView(context)
-            ]
+            BlocBuilder<HomeBlocNews, HomeNewsState> (
+              builder: (context, state) {
+                return state.maybeWhen(
+                  loadingNews: () {
+                    if(_news.isEmpty) {
+                      return Padding(
+                          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
+                        child: const CircularProgressIndicator(
+                          color: NAColors.blue,
+                        ),
+                      );
+                    } else  {
+                      return _buildListView(context);
+                    }
+                  },
+                  loadedNews: (news) {
+                    if(news.isEmpty) {
+                      return  NAErrorScreen(errorMessage: (tr("errors.empty_list")));
+                    } else {
+                      return _buildListView(context);
+                    }
+                  },
+                  newsError: (newsError) {
+                    return NAErrorScreen(
+                      errorMessage: newsError,
+                    );
+                  },
+                  orElse: () {
+                    return _buildListView(context);
+                  },
+                );
+              },
+            )
           ],
         ),
       ),
@@ -268,31 +286,31 @@ class _HomeScreenState extends State<HomeScreen> {
   @swidget
   _buildListView(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          controller: _scrollController,
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          itemCount: _news.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                NewsItemUi(
-                      headline: _news[index].headline,
-                      trailText: _news[index].trailText,
-                      publishDate:  _news[index].publishDate,
-                      author:  _news[index].author,
-                      content:  _news[index].content,
-                      thumbnail:  _news[index].thumbnail
+        child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            controller: _scrollController,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: _news.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  NewsItemUi(
+                        headline: _news[index].headline,
+                        trailText: _news[index].trailText,
+                        publishDate:  _news[index].publishDate,
+                        author:  _news[index].author,
+                        content:  _news[index].content,
+                        thumbnail:  _news[index].thumbnail
+                    ),
+                  const Divider(
+                    color: NAColors.gray,
                   ),
-                const Divider(
-                  color: NAColors.gray,
-                )
-              ]
-            );
-          }
-      ),
-    );
+                ]
+              );
+            }
+        ),
+      );
   }
 }
 

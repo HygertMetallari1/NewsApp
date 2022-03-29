@@ -10,7 +10,7 @@ class FiltersData {
   String? _toDate;
 
 
-  void setSearchQuery(String searchQuery) {
+  void setSearchQuery(String? searchQuery) {
     _searchQuery = searchQuery;
   }
 
@@ -18,7 +18,7 @@ class FiltersData {
     return _searchQuery;
   }
 
-  void setOrderByFilter(String orderBy) {
+  void setOrderByFilter(String? orderBy) {
     _orderBy = orderBy;
   }
 
@@ -26,7 +26,7 @@ class FiltersData {
     return _orderBy;
   }
 
-  void setFromDate(String fromDate) {
+  void setFromDate(String? fromDate) {
     _fromDate = fromDate;
   }
 
@@ -34,7 +34,7 @@ class FiltersData {
     return _fromDate;
   }
 
-  void setToDate(String toDate) {
+  void setToDate(String? toDate) {
     _toDate = toDate;
   }
 

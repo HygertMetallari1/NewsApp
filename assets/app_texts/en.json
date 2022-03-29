@@ -25,6 +25,7 @@
     "try_again": "Try again"
   },
   "errors": {
+    "empty_list": "There is no news yet",
     "request_failed": "Request failed",
     "internet_error": "No internet connection",
     "auth_error": "API-Key missing",

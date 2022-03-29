@@ -23,7 +23,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           appStarted: () async {
             emit(const HomeNewsState.loadingNews());
             try {
-               _news = await SearchNewsService().getNews();
+              _news = await SearchNewsService().getNews();
               emit(HomeNewsState.loadedNews(_news));
             } on DioError catch (dioError) {
               emit(HomeNewsState.newsError(
@@ -34,6 +34,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           searchNews: (String query) async {
             _currentPage = 1;
             emit(const HomeNewsState.loadingNews());
+            emit(const HomeNewsState.resetList());
             try {
               _news = await SearchNewsService().getNews(
                   queryTerm: query,
@@ -51,6 +52,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           orderBy: (String orderBy) async{
             _currentPage = 1;
             emit(const HomeNewsState.loadingNews());
+            emit(const HomeNewsState.resetList());
             try {
               _news = await SearchNewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
@@ -68,6 +70,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           selectDate: (String fromDate, String toDate) async{
             _currentPage = 1;
             emit(const HomeNewsState.loadingNews());
+            emit(const HomeNewsState.resetList());
             try {
               _news = await SearchNewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
@@ -103,11 +106,5 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           }
       );
     });
-  }
-
-  @override
-  void onChange(Change<HomeNewsState> change) {
-    //debugPrint("Current state changed ${change.nextState}");
-    super.onChange(change);
   }
 }

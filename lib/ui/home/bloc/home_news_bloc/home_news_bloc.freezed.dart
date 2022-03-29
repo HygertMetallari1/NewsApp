@@ -857,6 +857,10 @@ class _$HomeNewsStateTearOff {
       error,
     );
   }
+
+  _ResetList resetList() {
+    return const _ResetList();
+  }
 }
 
 /// @nodoc
@@ -870,6 +874,7 @@ mixin _$HomeNewsState {
     required TResult Function() loadingNews,
     required TResult Function(List<NewsItem> news) loadedNews,
     required TResult Function(String error) newsError,
+    required TResult Function() resetList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -878,6 +883,7 @@ mixin _$HomeNewsState {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -886,6 +892,7 @@ mixin _$HomeNewsState {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -895,6 +902,7 @@ mixin _$HomeNewsState {
     required TResult Function(_LoadingNews value) loadingNews,
     required TResult Function(_LoadedNews value) loadedNews,
     required TResult Function(_NewsError value) newsError,
+    required TResult Function(_ResetList value) resetList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -903,6 +911,7 @@ mixin _$HomeNewsState {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -911,6 +920,7 @@ mixin _$HomeNewsState {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -975,6 +985,7 @@ class _$_Initial implements _Initial {
     required TResult Function() loadingNews,
     required TResult Function(List<NewsItem> news) loadedNews,
     required TResult Function(String error) newsError,
+    required TResult Function() resetList,
   }) {
     return initial();
   }
@@ -986,6 +997,7 @@ class _$_Initial implements _Initial {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
   }) {
     return initial?.call();
   }
@@ -997,6 +1009,7 @@ class _$_Initial implements _Initial {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1012,6 +1025,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_LoadingNews value) loadingNews,
     required TResult Function(_LoadedNews value) loadedNews,
     required TResult Function(_NewsError value) newsError,
+    required TResult Function(_ResetList value) resetList,
   }) {
     return initial(this);
   }
@@ -1023,6 +1037,7 @@ class _$_Initial implements _Initial {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
   }) {
     return initial?.call(this);
   }
@@ -1034,6 +1049,7 @@ class _$_Initial implements _Initial {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1091,6 +1107,7 @@ class _$_LoadingNews implements _LoadingNews {
     required TResult Function() loadingNews,
     required TResult Function(List<NewsItem> news) loadedNews,
     required TResult Function(String error) newsError,
+    required TResult Function() resetList,
   }) {
     return loadingNews();
   }
@@ -1102,6 +1119,7 @@ class _$_LoadingNews implements _LoadingNews {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
   }) {
     return loadingNews?.call();
   }
@@ -1113,6 +1131,7 @@ class _$_LoadingNews implements _LoadingNews {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
     required TResult orElse(),
   }) {
     if (loadingNews != null) {
@@ -1128,6 +1147,7 @@ class _$_LoadingNews implements _LoadingNews {
     required TResult Function(_LoadingNews value) loadingNews,
     required TResult Function(_LoadedNews value) loadedNews,
     required TResult Function(_NewsError value) newsError,
+    required TResult Function(_ResetList value) resetList,
   }) {
     return loadingNews(this);
   }
@@ -1139,6 +1159,7 @@ class _$_LoadingNews implements _LoadingNews {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
   }) {
     return loadingNews?.call(this);
   }
@@ -1150,6 +1171,7 @@ class _$_LoadingNews implements _LoadingNews {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
     required TResult orElse(),
   }) {
     if (loadingNews != null) {
@@ -1231,6 +1253,7 @@ class _$_LoadedNews implements _LoadedNews {
     required TResult Function() loadingNews,
     required TResult Function(List<NewsItem> news) loadedNews,
     required TResult Function(String error) newsError,
+    required TResult Function() resetList,
   }) {
     return loadedNews(news);
   }
@@ -1242,6 +1265,7 @@ class _$_LoadedNews implements _LoadedNews {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
   }) {
     return loadedNews?.call(news);
   }
@@ -1253,6 +1277,7 @@ class _$_LoadedNews implements _LoadedNews {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
     required TResult orElse(),
   }) {
     if (loadedNews != null) {
@@ -1268,6 +1293,7 @@ class _$_LoadedNews implements _LoadedNews {
     required TResult Function(_LoadingNews value) loadingNews,
     required TResult Function(_LoadedNews value) loadedNews,
     required TResult Function(_NewsError value) newsError,
+    required TResult Function(_ResetList value) resetList,
   }) {
     return loadedNews(this);
   }
@@ -1279,6 +1305,7 @@ class _$_LoadedNews implements _LoadedNews {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
   }) {
     return loadedNews?.call(this);
   }
@@ -1290,6 +1317,7 @@ class _$_LoadedNews implements _LoadedNews {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
     required TResult orElse(),
   }) {
     if (loadedNews != null) {
@@ -1375,6 +1403,7 @@ class _$_NewsError implements _NewsError {
     required TResult Function() loadingNews,
     required TResult Function(List<NewsItem> news) loadedNews,
     required TResult Function(String error) newsError,
+    required TResult Function() resetList,
   }) {
     return newsError(error);
   }
@@ -1386,6 +1415,7 @@ class _$_NewsError implements _NewsError {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
   }) {
     return newsError?.call(error);
   }
@@ -1397,6 +1427,7 @@ class _$_NewsError implements _NewsError {
     TResult Function()? loadingNews,
     TResult Function(List<NewsItem> news)? loadedNews,
     TResult Function(String error)? newsError,
+    TResult Function()? resetList,
     required TResult orElse(),
   }) {
     if (newsError != null) {
@@ -1412,6 +1443,7 @@ class _$_NewsError implements _NewsError {
     required TResult Function(_LoadingNews value) loadingNews,
     required TResult Function(_LoadedNews value) loadedNews,
     required TResult Function(_NewsError value) newsError,
+    required TResult Function(_ResetList value) resetList,
   }) {
     return newsError(this);
   }
@@ -1423,6 +1455,7 @@ class _$_NewsError implements _NewsError {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
   }) {
     return newsError?.call(this);
   }
@@ -1434,6 +1467,7 @@ class _$_NewsError implements _NewsError {
     TResult Function(_LoadingNews value)? loadingNews,
     TResult Function(_LoadedNews value)? loadedNews,
     TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
     required TResult orElse(),
   }) {
     if (newsError != null) {
@@ -1450,4 +1484,125 @@ abstract class _NewsError implements HomeNewsState {
   @JsonKey(ignore: true)
   _$NewsErrorCopyWith<_NewsError> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$ResetListCopyWith<$Res> {
+  factory _$ResetListCopyWith(
+          _ResetList value, $Res Function(_ResetList) then) =
+      __$ResetListCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ResetListCopyWithImpl<$Res> extends _$HomeNewsStateCopyWithImpl<$Res>
+    implements _$ResetListCopyWith<$Res> {
+  __$ResetListCopyWithImpl(_ResetList _value, $Res Function(_ResetList) _then)
+      : super(_value, (v) => _then(v as _ResetList));
+
+  @override
+  _ResetList get _value => super._value as _ResetList;
+}
+
+/// @nodoc
+
+class _$_ResetList implements _ResetList {
+  const _$_ResetList();
+
+  @override
+  String toString() {
+    return 'HomeNewsState.resetList()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ResetList);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loadingNews,
+    required TResult Function(List<NewsItem> news) loadedNews,
+    required TResult Function(String error) newsError,
+    required TResult Function() resetList,
+  }) {
+    return resetList();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loadingNews,
+    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(String error)? newsError,
+    TResult Function()? resetList,
+  }) {
+    return resetList?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loadingNews,
+    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(String error)? newsError,
+    TResult Function()? resetList,
+    required TResult orElse(),
+  }) {
+    if (resetList != null) {
+      return resetList();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_LoadingNews value) loadingNews,
+    required TResult Function(_LoadedNews value) loadedNews,
+    required TResult Function(_NewsError value) newsError,
+    required TResult Function(_ResetList value) resetList,
+  }) {
+    return resetList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_LoadingNews value)? loadingNews,
+    TResult Function(_LoadedNews value)? loadedNews,
+    TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
+  }) {
+    return resetList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_LoadingNews value)? loadingNews,
+    TResult Function(_LoadedNews value)? loadedNews,
+    TResult Function(_NewsError value)? newsError,
+    TResult Function(_ResetList value)? resetList,
+    required TResult orElse(),
+  }) {
+    if (resetList != null) {
+      return resetList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ResetList implements HomeNewsState {
+  const factory _ResetList() = _$_ResetList;
 }
