@@ -29,7 +29,6 @@ class _NewsItemUiState extends State<NewsItemUi> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Time ${widget.publishDate}");
     var theme = Theme.of(context);
     return GestureDetector(
       onTap: () {},

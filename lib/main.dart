@@ -26,6 +26,7 @@ void main() async {
         supportedLocales: const [
           Locale('en'),
         ],
+
         saveLocale: false,
         path: 'assets/app_texts',
         child: MultiBlocProvider(

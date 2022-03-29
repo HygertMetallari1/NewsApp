@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/app/shared_widgets/na_app_bar.dart';
 
 class HeadlinesScreen extends StatefulWidget {
-  const HeadlinesScreen({Key? key}) : super(key: key);
+  const HeadlinesScreen({Key? key = const PageStorageKey('headlinesNews')}) : super(key: key);
 
   @override
   _HeadlinesScreenState createState() => _HeadlinesScreenState();

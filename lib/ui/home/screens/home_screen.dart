@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/shared_widgets/na_app_bar.dart';
+import 'package:newsapp/app/shared_widgets/na_error_screen.dart';
 import 'package:newsapp/app/shared_widgets/na_news_item.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
@@ -18,7 +19,7 @@ import 'package:newsapp/ui/home/widgets/filters/date_selector.dart';
 import 'package:newsapp/ui/home/widgets/filters/order_by_pop_menu.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key = const PageStorageKey('homeNews')}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -28,6 +29,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final ScrollController _scrollController = ScrollController();
   HomeBlocNews homeBlocNews = HomeBlocNews();
+  List<NewsItem> _news = [];
+  bool isLoading = false;
+
+  void updateNewsState() {
+    final fetchedNews = PageStorage.of(context)!.readState(context, identifier: widget.key);
+    if (fetchedNews != null) {
+      setState(() {
+        _news = fetchedNews;
+      });
+    } else {
+      homeBlocNews.add(const HomeNewsEvent.loadNextPage());
+    }
+  }
+
+  void saveToPageStorage(List<NewsItem> newNewsState) {
+    PageStorage.of(context)!
+        .writeState(context, newNewsState, identifier: widget.key);
+  }
+
   @override
   void didChangeDependencies() {
     homeBlocNews = BlocProvider.of<HomeBlocNews>(context);
@@ -36,15 +56,17 @@ class _HomeScreenState extends State<HomeScreen> {
         homeBlocNews.add(const HomeNewsEvent.loadNextPage());
       }
     });
+    updateNewsState();
     super.didChangeDependencies();
   }
 
 
   bool isScrollAtBottom() {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-    return currentScroll >= maxScroll * .9;
+    if (_scrollController.position.maxScrollExtent == _scrollController.offset) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -52,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _scrollController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -68,14 +90,48 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @swidget
   _buildBody(BuildContext context, ThemeData theme) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
-      child: Column(
-        children: <Widget>[
-          _buildTopRow(context, theme),
-          _buildSecondTopRow(),
-          _buildNewsList(context)
-        ],
+    return BlocListener<HomeBlocNews, HomeNewsState>(
+      listener: (context, state) {
+        state.maybeWhen(
+            loadingNews: () {
+                isLoading = true;
+            },
+            loadedNews: (news) {
+              setState(() {
+                isLoading = false;
+                _news.addAll(news);
+              });
+              debugPrint("_newsLength ${_news.length}");
+              saveToPageStorage(_news);
+            },
+            newsError: (newsError) {
+              return NAErrorScreen(
+                errorMessage: newsError,
+              );
+            },
+            orElse: () => const SizedBox()
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
+        child: Column(
+          children: <Widget>[
+            _buildTopRow(context, theme),
+            _buildSecondTopRow(),
+            if(isLoading == true)... [
+              Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
+                child: const Center(
+                    child: CircularProgressIndicator(
+                    color: NAColors.blue,
+                 ),
+                ),
+              )
+            ] else ... [
+              _buildListView(context)
+            ]
+          ],
+        ),
       ),
     );
   }
@@ -209,48 +265,30 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
- @swidget
-  _buildNewsList(BuildContext context) {
-    return BlocBuilder<HomeBlocNews, HomeNewsState>(
-      builder: (context, state) {
-        return state.maybeWhen(
-            loadingNews: () {
-              return Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: NAColors.blue,
-                  ),
-                ),
-              );
-            },
-            loadedNews: (news) {
-              debugPrint("List length ${news.length}");
-              return _buildListView(context, news);
-            },
-            orElse: () => const SizedBox()
-        );
-      },
-    );
-  }
-  
   @swidget
-  _buildListView(BuildContext context, List<NewsItem> news) {
+  _buildListView(BuildContext context) {
     return Expanded(
       child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           controller: _scrollController,
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: news.length,
+          itemCount: _news.length,
           itemBuilder: (context, index) {
-            return NewsItemUi(
-                headline: news[index].headline,
-                trailText: news[index].trailText,
-                publishDate:  news[index].publishDate,
-                author:  news[index].author,
-                content:  news[index].content,
-                thumbnail:  news[index].thumbnail
+            return Column(
+              children: [
+                NewsItemUi(
+                      headline: _news[index].headline,
+                      trailText: _news[index].trailText,
+                      publishDate:  _news[index].publishDate,
+                      author:  _news[index].author,
+                      content:  _news[index].content,
+                      thumbnail:  _news[index].thumbnail
+                  ),
+                const Divider(
+                  color: NAColors.gray,
+                )
+              ]
             );
           }
       ),

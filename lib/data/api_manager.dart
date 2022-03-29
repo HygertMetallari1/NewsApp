@@ -30,19 +30,16 @@ class APIManager {
       SecureStorage().storeApiKey(apiKey);
       SecureStorage().storeWeatherApiKey(weatherApiKey);
     }
-
   }
 
   _interceptorOnRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     Map<String, dynamic> newHeaders = <String, dynamic> {};
     final RequestOptions newOptions;
-    if(await SecureStorage().loadApiKey() != null) {
       newHeaders = {...options.headers};
       newHeaders.addAll({"api-key": await SecureStorage().loadApiKey()});
       newHeaders["content-type"] = Headers.formUrlEncodedContentType;
-      debugPrint("Header ${options.queryParameters}");
+      debugPrint("Path ${options.path}");
       newOptions = options.copyWith(headers: newHeaders);
       handler.next(newOptions);
-    }
   }
 }

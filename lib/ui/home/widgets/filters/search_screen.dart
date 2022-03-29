@@ -1,0 +1,83 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/app/news_app_assets.dart';
+import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
+import 'package:newsapp/app/theme.dart';
+import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
+import 'package:newsapp/ui/home/widgets/filters/filters_data.dart';
+
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({Key? key}) : super(key: key);
+
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  TextEditingController searchFieldController = TextEditingController();
+  FocusNode focusNode = FocusNode();
+  String?  initialValue;
+  HomeBlocNews homeNewsBloc = HomeBlocNews();
+
+  @override
+  void didChangeDependencies() {
+    homeNewsBloc = BlocProvider.of<HomeBlocNews>(context);
+    if(FiltersData().searchQuery != null) {
+      initialValue = FiltersData().searchQuery!;
+    }
+    super.didChangeDependencies();
+  }
+  @override
+  void dispose() {
+      searchFieldController.dispose();
+      focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    final border = OutlineInputBorder(
+      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.circular(12),
+    );
+    return Container(
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        shape: BoxShape.rectangle
+      ),
+      child: TextFormField(
+        focusNode: focusNode,
+        controller: searchFieldController,
+        autofocus: true,
+        initialValue: initialValue,
+        onFieldSubmitted: (queryString) {
+          FiltersData().setSearchQuery(queryString);
+          homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: queryString));
+        },
+        style: theme.textTheme.bodyText1?.copyWith(
+          color: NAColors.black,
+          fontSize: 15,
+        ),
+        decoration: InputDecoration(
+          isDense: true,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          hintText: tr("home.search.search_news"),
+          fillColor: NAColors.gray.withOpacity(0.06),
+          filled: true,
+          enabledBorder: border,
+          focusedBorder: border,
+          suffixIcon: TouchableOpacity(
+            onPressed: () {
+              FiltersData().setSearchQuery(searchFieldController.text);
+              homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: searchFieldController.text));
+            },
+            child: NewsAppAssets.search,
+          )
+        ),
+        cursorColor: NAColors.blue,
+      ),
+    );
+  }
+}

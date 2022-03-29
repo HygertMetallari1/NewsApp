@@ -7,7 +7,8 @@
   "home": {
     "your_briefings": "Your\nbriefing",
     "your_local_weather": "Your local weather",
-    "turn_on_location": "Enable location service on your device to see weather on your current location "
+    "turn_on_location": "Enable location service on your device to see weather on your current location ",
+    "search": "Search news"
   },
   "pop_menu": {
     "order_by": "Order by",
@@ -20,9 +21,13 @@
     "from_date": "From",
     "to_date": "To"
   },
+  "button": {
+    "try_again": "Try again"
+  },
   "errors": {
     "request_failed": "Request failed",
     "internet_error": "No internet connection",
+    "auth_error": "API-Key missing",
     "error_404": "Data not found",
     "error_500": "Internal server error",
     "connection_timeout": "Connection timeout with the server",

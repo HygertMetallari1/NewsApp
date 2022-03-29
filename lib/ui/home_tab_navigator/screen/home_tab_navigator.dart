@@ -18,28 +18,32 @@ class HomeTabNavigator extends StatefulWidget {
 }
 
 class _HomeTabNavigatorState extends State<HomeTabNavigator> {
+  final PageStorageBucket _bucket = PageStorageBucket();
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return Scaffold(
-      body: BlocBuilder<TabCubit, TabState>(
-        builder: (context, state) {
-          switch(state.selectedTab) {
-            case "/home": {
-              return const HomeScreen();
+    return PageStorage(
+      bucket: _bucket,
+      child: Scaffold(
+        body: BlocBuilder<TabCubit, TabState>(
+          builder: (context, state) {
+            switch(state.selectedTab) {
+              case "/home": {
+                return const HomeScreen();
+              }
+              case "/headlines": {
+                return const HeadlinesScreen();
+              }
+              case "/saved": {
+                return const SavedScreen();
+              }
             }
-            case "/headlines": {
-              return const HeadlinesScreen();
-            }
-            case "/saved": {
-              return const SavedScreen();
-            }
-          }
-          return const HomeScreen();
-        },
+            return const HomeScreen();
+          },
+        ),
+        bottomNavigationBar: _buildBottomNavigationBar(context, theme),
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(context, theme),
     );
   }
 

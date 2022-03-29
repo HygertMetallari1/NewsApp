@@ -23,7 +23,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           appStarted: () async {
             emit(const HomeNewsState.loadingNews());
             try {
-               _news.addAll(await SearchNewsService().getNews());
+               _news = await SearchNewsService().getNews();
               emit(HomeNewsState.loadedNews(_news));
             } on DioError catch (dioError) {
               emit(HomeNewsState.newsError(
@@ -32,14 +32,14 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
             }
           },
           searchNews: (String query) async {
+            _currentPage = 1;
             emit(const HomeNewsState.loadingNews());
             try {
-              _news.addAll(await SearchNewsService().getNews(
+              _news = await SearchNewsService().getNews(
                   queryTerm: query,
                   orderBy: FiltersData().orderBy,
                   fromDate: FiltersData().fromDate,
                   toDate: FiltersData().toDate
-                ),
               );
               emit(HomeNewsState.loadedNews(_news));
             } on DioError catch (dioError) {
@@ -49,14 +49,15 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
             }
           },
           orderBy: (String orderBy) async{
+            _currentPage = 1;
             emit(const HomeNewsState.loadingNews());
             try {
-              _news.addAll(await SearchNewsService().getNews(
+              _news = await SearchNewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
                   orderBy: orderBy,
                   fromDate: FiltersData().fromDate,
                   toDate: FiltersData().toDate
-              ));
+              );
               emit(HomeNewsState.loadedNews(_news));
             } on DioError catch (dioError) {
               emit(HomeNewsState.newsError(
@@ -65,14 +66,15 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
             }
            },
           selectDate: (String fromDate, String toDate) async{
+            _currentPage = 1;
             emit(const HomeNewsState.loadingNews());
             try {
-              _news.addAll(await SearchNewsService().getNews(
+              _news = await SearchNewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
                   orderBy: FiltersData().orderBy,
                   fromDate: fromDate,
                   toDate: toDate
-              ));
+              );
               emit(HomeNewsState.loadedNews(_news));
             } on DioError catch (dioError) {
               emit(HomeNewsState.newsError(
@@ -81,17 +83,17 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
             }
           },
           loadNextPage: () async {
-            emit(const HomeNewsState.initial());
+            emit(const HomeNewsState.loadingNews());
             _currentPage = _currentPage + 1;
             try {
               debugPrint("Current page $_currentPage");
-              _news.addAll(await SearchNewsService().getNews(
+              _news = await SearchNewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
                   orderBy: FiltersData().orderBy,
                   fromDate: FiltersData().fromDate,
                   toDate: FiltersData().toDate,
-                  currentPage: _currentPage++
-              ));
+                  currentPage: _currentPage
+              );
               emit(HomeNewsState.loadedNews(_news));
             } on DioError catch (dioError) {
               emit(HomeNewsState.newsError(

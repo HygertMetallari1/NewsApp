@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/theme.dart';
+import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 import 'package:newsapp/ui/home/widgets/filters/filters_data.dart';
 
 class OrderByMenu extends StatefulWidget {
@@ -37,6 +39,11 @@ class _OrderByMenuState extends State<OrderByMenu> {
             selectedItem = selected.toString();
           });
           FiltersData().setOrderByFilter(selected.toString());
+          BlocProvider.of<HomeBlocNews>(context).add(
+              HomeNewsEvent.orderBy(
+                  orderBy: selected.toString()
+              )
+          );
         },
         initialValue: selectedItem,
         child: Container(

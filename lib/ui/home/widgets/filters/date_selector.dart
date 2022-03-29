@@ -1,10 +1,12 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
+import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 import 'package:newsapp/ui/home/widgets/filters/filters_data.dart';
 
 enum TimeType{
@@ -76,6 +78,10 @@ class _DateSelectorState extends State<DateSelector> {
             FiltersData().setToDate(toDate);
             setState(() {
               datePickerChipLabel = fromDate + " / " + toDate;
+              BlocProvider.of<HomeBlocNews>(context).add(HomeNewsEvent.selectDate(
+                  fromDate: fromDate, toDate: toDate
+                )
+              );
             });
           }
         });
