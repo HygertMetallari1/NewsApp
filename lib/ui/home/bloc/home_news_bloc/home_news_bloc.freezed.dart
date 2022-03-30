@@ -17,8 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$HomeNewsEventTearOff {
   const _$HomeNewsEventTearOff();
 
-  _AppStarted appStarted() {
-    return const _AppStarted();
+  _UnfilteredNews unfilteredNews() {
+    return const _UnfilteredNews();
   }
 
   _SearchNews searchNews({required String queryField}) {
@@ -52,7 +52,7 @@ const $HomeNewsEvent = _$HomeNewsEventTearOff();
 mixin _$HomeNewsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() appStarted,
+    required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
     required TResult Function(String orderBy) orderBy,
     required TResult Function(String fromDate, String toDate) selectDate,
@@ -61,7 +61,7 @@ mixin _$HomeNewsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -70,7 +70,7 @@ mixin _$HomeNewsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -80,7 +80,7 @@ mixin _$HomeNewsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AppStarted value) appStarted,
+    required TResult Function(_UnfilteredNews value) unfilteredNews,
     required TResult Function(_SearchNews value) searchNews,
     required TResult Function(_OrderBy value) orderBy,
     required TResult Function(_SelectDate value) selectDate,
@@ -89,7 +89,7 @@ mixin _$HomeNewsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
@@ -98,7 +98,7 @@ mixin _$HomeNewsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
@@ -126,37 +126,38 @@ class _$HomeNewsEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$AppStartedCopyWith<$Res> {
-  factory _$AppStartedCopyWith(
-          _AppStarted value, $Res Function(_AppStarted) then) =
-      __$AppStartedCopyWithImpl<$Res>;
+abstract class _$UnfilteredNewsCopyWith<$Res> {
+  factory _$UnfilteredNewsCopyWith(
+          _UnfilteredNews value, $Res Function(_UnfilteredNews) then) =
+      __$UnfilteredNewsCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$AppStartedCopyWithImpl<$Res> extends _$HomeNewsEventCopyWithImpl<$Res>
-    implements _$AppStartedCopyWith<$Res> {
-  __$AppStartedCopyWithImpl(
-      _AppStarted _value, $Res Function(_AppStarted) _then)
-      : super(_value, (v) => _then(v as _AppStarted));
+class __$UnfilteredNewsCopyWithImpl<$Res>
+    extends _$HomeNewsEventCopyWithImpl<$Res>
+    implements _$UnfilteredNewsCopyWith<$Res> {
+  __$UnfilteredNewsCopyWithImpl(
+      _UnfilteredNews _value, $Res Function(_UnfilteredNews) _then)
+      : super(_value, (v) => _then(v as _UnfilteredNews));
 
   @override
-  _AppStarted get _value => super._value as _AppStarted;
+  _UnfilteredNews get _value => super._value as _UnfilteredNews;
 }
 
 /// @nodoc
 
-class _$_AppStarted implements _AppStarted {
-  const _$_AppStarted();
+class _$_UnfilteredNews implements _UnfilteredNews {
+  const _$_UnfilteredNews();
 
   @override
   String toString() {
-    return 'HomeNewsEvent.appStarted()';
+    return 'HomeNewsEvent.unfilteredNews()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _AppStarted);
+        (other.runtimeType == runtimeType && other is _UnfilteredNews);
   }
 
   @override
@@ -165,39 +166,39 @@ class _$_AppStarted implements _AppStarted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() appStarted,
+    required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
     required TResult Function(String orderBy) orderBy,
     required TResult Function(String fromDate, String toDate) selectDate,
     required TResult Function() loadNextPage,
   }) {
-    return appStarted();
+    return unfilteredNews();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
     TResult Function()? loadNextPage,
   }) {
-    return appStarted?.call();
+    return unfilteredNews?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) {
-    if (appStarted != null) {
-      return appStarted();
+    if (unfilteredNews != null) {
+      return unfilteredNews();
     }
     return orElse();
   }
@@ -205,46 +206,46 @@ class _$_AppStarted implements _AppStarted {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AppStarted value) appStarted,
+    required TResult Function(_UnfilteredNews value) unfilteredNews,
     required TResult Function(_SearchNews value) searchNews,
     required TResult Function(_OrderBy value) orderBy,
     required TResult Function(_SelectDate value) selectDate,
     required TResult Function(_LoadNextPage value) loadNextPage,
   }) {
-    return appStarted(this);
+    return unfilteredNews(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
     TResult Function(_LoadNextPage value)? loadNextPage,
   }) {
-    return appStarted?.call(this);
+    return unfilteredNews?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
     TResult Function(_LoadNextPage value)? loadNextPage,
     required TResult orElse(),
   }) {
-    if (appStarted != null) {
-      return appStarted(this);
+    if (unfilteredNews != null) {
+      return unfilteredNews(this);
     }
     return orElse();
   }
 }
 
-abstract class _AppStarted implements HomeNewsEvent {
-  const factory _AppStarted() = _$_AppStarted;
+abstract class _UnfilteredNews implements HomeNewsEvent {
+  const factory _UnfilteredNews() = _$_UnfilteredNews;
 }
 
 /// @nodoc
@@ -312,7 +313,7 @@ class _$_SearchNews implements _SearchNews {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() appStarted,
+    required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
     required TResult Function(String orderBy) orderBy,
     required TResult Function(String fromDate, String toDate) selectDate,
@@ -324,7 +325,7 @@ class _$_SearchNews implements _SearchNews {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -336,7 +337,7 @@ class _$_SearchNews implements _SearchNews {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -352,7 +353,7 @@ class _$_SearchNews implements _SearchNews {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AppStarted value) appStarted,
+    required TResult Function(_UnfilteredNews value) unfilteredNews,
     required TResult Function(_SearchNews value) searchNews,
     required TResult Function(_OrderBy value) orderBy,
     required TResult Function(_SelectDate value) selectDate,
@@ -364,7 +365,7 @@ class _$_SearchNews implements _SearchNews {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
@@ -376,7 +377,7 @@ class _$_SearchNews implements _SearchNews {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
@@ -461,7 +462,7 @@ class _$_OrderBy implements _OrderBy {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() appStarted,
+    required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
     required TResult Function(String orderBy) orderBy,
     required TResult Function(String fromDate, String toDate) selectDate,
@@ -473,7 +474,7 @@ class _$_OrderBy implements _OrderBy {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -485,7 +486,7 @@ class _$_OrderBy implements _OrderBy {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -501,7 +502,7 @@ class _$_OrderBy implements _OrderBy {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AppStarted value) appStarted,
+    required TResult Function(_UnfilteredNews value) unfilteredNews,
     required TResult Function(_SearchNews value) searchNews,
     required TResult Function(_OrderBy value) orderBy,
     required TResult Function(_SelectDate value) selectDate,
@@ -513,7 +514,7 @@ class _$_OrderBy implements _OrderBy {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
@@ -525,7 +526,7 @@ class _$_OrderBy implements _OrderBy {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
@@ -622,7 +623,7 @@ class _$_SelectDate implements _SelectDate {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() appStarted,
+    required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
     required TResult Function(String orderBy) orderBy,
     required TResult Function(String fromDate, String toDate) selectDate,
@@ -634,7 +635,7 @@ class _$_SelectDate implements _SelectDate {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -646,7 +647,7 @@ class _$_SelectDate implements _SelectDate {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -662,7 +663,7 @@ class _$_SelectDate implements _SelectDate {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AppStarted value) appStarted,
+    required TResult Function(_UnfilteredNews value) unfilteredNews,
     required TResult Function(_SearchNews value) searchNews,
     required TResult Function(_OrderBy value) orderBy,
     required TResult Function(_SelectDate value) selectDate,
@@ -674,7 +675,7 @@ class _$_SelectDate implements _SelectDate {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
@@ -686,7 +687,7 @@ class _$_SelectDate implements _SelectDate {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
@@ -752,7 +753,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() appStarted,
+    required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
     required TResult Function(String orderBy) orderBy,
     required TResult Function(String fromDate, String toDate) selectDate,
@@ -764,7 +765,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -776,7 +777,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? appStarted,
+    TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
     TResult Function(String orderBy)? orderBy,
     TResult Function(String fromDate, String toDate)? selectDate,
@@ -792,7 +793,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AppStarted value) appStarted,
+    required TResult Function(_UnfilteredNews value) unfilteredNews,
     required TResult Function(_SearchNews value) searchNews,
     required TResult Function(_OrderBy value) orderBy,
     required TResult Function(_SelectDate value) selectDate,
@@ -804,7 +805,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,
@@ -816,7 +817,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AppStarted value)? appStarted,
+    TResult Function(_UnfilteredNews value)? unfilteredNews,
     TResult Function(_SearchNews value)? searchNews,
     TResult Function(_OrderBy value)? orderBy,
     TResult Function(_SelectDate value)? selectDate,

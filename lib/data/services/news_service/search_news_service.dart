@@ -29,7 +29,7 @@ class SearchNewsService {
       String? fromDate,
       String? toDate,
       int? currentPage,) async {
-    String? apiKey = await SecureStorage().loadApiKey();
+
     if(queryTerm != null) {
       _queryParams.addAll({"q": queryTerm});
     }
@@ -44,9 +44,6 @@ class SearchNewsService {
     }
     if (currentPage != null) {
       _queryParams.addAll({"page": currentPage.toString()});
-    }
-    if(apiKey != null) {
-      _queryParams.addAll({"api-key": apiKey});
     }
     return _queryParams;
   }

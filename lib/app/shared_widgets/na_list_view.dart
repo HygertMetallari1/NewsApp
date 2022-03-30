@@ -72,15 +72,19 @@ class _NewsListViewState extends State<NewsListView> {
             NotificationListener(
             onNotification: (notification) {
               if(notification is ScrollStartNotification) {
-                setState(() {
-                  showBackToTopButton = true;
-                });
+                if (mounted) {
+                  setState(() {
+                    showBackToTopButton = true;
+                  });
+                }
               }
               if(notification is ScrollEndNotification){
                 Future.delayed(const Duration(seconds: 5), () {
-                  setState(() {
-                    showBackToTopButton = false;
-                  });
+                  if(mounted) {
+                    setState(() {
+                      showBackToTopButton = false;
+                    });
+                  }
                 });
               }
               return false;

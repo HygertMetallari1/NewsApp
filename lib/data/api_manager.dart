@@ -36,10 +36,14 @@ class APIManager {
   _interceptorOnRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     Map<String, dynamic> newHeaders = <String, dynamic> {};
     final RequestOptions newOptions;
-    newHeaders = {...options.headers};
-    newHeaders["content-type"] = Headers.formUrlEncodedContentType;
-    debugPrint("Path ${options.path}");
-    newOptions = options.copyWith(headers: newHeaders);
-    handler.next(newOptions);
+    String? apiKey = await SecureStorage().loadApiKey();
+    if(apiKey != null) {
+      newHeaders = {...options.headers};
+      newHeaders.addAll({"api-key" : apiKey});
+      newHeaders["content-type"] = Headers.formUrlEncodedContentType;
+      debugPrint("Path ${options.path}");
+      newOptions = options.copyWith(headers: newHeaders);
+      handler.next(newOptions);
+    }
   }
 }

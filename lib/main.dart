@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/utils.dart';
@@ -18,9 +17,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   late final _StartupBlocs startUpBlocs;
-  await checkLocationServices().then((_) async {
-    startUpBlocs = await createStartUpBlocs();
-  });
+  await checkLocationServices();
+  startUpBlocs = await createStartUpBlocs();
  return runApp(
       EasyLocalization(
         supportedLocales: const [
@@ -32,8 +30,8 @@ void main() async {
         child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => startUpBlocs.remoteConfigBloc),
-            BlocProvider(create: (_) => startUpBlocs.homeBlocNews),
-            BlocProvider(create: (_) => startUpBlocs.weatherBloc),
+            BlocProvider(create: (_) => HomeBlocNews()..add(const HomeNewsEvent.unfilteredNews())),
+            BlocProvider(create: (_) => WeatherBloc()..add(const WeatherEvent.appStarted())),
             BlocProvider(create: (_) => startUpBlocs.tabCubit)
           ], child: const NewsApp(),
         ),
@@ -111,8 +109,8 @@ class _StartupBlocs {
   late final TabCubit tabCubit;
   _StartupBlocs() {
     remoteConfigBloc = RemoteConfigBloc()..add(const RemoteConfigEvent.getValues());
-    homeBlocNews = HomeBlocNews()..add(const HomeNewsEvent.appStarted());
-    weatherBloc = WeatherBloc()..add(const WeatherEvent.appStarted());
+    homeBlocNews = HomeBlocNews();
+    weatherBloc = WeatherBloc();
     tabCubit = TabCubit();
   }
 }

@@ -39,13 +39,13 @@ class WeatherService {
     Set<double> location = await getLocation();
     double latitude =  location.first;
     double longitude = location.last;
-
-    if(await SecureStorage().loadWeatherApiKey() != null) {
+    String? weatherApiKey = await SecureStorage().loadWeatherApiKey();
+    if( weatherApiKey != null) {
       parameters = <String, dynamic> {
         "lat": latitude,
         "lon": longitude,
         "exclude": "minutely,hourly,alerts",
-        "appid": await SecureStorage().loadWeatherApiKey(),
+        "appid": weatherApiKey,
         "units": "metric"
       };
     }

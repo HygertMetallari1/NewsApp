@@ -89,7 +89,7 @@ Future<bool> checkLocationServices() async {
 List<NewsItem> convertedNewsList (dynamic responseData) {
   List<NewsItem> newsList = [];
   final results = responseData["response"]["results"] as List;
-  if(results.isNotEmpty) {
+  if(results.isNotEmpty == true) {
     for(int i = 0; i < 10; i++) {
       Map<String, dynamic> json = {
         "headline" : results[i]["fields"]["headline"],

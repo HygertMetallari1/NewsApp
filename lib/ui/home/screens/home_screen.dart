@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _news = fetchedNews;
       });
     } else {
-      homeBlocNews.add(const HomeNewsEvent.appStarted());
+      homeBlocNews.add(const HomeNewsEvent.unfilteredNews());
     }
   }
 
@@ -63,11 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          setState(() {
-            _news = [];
-            saveToPageStorage(_news);
-          });
-          return homeBlocNews.add(const HomeNewsEvent.appStarted());
+          return homeBlocNews.add(const HomeNewsEvent.unfilteredNews());
         },
         color: NAColors.blue,
         child: _buildBody(context, theme),
@@ -83,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
             resetList: () {
               _news = [];
               saveToPageStorage(_news);
+              debugPrint("This shit got me crazy");
             },
             loadedNews: (news) {
               if(news.isNotEmpty) {

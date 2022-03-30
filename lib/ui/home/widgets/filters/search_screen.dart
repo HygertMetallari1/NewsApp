@@ -43,19 +43,20 @@ class _SearchScreenState extends State<SearchScreen> {
     );
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(
         shape: BoxShape.rectangle
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 5.0),
+        padding: EdgeInsets.only(top: 5.0, bottom: MediaQuery.of(context).viewInsets.bottom),
         child: TextFormField(
           controller: searchFieldController,
           autofocus: true,
           onFieldSubmitted: (queryString) {
             FiltersData().setSearchQuery(queryString);
             Navigator.pop(context);
-            homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: queryString));
+            if(queryString != "") {
+              homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: queryString));
+            }
           },
           style: theme.textTheme.bodyText1?.copyWith(
             color: NAColors.black,
@@ -71,23 +72,26 @@ class _SearchScreenState extends State<SearchScreen> {
             focusedBorder: border,
             suffixIcon: isFilled
                 ? TouchableOpacity(
-                  onPressed: () {
-                    setState(() {
-                      searchFieldController = TextEditingController();
-                    });
-                    homeNewsBloc.add(const HomeNewsEvent.appStarted());
-                    Navigator.pop(context);
-                    FiltersData().setSearchQuery(null);
-                  },
-                   child: NewsAppAssets.delete)
-                :TouchableOpacity(
-                onPressed: () {
-                  FiltersData().setSearchQuery(searchFieldController.text);
-                  Navigator.pop(context);
-                  homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: searchFieldController.text));
-                },
-                child: NewsAppAssets.search,
-            )
+                    onPressed: () {
+                      setState(() {
+                        searchFieldController = TextEditingController();
+                      });
+                      homeNewsBloc.add(const HomeNewsEvent.unfilteredNews());
+                      Navigator.pop(context);
+                      FiltersData().setSearchQuery(null);
+                    },
+                     child: NewsAppAssets.delete
+                  )
+                  :TouchableOpacity(
+                    onPressed: () {
+                      FiltersData().setSearchQuery(searchFieldController.text);
+                      Navigator.pop(context);
+                      if(searchFieldController.text != "") {
+                        homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: searchFieldController.text));
+                      }
+                    },
+                    child: NewsAppAssets.search,
+                  )
           ),
           cursorColor: NAColors.blue,
         ),

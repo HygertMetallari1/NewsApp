@@ -20,10 +20,10 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
   HomeBlocNews() : super(const HomeNewsState.initial()) {
     on<HomeNewsEvent> ((event, emit) async {
       await event.when(
-          appStarted: () async {
-            emit(const HomeNewsState.loadingNews());
+          unfilteredNews: () async {
+            loadReset(emit);
+            debugPrint('The event triggered');
             try {
-              _currentPage = 1;
               _news = await SearchNewsService().getNews();
               emit(HomeNewsState.loadedNews(_news));
             } on DioError catch (dioError) {
@@ -33,9 +33,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
             }
           },
           searchNews: (String query) async {
-            _currentPage = 1;
-            emit(const HomeNewsState.loadingNews());
-            emit(const HomeNewsState.resetList());
+            loadReset(emit);
             try {
               _news = await SearchNewsService().getNews(
                   queryTerm: query,
@@ -51,9 +49,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
             }
           },
           orderBy: (String orderBy) async{
-            _currentPage = 1;
-            emit(const HomeNewsState.loadingNews());
-            emit(const HomeNewsState.resetList());
+            loadReset(emit);
             try {
               _news = await SearchNewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
@@ -69,9 +65,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
             }
            },
           selectDate: (String fromDate, String toDate) async{
-            _currentPage = 1;
-            emit(const HomeNewsState.loadingNews());
-            emit(const HomeNewsState.resetList());
+            loadReset(emit);
             try {
               _news = await SearchNewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
@@ -90,7 +84,6 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
             emit(const HomeNewsState.loadingNews());
             _currentPage = _currentPage + 1;
             try {
-              debugPrint("Current page $_currentPage");
               _news = await SearchNewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
                   orderBy: FiltersData().orderBy,
@@ -107,5 +100,11 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           }
       );
     });
+  }
+
+  void loadReset(Emitter<HomeNewsState> emit) {
+    emit(const HomeNewsState.loadingNews());
+    emit(const HomeNewsState.resetList());
+    _currentPage = 1;
   }
 }

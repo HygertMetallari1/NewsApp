@@ -2,7 +2,7 @@ part of 'home_news_bloc.dart';
 
 @freezed
 class HomeNewsEvent with _$HomeNewsEvent {
-  const factory  HomeNewsEvent.appStarted() = _AppStarted;
+  const factory  HomeNewsEvent.unfilteredNews() = _UnfilteredNews;
   const factory HomeNewsEvent.searchNews({
     required String queryField
   }) = _SearchNews;
