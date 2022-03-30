@@ -74,6 +74,7 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
       routes: pages,
       theme: naTheme,
       home: const HomeTabNavigator(),
+      debugShowCheckedModeBanner: false,
     );
   }
 

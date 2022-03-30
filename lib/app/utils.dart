@@ -29,7 +29,7 @@ String convertMaxTemp(double maxTemp) {
 
 String convertTemperatures(double maxTemp, double minTemp) {
   String convMaxTemp = maxTemp.toInt().toString()+"°";
-  String convMinTemp =  minTemp.toInt().toString()+"°";;
+  String convMinTemp =  minTemp.toInt().toString()+"°";
   String temperatures = convMaxTemp + " " + convMinTemp;
   return temperatures;
 }
@@ -106,7 +106,9 @@ List<NewsItem> convertedNewsList (dynamic responseData) {
 }
 
 String stripHTML(String htmlBody) {
-  return htmlBody.replaceAll(RegExp("<[^>]*>"),'');
+  RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
+  String convert1 = htmlBody.replaceAll(exp,'');
+  return convert1;
 }
 
 String convertPublishDate(String date) {

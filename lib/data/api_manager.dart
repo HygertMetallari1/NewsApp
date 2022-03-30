@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/secure_storage.dart';
+import 'package:storage_wrapper/storage_wrapper.dart';
 import 'models/na_remote_config/na_remote_config.dart';
 
 class APIManager {
@@ -35,11 +36,10 @@ class APIManager {
   _interceptorOnRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     Map<String, dynamic> newHeaders = <String, dynamic> {};
     final RequestOptions newOptions;
-      newHeaders = {...options.headers};
-      newHeaders.addAll({"api-key": await SecureStorage().loadApiKey()});
-      newHeaders["content-type"] = Headers.formUrlEncodedContentType;
-      debugPrint("Path ${options.path}");
-      newOptions = options.copyWith(headers: newHeaders);
-      handler.next(newOptions);
+    newHeaders = {...options.headers};
+    newHeaders["content-type"] = Headers.formUrlEncodedContentType;
+    debugPrint("Path ${options.path}");
+    newOptions = options.copyWith(headers: newHeaders);
+    handler.next(newOptions);
   }
 }

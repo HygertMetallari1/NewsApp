@@ -28,4 +28,16 @@ class NewsAppAssets {
     color: NAColors.black,
     size: 24,
   );
+
+  static const Icon backArrow = Icon(
+    Icons.arrow_back_ios,
+    color: NAColors.black,
+    size: 24,
+  );
+
+  static const Icon upArrow = Icon(
+    Icons.arrow_upward,
+    color: NAColors.white,
+    size: 24,
+  );
 }

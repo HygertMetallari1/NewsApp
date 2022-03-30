@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/shared_widgets/na_app_bar.dart';
 import 'package:newsapp/app/shared_widgets/na_error_screen.dart';
+import 'package:newsapp/app/shared_widgets/na_list_view.dart';
 import 'package:newsapp/app/shared_widgets/na_news_item.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
@@ -26,11 +27,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  final ScrollController _scrollController = ScrollController();
   HomeBlocNews homeBlocNews = HomeBlocNews();
   List<NewsItem> _news = [];
-  bool isLoading = false;
 
   void updateNewsState() {
     final fetchedNews = PageStorage.of(context)!.readState(context, identifier: widget.key);
@@ -39,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _news = fetchedNews;
       });
     } else {
-      homeBlocNews.add(const HomeNewsEvent.loadNextPage());
+      homeBlocNews.add(const HomeNewsEvent.appStarted());
     }
   }
 
@@ -50,29 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void didChangeDependencies() {
-    homeBlocNews = BlocProvider.of<HomeBlocNews>(context);
-    _scrollController.addListener(() {
-      if (isScrollAtBottom()) {
-        homeBlocNews.add(const HomeNewsEvent.loadNextPage());
-      }
-    });
     updateNewsState();
     super.didChangeDependencies();
-  }
-
-
-  bool isScrollAtBottom() {
-    if (_scrollController.position.maxScrollExtent == _scrollController.offset) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 
   @override
@@ -84,7 +61,17 @@ class _HomeScreenState extends State<HomeScreen> {
         showSearchButton: true,
         appBarTitle: tr("navigation.home_tab"),
       ),
-      body: _buildBody(context, theme),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          setState(() {
+            _news = [];
+            saveToPageStorage(_news);
+          });
+          return homeBlocNews.add(const HomeNewsEvent.appStarted());
+        },
+        color: NAColors.blue,
+        child: _buildBody(context, theme),
+      )
     );
   }
 
@@ -100,7 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
             loadedNews: (news) {
               if(news.isNotEmpty) {
                 setState(() {
-                  isLoading = false;
                   _news.addAll(news);
                 });
                 saveToPageStorage(_news);
@@ -127,14 +113,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     } else  {
-                      return _buildListView(context);
+                      return NewsListView(news: _news, blocType: HomeBlocNews);
                     }
                   },
                   loadedNews: (news) {
                     if(news.isEmpty) {
                       return  NAErrorScreen(errorMessage: (tr("errors.empty_list")));
                     } else {
-                      return _buildListView(context);
+                      return NewsListView(news: _news, blocType: HomeBlocNews);
                     }
                   },
                   newsError: (newsError) {
@@ -143,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                   orElse: () {
-                    return _buildListView(context);
+                    return NewsListView(news: _news, blocType: HomeBlocNews);
                   },
                 );
               },
@@ -281,36 +267,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
-  }
-
-  @swidget
-  _buildListView(BuildContext context) {
-    return Expanded(
-        child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            controller: _scrollController,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: _news.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  NewsItemUi(
-                        headline: _news[index].headline,
-                        trailText: _news[index].trailText,
-                        publishDate:  _news[index].publishDate,
-                        author:  _news[index].author,
-                        content:  _news[index].content,
-                        thumbnail:  _news[index].thumbnail
-                    ),
-                  const Divider(
-                    color: NAColors.gray,
-                  ),
-                ]
-              );
-            }
-        ),
-      );
   }
 }
 

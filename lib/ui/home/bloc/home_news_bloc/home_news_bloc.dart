@@ -23,6 +23,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           appStarted: () async {
             emit(const HomeNewsState.loadingNews());
             try {
+              _currentPage = 1;
               _news = await SearchNewsService().getNews();
               emit(HomeNewsState.loadedNews(_news));
             } on DioError catch (dioError) {
