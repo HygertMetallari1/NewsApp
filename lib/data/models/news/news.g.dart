@@ -7,6 +7,7 @@ part of 'news.dart';
 // **************************************************************************
 
 _$_NewsItem _$$_NewsItemFromJson(Map<String, dynamic> json) => _$_NewsItem(
+      pages: json['pages'] as int?,
       headline: json['headline'] as String,
       trailText: json['trailText'] as String,
       publishDate: json['publishDate'] as String,
@@ -17,6 +18,7 @@ _$_NewsItem _$$_NewsItemFromJson(Map<String, dynamic> json) => _$_NewsItem(
 
 Map<String, dynamic> _$$_NewsItemToJson(_$_NewsItem instance) =>
     <String, dynamic>{
+      'pages': instance.pages,
       'headline': instance.headline,
       'trailText': instance.trailText,
       'publishDate': instance.publishDate,

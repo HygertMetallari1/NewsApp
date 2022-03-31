@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,8 +25,8 @@ class WeatherBloc extends Bloc<WeatherEvent,WeatherState> {
                 List<WeatherItem> forecastingList = await WeatherService().getWeather();
                 emit(WeatherState.weatherLoaded(forecastingList: forecastingList));
             }
-            on DioError catch (dioError) {
-              emit(WeatherState.weatherError(weatherError: APIError.fromDioError(dioError).message));
+            on DioError catch (error) {
+              emit(WeatherState.weatherError(weatherError: APIErrorHandler.fromDioError(error).message));
             }
           }
       );

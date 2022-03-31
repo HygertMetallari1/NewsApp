@@ -1,6 +1,5 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'na_remote_config.freezed.dart';
 

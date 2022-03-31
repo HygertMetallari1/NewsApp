@@ -86,29 +86,37 @@ Future<bool> checkLocationServices() async {
   return true;
 }
 
+
 List<NewsItem> convertedNewsList (dynamic responseData) {
   List<NewsItem> newsList = [];
   final results = responseData["response"]["results"] as List;
-  if(results.isNotEmpty == true) {
-    for(int i = 0; i < 10; i++) {
+  if(results.isNotEmpty) {
+    for(int i = 0; i < results.length ; i++) {
       Map<String, dynamic> json = {
-        "headline" : results[i]["fields"]["headline"],
-        "trailText": results[i]["fields"]["trailText"],
+        "headline" : results[i]["fields"]["headline"] ,
+        "trailText": stripHtml(results[i]["fields"]["trailText"]),
         "publishDate": convertPublishDate(results[i]["webPublicationDate"].toString()),
         "author": results[i]["fields"]["byline"],
-        "content": stripHTML(results[i]["fields"]["body"].toString()),
+        "content": results[i]["blocks"]["body"][0]["bodyTextSummary"],
         "thumbnail": results[i]["fields"]["thumbnail"]
       };
+      if(i == 0) {
+        json.addAll({"pages": responseData["response"]["pages"]});
+      }
       newsList.add(NewsItem.fromJson(json));
     }
   }
   return newsList;
 }
 
-String stripHTML(String htmlBody) {
-  RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
-  String convert1 = htmlBody.replaceAll(exp,'');
-  return convert1;
+String stripHtml(String text) {
+  RegExp exp = RegExp(
+      r"<[^>]*>",
+      multiLine: true,
+      caseSensitive: true
+  );
+  String convText = text.replaceAll(exp, "");
+  return convText;
 }
 
 String convertPublishDate(String date) {

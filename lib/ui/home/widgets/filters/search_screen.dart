@@ -80,7 +80,12 @@ class _SearchScreenState extends State<SearchScreen> {
                       Navigator.pop(context);
                       FiltersData().setSearchQuery(null);
                     },
-                     child: NewsAppAssets.delete
+                     child: Image.asset(
+                        "assets/images/cross.png",
+                         width: 24,
+                         height: 24,
+                         color: NAColors.black,
+                     )
                   )
                   :TouchableOpacity(
                     onPressed: () {

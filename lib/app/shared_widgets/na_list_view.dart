@@ -11,16 +11,19 @@ import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 
 class NewsListView extends StatefulWidget {
   final List<NewsItem> news;
+  final bool? isTheEndOfTheList;
   final Type blocType;
   const NewsListView({Key? key,
     required this.news,
-    required this.blocType,}) : super(key: key);
+    required this.blocType,
+    this.isTheEndOfTheList
+  }) : super(key: key);
 
   @override
   _NewsListViewState createState() => _NewsListViewState();
 }
 
-class _NewsListViewState extends State<NewsListView> {
+class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver{
   final ScrollController scrollController = ScrollController();
   late var bloc;
   bool showBackToTopButton = false;
@@ -35,7 +38,8 @@ class _NewsListViewState extends State<NewsListView> {
   }
 
   bool isScrollAtBottom() {
-    if (scrollController.position.maxScrollExtent == scrollController.offset) {
+    if (scrollController.position.maxScrollExtent
+        == scrollController.offset && widget.isTheEndOfTheList == null) {
       return true;
     } else {
       return false;
@@ -72,11 +76,10 @@ class _NewsListViewState extends State<NewsListView> {
             NotificationListener(
             onNotification: (notification) {
               if(notification is ScrollStartNotification) {
-                if (mounted) {
-                  setState(() {
-                    showBackToTopButton = true;
-                  });
-                }
+                WidgetsBinding.instance
+                    ?.addPostFrameCallback((_) => setState(() {
+                      showBackToTopButton = true;
+                }));
               }
               if(notification is ScrollEndNotification){
                 Future.delayed(const Duration(seconds: 5), () {
@@ -110,9 +113,11 @@ class _NewsListViewState extends State<NewsListView> {
                           color: NAColors.gray,
                         ),
                         if(index == widget.news.length - 1)... [
-                          const CircularProgressIndicator(
-                            color: NAColors.blue,
-                          )
+                          if(widget.isTheEndOfTheList == null)... [
+                            const CircularProgressIndicator(
+                              color: NAColors.blue,
+                            )
+                          ]
                         ]
                       ]
                   );

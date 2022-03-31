@@ -7,11 +7,11 @@ class HomeNewsEvent with _$HomeNewsEvent {
     required String queryField
   }) = _SearchNews;
   const factory HomeNewsEvent.orderBy({
-    required String orderBy
+    required String? orderBy
   }) = _OrderBy;
   const factory HomeNewsEvent.selectDate({
-    required String fromDate,
-    required String toDate,
+    required String? fromDate,
+    required String? toDate,
   }) = _SelectDate;
   const factory HomeNewsEvent.loadNextPage() = _LoadNextPage;
 }

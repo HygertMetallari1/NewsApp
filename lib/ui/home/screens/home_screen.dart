@@ -6,8 +6,6 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/shared_widgets/na_app_bar.dart';
 import 'package:newsapp/app/shared_widgets/na_error_screen.dart';
 import 'package:newsapp/app/shared_widgets/na_list_view.dart';
-import 'package:newsapp/app/shared_widgets/na_news_item.dart';
-import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/endpoints.dart';
@@ -27,8 +25,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   HomeBlocNews homeBlocNews = HomeBlocNews();
   List<NewsItem> _news = [];
+  bool? _isTheEndOfTheList;
 
   void updateNewsState() {
     final fetchedNews = PageStorage.of(context)!.readState(context, identifier: widget.key);
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: NAAppBar(
         showSearchButton: true,
         appBarTitle: tr("navigation.home_tab"),
@@ -79,12 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
             resetList: () {
               _news = [];
               saveToPageStorage(_news);
-              debugPrint("This shit got me crazy");
             },
-            loadedNews: (news) {
+            loadedNews: (news, isTheEndOfTheList) {
               if(news.isNotEmpty) {
                 setState(() {
                   _news.addAll(news);
+                  _isTheEndOfTheList = isTheEndOfTheList;
                 });
                 saveToPageStorage(_news);
               }
@@ -110,14 +110,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     } else  {
-                      return NewsListView(news: _news, blocType: HomeBlocNews);
+                      return NewsListView(
+                          news: _news,
+                          isTheEndOfTheList: _isTheEndOfTheList,
+                          blocType: HomeBlocNews,
+                      );
                     }
                   },
-                  loadedNews: (news) {
+                  loadedNews: (news, isTheEndOfList) {
                     if(news.isEmpty) {
                       return  NAErrorScreen(errorMessage: (tr("errors.empty_list")));
                     } else {
-                      return NewsListView(news: _news, blocType: HomeBlocNews);
+                      return NewsListView(
+                          news: _news,
+                          isTheEndOfTheList: _isTheEndOfTheList,
+                          blocType: HomeBlocNews,
+                      );
                     }
                   },
                   newsError: (newsError) {
@@ -126,7 +134,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                   orElse: () {
-                    return NewsListView(news: _news, blocType: HomeBlocNews);
+                    return NewsListView(
+                        news: _news,
+                        isTheEndOfTheList: _isTheEndOfTheList,
+                        blocType: HomeBlocNews,
+                    );
                   },
                 );
               },
@@ -136,6 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   @swidget
   _buildTopRow(BuildContext context, ThemeData theme) {
     return SizedBox(
@@ -255,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
   _buildSecondTopRow() {
     return Padding(
       padding: const EdgeInsets.only(top: 50.0),
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[

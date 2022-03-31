@@ -27,13 +27,13 @@ class _$HomeNewsEventTearOff {
     );
   }
 
-  _OrderBy orderBy({required String orderBy}) {
+  _OrderBy orderBy({required String? orderBy}) {
     return _OrderBy(
       orderBy: orderBy,
     );
   }
 
-  _SelectDate selectDate({required String fromDate, required String toDate}) {
+  _SelectDate selectDate({required String? fromDate, required String? toDate}) {
     return _SelectDate(
       fromDate: fromDate,
       toDate: toDate,
@@ -54,8 +54,8 @@ mixin _$HomeNewsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
-    required TResult Function(String orderBy) orderBy,
-    required TResult Function(String fromDate, String toDate) selectDate,
+    required TResult Function(String? orderBy) orderBy,
+    required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
   }) =>
       throw _privateConstructorUsedError;
@@ -63,8 +63,8 @@ mixin _$HomeNewsEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
   }) =>
       throw _privateConstructorUsedError;
@@ -72,8 +72,8 @@ mixin _$HomeNewsEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) =>
@@ -168,8 +168,8 @@ class _$_UnfilteredNews implements _UnfilteredNews {
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
-    required TResult Function(String orderBy) orderBy,
-    required TResult Function(String fromDate, String toDate) selectDate,
+    required TResult Function(String? orderBy) orderBy,
+    required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
   }) {
     return unfilteredNews();
@@ -180,8 +180,8 @@ class _$_UnfilteredNews implements _UnfilteredNews {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
   }) {
     return unfilteredNews?.call();
@@ -192,8 +192,8 @@ class _$_UnfilteredNews implements _UnfilteredNews {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) {
@@ -315,8 +315,8 @@ class _$_SearchNews implements _SearchNews {
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
-    required TResult Function(String orderBy) orderBy,
-    required TResult Function(String fromDate, String toDate) selectDate,
+    required TResult Function(String? orderBy) orderBy,
+    required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
   }) {
     return searchNews(queryField);
@@ -327,8 +327,8 @@ class _$_SearchNews implements _SearchNews {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
   }) {
     return searchNews?.call(queryField);
@@ -339,8 +339,8 @@ class _$_SearchNews implements _SearchNews {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) {
@@ -404,7 +404,7 @@ abstract class _SearchNews implements HomeNewsEvent {
 abstract class _$OrderByCopyWith<$Res> {
   factory _$OrderByCopyWith(_OrderBy value, $Res Function(_OrderBy) then) =
       __$OrderByCopyWithImpl<$Res>;
-  $Res call({String orderBy});
+  $Res call({String? orderBy});
 }
 
 /// @nodoc
@@ -424,7 +424,7 @@ class __$OrderByCopyWithImpl<$Res> extends _$HomeNewsEventCopyWithImpl<$Res>
       orderBy: orderBy == freezed
           ? _value.orderBy
           : orderBy // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -435,7 +435,7 @@ class _$_OrderBy implements _OrderBy {
   const _$_OrderBy({required this.orderBy});
 
   @override
-  final String orderBy;
+  final String? orderBy;
 
   @override
   String toString() {
@@ -464,8 +464,8 @@ class _$_OrderBy implements _OrderBy {
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
-    required TResult Function(String orderBy) orderBy,
-    required TResult Function(String fromDate, String toDate) selectDate,
+    required TResult Function(String? orderBy) orderBy,
+    required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
   }) {
     return orderBy(this.orderBy);
@@ -476,8 +476,8 @@ class _$_OrderBy implements _OrderBy {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
   }) {
     return orderBy?.call(this.orderBy);
@@ -488,8 +488,8 @@ class _$_OrderBy implements _OrderBy {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) {
@@ -541,9 +541,9 @@ class _$_OrderBy implements _OrderBy {
 }
 
 abstract class _OrderBy implements HomeNewsEvent {
-  const factory _OrderBy({required String orderBy}) = _$_OrderBy;
+  const factory _OrderBy({required String? orderBy}) = _$_OrderBy;
 
-  String get orderBy;
+  String? get orderBy;
   @JsonKey(ignore: true)
   _$OrderByCopyWith<_OrderBy> get copyWith =>
       throw _privateConstructorUsedError;
@@ -554,7 +554,7 @@ abstract class _$SelectDateCopyWith<$Res> {
   factory _$SelectDateCopyWith(
           _SelectDate value, $Res Function(_SelectDate) then) =
       __$SelectDateCopyWithImpl<$Res>;
-  $Res call({String fromDate, String toDate});
+  $Res call({String? fromDate, String? toDate});
 }
 
 /// @nodoc
@@ -576,11 +576,11 @@ class __$SelectDateCopyWithImpl<$Res> extends _$HomeNewsEventCopyWithImpl<$Res>
       fromDate: fromDate == freezed
           ? _value.fromDate
           : fromDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       toDate: toDate == freezed
           ? _value.toDate
           : toDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -591,9 +591,9 @@ class _$_SelectDate implements _SelectDate {
   const _$_SelectDate({required this.fromDate, required this.toDate});
 
   @override
-  final String fromDate;
+  final String? fromDate;
   @override
-  final String toDate;
+  final String? toDate;
 
   @override
   String toString() {
@@ -625,8 +625,8 @@ class _$_SelectDate implements _SelectDate {
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
-    required TResult Function(String orderBy) orderBy,
-    required TResult Function(String fromDate, String toDate) selectDate,
+    required TResult Function(String? orderBy) orderBy,
+    required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
   }) {
     return selectDate(fromDate, toDate);
@@ -637,8 +637,8 @@ class _$_SelectDate implements _SelectDate {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
   }) {
     return selectDate?.call(fromDate, toDate);
@@ -649,8 +649,8 @@ class _$_SelectDate implements _SelectDate {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) {
@@ -703,10 +703,10 @@ class _$_SelectDate implements _SelectDate {
 
 abstract class _SelectDate implements HomeNewsEvent {
   const factory _SelectDate(
-      {required String fromDate, required String toDate}) = _$_SelectDate;
+      {required String? fromDate, required String? toDate}) = _$_SelectDate;
 
-  String get fromDate;
-  String get toDate;
+  String? get fromDate;
+  String? get toDate;
   @JsonKey(ignore: true)
   _$SelectDateCopyWith<_SelectDate> get copyWith =>
       throw _privateConstructorUsedError;
@@ -755,8 +755,8 @@ class _$_LoadNextPage implements _LoadNextPage {
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
     required TResult Function(String queryField) searchNews,
-    required TResult Function(String orderBy) orderBy,
-    required TResult Function(String fromDate, String toDate) selectDate,
+    required TResult Function(String? orderBy) orderBy,
+    required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
   }) {
     return loadNextPage();
@@ -767,8 +767,8 @@ class _$_LoadNextPage implements _LoadNextPage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
   }) {
     return loadNextPage?.call();
@@ -779,8 +779,8 @@ class _$_LoadNextPage implements _LoadNextPage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
     TResult Function(String queryField)? searchNews,
-    TResult Function(String orderBy)? orderBy,
-    TResult Function(String fromDate, String toDate)? selectDate,
+    TResult Function(String? orderBy)? orderBy,
+    TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) {
@@ -847,9 +847,10 @@ class _$HomeNewsStateTearOff {
     return const _LoadingNews();
   }
 
-  _LoadedNews loadedNews(List<NewsItem> news) {
+  _LoadedNews loadedNews(List<NewsItem> news, {bool? isTheEndOfList}) {
     return _LoadedNews(
       news,
+      isTheEndOfList: isTheEndOfList,
     );
   }
 
@@ -873,7 +874,8 @@ mixin _$HomeNewsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news) loadedNews,
+    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+        loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
   }) =>
@@ -882,7 +884,7 @@ mixin _$HomeNewsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) =>
@@ -891,7 +893,7 @@ mixin _$HomeNewsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
@@ -984,7 +986,8 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news) loadedNews,
+    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+        loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
   }) {
@@ -996,7 +999,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
@@ -1008,7 +1011,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
@@ -1106,7 +1109,8 @@ class _$_LoadingNews implements _LoadingNews {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news) loadedNews,
+    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+        loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
   }) {
@@ -1118,7 +1122,7 @@ class _$_LoadingNews implements _LoadingNews {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
@@ -1130,7 +1134,7 @@ class _$_LoadingNews implements _LoadingNews {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
@@ -1191,7 +1195,7 @@ abstract class _$LoadedNewsCopyWith<$Res> {
   factory _$LoadedNewsCopyWith(
           _LoadedNews value, $Res Function(_LoadedNews) then) =
       __$LoadedNewsCopyWithImpl<$Res>;
-  $Res call({List<NewsItem> news});
+  $Res call({List<NewsItem> news, bool? isTheEndOfList});
 }
 
 /// @nodoc
@@ -1207,12 +1211,17 @@ class __$LoadedNewsCopyWithImpl<$Res> extends _$HomeNewsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? news = freezed,
+    Object? isTheEndOfList = freezed,
   }) {
     return _then(_LoadedNews(
       news == freezed
           ? _value.news
           : news // ignore: cast_nullable_to_non_nullable
               as List<NewsItem>,
+      isTheEndOfList: isTheEndOfList == freezed
+          ? _value.isTheEndOfList
+          : isTheEndOfList // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -1220,14 +1229,16 @@ class __$LoadedNewsCopyWithImpl<$Res> extends _$HomeNewsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoadedNews implements _LoadedNews {
-  const _$_LoadedNews(this.news);
+  const _$_LoadedNews(this.news, {this.isTheEndOfList});
 
   @override
   final List<NewsItem> news;
+  @override
+  final bool? isTheEndOfList;
 
   @override
   String toString() {
-    return 'HomeNewsState.loadedNews(news: $news)';
+    return 'HomeNewsState.loadedNews(news: $news, isTheEndOfList: $isTheEndOfList)';
   }
 
   @override
@@ -1235,12 +1246,16 @@ class _$_LoadedNews implements _LoadedNews {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LoadedNews &&
-            const DeepCollectionEquality().equals(other.news, news));
+            const DeepCollectionEquality().equals(other.news, news) &&
+            const DeepCollectionEquality()
+                .equals(other.isTheEndOfList, isTheEndOfList));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(news));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(news),
+      const DeepCollectionEquality().hash(isTheEndOfList));
 
   @JsonKey(ignore: true)
   @override
@@ -1252,11 +1267,12 @@ class _$_LoadedNews implements _LoadedNews {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news) loadedNews,
+    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+        loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
   }) {
-    return loadedNews(news);
+    return loadedNews(news, isTheEndOfList);
   }
 
   @override
@@ -1264,11 +1280,11 @@ class _$_LoadedNews implements _LoadedNews {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
-    return loadedNews?.call(news);
+    return loadedNews?.call(news, isTheEndOfList);
   }
 
   @override
@@ -1276,13 +1292,13 @@ class _$_LoadedNews implements _LoadedNews {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
   }) {
     if (loadedNews != null) {
-      return loadedNews(news);
+      return loadedNews(news, isTheEndOfList);
     }
     return orElse();
   }
@@ -1329,9 +1345,11 @@ class _$_LoadedNews implements _LoadedNews {
 }
 
 abstract class _LoadedNews implements HomeNewsState {
-  const factory _LoadedNews(List<NewsItem> news) = _$_LoadedNews;
+  const factory _LoadedNews(List<NewsItem> news, {bool? isTheEndOfList}) =
+      _$_LoadedNews;
 
   List<NewsItem> get news;
+  bool? get isTheEndOfList;
   @JsonKey(ignore: true)
   _$LoadedNewsCopyWith<_LoadedNews> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1402,7 +1420,8 @@ class _$_NewsError implements _NewsError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news) loadedNews,
+    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+        loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
   }) {
@@ -1414,7 +1433,7 @@ class _$_NewsError implements _NewsError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
@@ -1426,7 +1445,7 @@ class _$_NewsError implements _NewsError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
@@ -1528,7 +1547,8 @@ class _$_ResetList implements _ResetList {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news) loadedNews,
+    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+        loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
   }) {
@@ -1540,7 +1560,7 @@ class _$_ResetList implements _ResetList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
@@ -1552,7 +1572,7 @@ class _$_ResetList implements _ResetList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news)? loadedNews,
+    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),

@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
-class APIError {
-  APIError.fromDioError(DioError dioError) {
+class APIErrorHandler {
+
+  APIErrorHandler.fromDioError(DioError dioError) {
     switch (dioError.type) {
       case DioErrorType.connectTimeout:
         _message = tr("errors.connection_timeout");
@@ -17,6 +21,12 @@ class APIError {
       case DioErrorType.sendTimeout:
         _message = tr("errors.send_timeout");
         break;
+      case DioErrorType.other:{
+        if(dioError.error is  SocketException) {
+          _message = tr("errors.internet_error");
+        }
+        break;
+      }
       default: _message = tr("errors.unexpected_error");
     }
   }

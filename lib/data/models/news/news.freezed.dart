@@ -22,13 +22,15 @@ class _$NewsItemTearOff {
   const _$NewsItemTearOff();
 
   _NewsItem call(
-      {required String headline,
+      {int? pages,
+      required String headline,
       required String trailText,
       required String publishDate,
       required String? author,
       required String content,
       required String? thumbnail}) {
     return _NewsItem(
+      pages: pages,
       headline: headline,
       trailText: trailText,
       publishDate: publishDate,
@@ -48,6 +50,7 @@ const $NewsItem = _$NewsItemTearOff();
 
 /// @nodoc
 mixin _$NewsItem {
+  int? get pages => throw _privateConstructorUsedError;
   String get headline => throw _privateConstructorUsedError;
   String get trailText => throw _privateConstructorUsedError;
   String get publishDate => throw _privateConstructorUsedError;
@@ -66,7 +69,8 @@ abstract class $NewsItemCopyWith<$Res> {
   factory $NewsItemCopyWith(NewsItem value, $Res Function(NewsItem) then) =
       _$NewsItemCopyWithImpl<$Res>;
   $Res call(
-      {String headline,
+      {int? pages,
+      String headline,
       String trailText,
       String publishDate,
       String? author,
@@ -84,6 +88,7 @@ class _$NewsItemCopyWithImpl<$Res> implements $NewsItemCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? pages = freezed,
     Object? headline = freezed,
     Object? trailText = freezed,
     Object? publishDate = freezed,
@@ -92,6 +97,10 @@ class _$NewsItemCopyWithImpl<$Res> implements $NewsItemCopyWith<$Res> {
     Object? thumbnail = freezed,
   }) {
     return _then(_value.copyWith(
+      pages: pages == freezed
+          ? _value.pages
+          : pages // ignore: cast_nullable_to_non_nullable
+              as int?,
       headline: headline == freezed
           ? _value.headline
           : headline // ignore: cast_nullable_to_non_nullable
@@ -126,7 +135,8 @@ abstract class _$NewsItemCopyWith<$Res> implements $NewsItemCopyWith<$Res> {
       __$NewsItemCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String headline,
+      {int? pages,
+      String headline,
       String trailText,
       String publishDate,
       String? author,
@@ -145,6 +155,7 @@ class __$NewsItemCopyWithImpl<$Res> extends _$NewsItemCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? pages = freezed,
     Object? headline = freezed,
     Object? trailText = freezed,
     Object? publishDate = freezed,
@@ -153,6 +164,10 @@ class __$NewsItemCopyWithImpl<$Res> extends _$NewsItemCopyWithImpl<$Res>
     Object? thumbnail = freezed,
   }) {
     return _then(_NewsItem(
+      pages: pages == freezed
+          ? _value.pages
+          : pages // ignore: cast_nullable_to_non_nullable
+              as int?,
       headline: headline == freezed
           ? _value.headline
           : headline // ignore: cast_nullable_to_non_nullable
@@ -185,7 +200,8 @@ class __$NewsItemCopyWithImpl<$Res> extends _$NewsItemCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_NewsItem implements _NewsItem {
   _$_NewsItem(
-      {required this.headline,
+      {this.pages,
+      required this.headline,
       required this.trailText,
       required this.publishDate,
       required this.author,
@@ -195,6 +211,8 @@ class _$_NewsItem implements _NewsItem {
   factory _$_NewsItem.fromJson(Map<String, dynamic> json) =>
       _$$_NewsItemFromJson(json);
 
+  @override
+  final int? pages;
   @override
   final String headline;
   @override
@@ -210,7 +228,7 @@ class _$_NewsItem implements _NewsItem {
 
   @override
   String toString() {
-    return 'NewsItem(headline: $headline, trailText: $trailText, publishDate: $publishDate, author: $author, content: $content, thumbnail: $thumbnail)';
+    return 'NewsItem(pages: $pages, headline: $headline, trailText: $trailText, publishDate: $publishDate, author: $author, content: $content, thumbnail: $thumbnail)';
   }
 
   @override
@@ -218,6 +236,7 @@ class _$_NewsItem implements _NewsItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _NewsItem &&
+            const DeepCollectionEquality().equals(other.pages, pages) &&
             const DeepCollectionEquality().equals(other.headline, headline) &&
             const DeepCollectionEquality().equals(other.trailText, trailText) &&
             const DeepCollectionEquality()
@@ -230,6 +249,7 @@ class _$_NewsItem implements _NewsItem {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(pages),
       const DeepCollectionEquality().hash(headline),
       const DeepCollectionEquality().hash(trailText),
       const DeepCollectionEquality().hash(publishDate),
@@ -250,7 +270,8 @@ class _$_NewsItem implements _NewsItem {
 
 abstract class _NewsItem implements NewsItem {
   factory _NewsItem(
-      {required String headline,
+      {int? pages,
+      required String headline,
       required String trailText,
       required String publishDate,
       required String? author,
@@ -259,6 +280,8 @@ abstract class _NewsItem implements NewsItem {
 
   factory _NewsItem.fromJson(Map<String, dynamic> json) = _$_NewsItem.fromJson;
 
+  @override
+  int? get pages;
   @override
   String get headline;
   @override

@@ -5,6 +5,7 @@ part 'news.g.dart';
 @freezed
 class NewsItem with _$NewsItem {
   factory NewsItem({
+    int? pages,
     required String headline,
     required String trailText,
     required String publishDate,

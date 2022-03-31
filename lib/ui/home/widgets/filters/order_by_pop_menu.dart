@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 import 'package:newsapp/ui/home/widgets/filters/filters_data.dart';
@@ -14,6 +15,7 @@ class OrderByMenu extends StatefulWidget {
 
 class _OrderByMenuState extends State<OrderByMenu> {
   late String selectedItem;
+  bool removeButton = false;
 
   @override
   void initState() {
@@ -37,6 +39,7 @@ class _OrderByMenuState extends State<OrderByMenu> {
         onSelected: (selected) {
           setState(() {
             selectedItem = selected.toString();
+            removeButton = true;
           });
           FiltersData().setOrderByFilter(selected.toString());
           BlocProvider.of<HomeBlocNews>(context).add(
@@ -46,34 +49,61 @@ class _OrderByMenuState extends State<OrderByMenu> {
           );
         },
         initialValue: selectedItem,
-        child: Container(
-          constraints: const BoxConstraints(
-            maxHeight: 45,
-            maxWidth: 120
-          ),
-          padding: const EdgeInsets.all(13),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            border: Border.all(
-              color: NAColors.gray.withOpacity(0.5)
-            )
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  selectedItem,
-                  style: theme.textTheme.bodyText2!,
+        child: Row(
+          children: [
+            Container(
+              constraints: const BoxConstraints(
+                  maxHeight: 45,
+                  maxWidth: 120
+              ),
+              padding: const EdgeInsets.all(13),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                      color: NAColors.gray.withOpacity(0.5)
+                  )
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    selectedItem,
+                    style: theme.textTheme.bodyText2!,
+                  ),
+                  Icon(
+                    Icons.sort,
+                    size: 20,
+                    color: NAColors.black.withOpacity(0.5),
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+              visible: removeButton,
+              child: TouchableOpacity(
+                onPressed: () {
+                  setState(() {
+                    selectedItem = tr("pop_menu.order_by");
+                    removeButton = false;
+                  });
+                  BlocProvider.of<HomeBlocNews>(context).add(
+                     const  HomeNewsEvent.orderBy(
+                          orderBy: null
+                      )
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Image.asset(
+                    "assets/images/cross.png",
+                    width: 24,
+                    height: 24,
+                    color: NAColors.black,
+                  ),
                 ),
               ),
-              Icon(
-                Icons.sort,
-                size: 20,
-                color: NAColors.black.withOpacity(0.5),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
         itemBuilder: (context) => <PopupMenuItem> [
           PopupMenuItem(
