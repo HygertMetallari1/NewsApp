@@ -42,7 +42,7 @@ Future<Set<double>> getLocation() async {
     -122.05
   };
   late Position position;
-  bool locationService = await _isPermitted;
+  bool locationService = await isPermitted;
   if(locationService) {
     position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     location.clear();
@@ -51,7 +51,7 @@ Future<Set<double>> getLocation() async {
   return location;
 }
 
-Future<bool> get _isPermitted async {
+Future<bool> get isPermitted async {
   bool permissionState = await SecureStorage().loadLocationPermissionState();
   bool enableState = await Geolocator.isLocationServiceEnabled();
   bool state = true;
@@ -97,7 +97,7 @@ List<NewsItem> convertedNewsList (dynamic responseData) {
         "trailText": stripHtml(results[i]["fields"]["trailText"]),
         "publishDate": convertPublishDate(results[i]["webPublicationDate"].toString()),
         "author": results[i]["fields"]["byline"],
-        "content": results[i]["blocks"]["body"][0]["bodyTextSummary"],
+        "content":  results[i]["blocks"]["body"][0]["bodyTextSummary"],
         "thumbnail": results[i]["fields"]["thumbnail"]
       };
       if(i == 0) {

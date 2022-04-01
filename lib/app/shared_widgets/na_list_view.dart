@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/shared_widgets/na_news_item.dart';
-import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
@@ -24,7 +21,7 @@ class NewsListView extends StatefulWidget {
 }
 
 class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver{
-  final ScrollController scrollController = ScrollController();
+  late ScrollController scrollController = ScrollController();
   late var bloc;
   bool showBackToTopButton = false;
 
@@ -46,11 +43,6 @@ class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver
     }
   }
 
-  void scrollToTop() {
-    scrollController.animateTo(0,
-        duration: const Duration(microseconds: 1), curve: Curves.linear);
-  }
-
   @override
   void didChangeDependencies() {
     scrollController.addListener(() {
@@ -59,6 +51,11 @@ class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver
       }
     });
     super.didChangeDependencies();
+  }
+
+  void scrollToTop() {
+    scrollController.animateTo(0,
+        duration: const Duration(microseconds: 1), curve: Curves.linear);
   }
 
   @override

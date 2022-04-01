@@ -7,7 +7,7 @@ import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/endpoints.dart';
 import 'package:newsapp/data/models/weather/weather.dart';
-
+import 'package:geocoding/geocoding.dart';
 
 class WeatherBottomSheet extends StatefulWidget {
   final List<WeatherItem> forecastingList;
@@ -19,12 +19,19 @@ class WeatherBottomSheet extends StatefulWidget {
 
 class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
   bool locationService = false;
-  
+  String location = "";
+
   @override
   void didChangeDependencies() async {
-    bool _locationService = await Geolocator.isLocationServiceEnabled();
+    bool _locationService = await Geolocator.isLocationServiceEnabled() && await isPermitted;
     setState(() {
       locationService = _locationService;
+    });
+    Set<double> latLong = await getLocation();
+    await placemarkFromCoordinates(latLong.first, latLong.last).then((placemarks){
+      setState(() {
+        location = "${placemarks[0].locality}, ${placemarks[0].country}";
+      });
     });
     super.didChangeDependencies();
   }
@@ -48,25 +55,40 @@ class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      convertMaxTemp(currentDay.maxTemp),
-                      style: theme.textTheme.headline6?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30,
-                          letterSpacing: 1
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        convertMaxTemp(currentDay.maxTemp),
+                        style: theme.textTheme.headline6?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 30,
+                            letterSpacing: 1
+                        ),
                       ),
-                    ),
-                    Text(
-                      tr("home.your_local_weather"),
-                      style: theme.textTheme.bodyText1,
-                    ),
-                  ],
+                      if(location.isEmpty) ... [
+                        const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: NAColors.blue,
+                              strokeWidth: 3,
+                            ),
+                          ),
+                        ),
+                      ] else ... [
+                        Text(
+                          location,
+                          style: theme.textTheme.bodyText1,
+                        ),
+                      ]
+                    ],
+                  ),
                 ),
               ),
               Image.network(

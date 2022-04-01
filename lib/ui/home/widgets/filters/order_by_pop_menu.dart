@@ -82,6 +82,7 @@ class _OrderByMenuState extends State<OrderByMenu> {
               visible: removeButton,
               child: TouchableOpacity(
                 onPressed: () {
+                  FiltersData().setOrderByFilter(null);
                   setState(() {
                     selectedItem = tr("pop_menu.order_by");
                     removeButton = false;

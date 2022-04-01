@@ -4,7 +4,7 @@ part of 'home_news_bloc.dart';
 class HomeNewsEvent with _$HomeNewsEvent {
   const factory  HomeNewsEvent.unfilteredNews() = _UnfilteredNews;
   const factory HomeNewsEvent.searchNews({
-    required String queryField
+    required String? queryField
   }) = _SearchNews;
   const factory HomeNewsEvent.orderBy({
     required String? orderBy

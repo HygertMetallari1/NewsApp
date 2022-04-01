@@ -106,6 +106,8 @@ class _DateSelectorState extends State<DateSelector> {
             visible: removeButton,
             child: TouchableOpacity(
               onPressed: () {
+                FiltersData().setFromDate(null);
+                FiltersData().setToDate(null);
                 setState(() {
                   datePickerChipLabel = tr("date_selector.select_date");
                   removeButton = false;

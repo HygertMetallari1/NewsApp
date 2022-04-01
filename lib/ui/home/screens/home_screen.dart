@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return homeBlocNews.add(const HomeNewsEvent.unfilteredNews());
         },
         color: NAColors.blue,
-        child: _buildBody(context, theme),
+        child: _buildBody(context, theme)
       )
     );
   }
@@ -103,11 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 return state.maybeWhen(
                   loadingNews: () {
                     if(_news.isEmpty) {
-                      return Padding(
-                          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-                        child: const CircularProgressIndicator(
-                          color: NAColors.blue,
-                        ),
+                      return const CircularProgressIndicator(
+                        color: NAColors.blue,
                       );
                     } else  {
                       return NewsListView(
@@ -186,6 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Center(
                   child: CircularProgressIndicator(
                     color: NAColors.blue,
+                    strokeWidth: 3,
                   ),
                 ),
               ),

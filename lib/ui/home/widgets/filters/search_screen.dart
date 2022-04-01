@@ -16,6 +16,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchFieldController = TextEditingController();
+  FocusNode focusNode = FocusNode();
   HomeBlocNews homeNewsBloc = HomeBlocNews();
   bool isFilled = false;
 
@@ -49,14 +50,26 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Padding(
         padding: EdgeInsets.only(top: 5.0, bottom: MediaQuery.of(context).viewInsets.bottom),
         child: TextFormField(
+          focusNode: focusNode,
           controller: searchFieldController,
           autofocus: true,
-          onFieldSubmitted: (queryString) {
-            FiltersData().setSearchQuery(queryString);
-            Navigator.pop(context);
-            if(queryString != "") {
-              homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: queryString));
+          onChanged: (value) {
+            if(value.isNotEmpty) {
+              setState(() {
+                isFilled = true;
+              });
+            } else {
+              setState(() {
+                isFilled = false;
+              });
             }
+          },
+          onFieldSubmitted: (queryString) {
+            _setFilters(queryString).then((_) => {
+              if(queryString != "") {
+                homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: queryString))
+              }
+            });
           },
           style: theme.textTheme.bodyText1?.copyWith(
             color: NAColors.black,
@@ -73,12 +86,9 @@ class _SearchScreenState extends State<SearchScreen> {
             suffixIcon: isFilled
                 ? TouchableOpacity(
                     onPressed: () {
-                      setState(() {
-                        searchFieldController = TextEditingController();
+                      _setFilters(null).then((_) {
+                        homeNewsBloc.add(const HomeNewsEvent.searchNews(queryField: null));
                       });
-                      homeNewsBloc.add(const HomeNewsEvent.unfilteredNews());
-                      Navigator.pop(context);
-                      FiltersData().setSearchQuery(null);
                     },
                      child: Image.asset(
                         "assets/images/cross.png",
@@ -87,20 +97,17 @@ class _SearchScreenState extends State<SearchScreen> {
                          color: NAColors.black,
                      )
                   )
-                  :TouchableOpacity(
-                    onPressed: () {
-                      FiltersData().setSearchQuery(searchFieldController.text);
-                      Navigator.pop(context);
-                      if(searchFieldController.text != "") {
-                        homeNewsBloc.add(HomeNewsEvent.searchNews(queryField: searchFieldController.text));
-                      }
-                    },
-                    child: NewsAppAssets.search,
-                  )
+                  : NewsAppAssets.search,
           ),
           cursorColor: NAColors.blue,
         ),
       ),
     );
+  }
+
+  Future<void> _setFilters(String? queryString) async {
+    focusNode.unfocus();
+    Navigator.pop(context);
+    FiltersData().setSearchQuery(queryString);
   }
 }

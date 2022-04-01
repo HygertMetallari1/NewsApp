@@ -21,7 +21,7 @@ class _$HomeNewsEventTearOff {
     return const _UnfilteredNews();
   }
 
-  _SearchNews searchNews({required String queryField}) {
+  _SearchNews searchNews({required String? queryField}) {
     return _SearchNews(
       queryField: queryField,
     );
@@ -53,7 +53,7 @@ mixin _$HomeNewsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
-    required TResult Function(String queryField) searchNews,
+    required TResult Function(String? queryField) searchNews,
     required TResult Function(String? orderBy) orderBy,
     required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
@@ -62,7 +62,7 @@ mixin _$HomeNewsEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -71,7 +71,7 @@ mixin _$HomeNewsEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -167,7 +167,7 @@ class _$_UnfilteredNews implements _UnfilteredNews {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
-    required TResult Function(String queryField) searchNews,
+    required TResult Function(String? queryField) searchNews,
     required TResult Function(String? orderBy) orderBy,
     required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
@@ -179,7 +179,7 @@ class _$_UnfilteredNews implements _UnfilteredNews {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -191,7 +191,7 @@ class _$_UnfilteredNews implements _UnfilteredNews {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -253,7 +253,7 @@ abstract class _$SearchNewsCopyWith<$Res> {
   factory _$SearchNewsCopyWith(
           _SearchNews value, $Res Function(_SearchNews) then) =
       __$SearchNewsCopyWithImpl<$Res>;
-  $Res call({String queryField});
+  $Res call({String? queryField});
 }
 
 /// @nodoc
@@ -274,7 +274,7 @@ class __$SearchNewsCopyWithImpl<$Res> extends _$HomeNewsEventCopyWithImpl<$Res>
       queryField: queryField == freezed
           ? _value.queryField
           : queryField // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -285,7 +285,7 @@ class _$_SearchNews implements _SearchNews {
   const _$_SearchNews({required this.queryField});
 
   @override
-  final String queryField;
+  final String? queryField;
 
   @override
   String toString() {
@@ -314,7 +314,7 @@ class _$_SearchNews implements _SearchNews {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
-    required TResult Function(String queryField) searchNews,
+    required TResult Function(String? queryField) searchNews,
     required TResult Function(String? orderBy) orderBy,
     required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
@@ -326,7 +326,7 @@ class _$_SearchNews implements _SearchNews {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -338,7 +338,7 @@ class _$_SearchNews implements _SearchNews {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -392,9 +392,9 @@ class _$_SearchNews implements _SearchNews {
 }
 
 abstract class _SearchNews implements HomeNewsEvent {
-  const factory _SearchNews({required String queryField}) = _$_SearchNews;
+  const factory _SearchNews({required String? queryField}) = _$_SearchNews;
 
-  String get queryField;
+  String? get queryField;
   @JsonKey(ignore: true)
   _$SearchNewsCopyWith<_SearchNews> get copyWith =>
       throw _privateConstructorUsedError;
@@ -463,7 +463,7 @@ class _$_OrderBy implements _OrderBy {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
-    required TResult Function(String queryField) searchNews,
+    required TResult Function(String? queryField) searchNews,
     required TResult Function(String? orderBy) orderBy,
     required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
@@ -475,7 +475,7 @@ class _$_OrderBy implements _OrderBy {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -487,7 +487,7 @@ class _$_OrderBy implements _OrderBy {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -624,7 +624,7 @@ class _$_SelectDate implements _SelectDate {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
-    required TResult Function(String queryField) searchNews,
+    required TResult Function(String? queryField) searchNews,
     required TResult Function(String? orderBy) orderBy,
     required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
@@ -636,7 +636,7 @@ class _$_SelectDate implements _SelectDate {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -648,7 +648,7 @@ class _$_SelectDate implements _SelectDate {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -754,7 +754,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unfilteredNews,
-    required TResult Function(String queryField) searchNews,
+    required TResult Function(String? queryField) searchNews,
     required TResult Function(String? orderBy) orderBy,
     required TResult Function(String? fromDate, String? toDate) selectDate,
     required TResult Function() loadNextPage,
@@ -766,7 +766,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,
@@ -778,7 +778,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unfilteredNews,
-    TResult Function(String queryField)? searchNews,
+    TResult Function(String? queryField)? searchNews,
     TResult Function(String? orderBy)? orderBy,
     TResult Function(String? fromDate, String? toDate)? selectDate,
     TResult Function()? loadNextPage,

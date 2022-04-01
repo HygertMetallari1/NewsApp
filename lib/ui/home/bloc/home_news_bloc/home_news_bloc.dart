@@ -33,7 +33,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
               );
             }
           },
-          searchNews: (String query) async {
+          searchNews: (String? query) async {
             _loadReset(emit);
             try {
               _news = await SearchNewsService().getNews(

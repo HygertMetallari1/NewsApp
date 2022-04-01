@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
-import 'package:newsapp/app/theme.dart';
 
 class NAErrorScreen extends StatefulWidget {
   final String errorMessage;
@@ -22,7 +20,7 @@ class _NAErrorScreenState extends State<NAErrorScreen> {
   @override
   void initState() {
      if(widget.errorMessage == internetError) {
-       path = "assets/images/no_internet.png";
+       path = "assets/images/no-internet.png";
      }
      if(widget.errorMessage == emptyList){
        path = "assets/images/empty_list.png";
@@ -36,30 +34,25 @@ class _NAErrorScreenState extends State<NAErrorScreen> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return Flexible(
-      child: SizedBox(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(
-              height: MediaQuery.of(context).size.height/5,
+    return SizedBox(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Image.asset(
+              path,
+              height: 100,
+              width: 100,
+              filterQuality: FilterQuality.low,
+              fit: BoxFit.fill,
+          ),
+          Text(
+            widget.errorMessage,
+            style: theme.textTheme.bodyText2?.copyWith(
+              fontWeight: FontWeight.w600,
+              fontSize: 20
             ),
-            Image.asset(
-                path,
-                height: 100,
-                width: 100,
-                filterQuality: FilterQuality.low,
-                fit: BoxFit.fill,
-            ),
-            Text(
-              widget.errorMessage,
-              style: theme.textTheme.bodyText2?.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: 20
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
