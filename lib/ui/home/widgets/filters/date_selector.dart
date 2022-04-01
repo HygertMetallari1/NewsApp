@@ -90,9 +90,22 @@ class _DateSelectorState extends State<DateSelector> {
       child: Row(
         children: [
           Chip(
-              label: Text(
-                label,
-                style: theme.textTheme.bodyText2,
+              label: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text(
+                      label,
+                      style: theme.textTheme.bodyText2,
+                    ),
+                  ),
+                  Icon(
+                    Icons.calendar_today_rounded,
+                    size: 20,
+                    color: NAColors.black.withOpacity(0.5),
+                  ),
+                ],
               ),
               backgroundColor: NAColors.white,
               shape: RoundedRectangleBorder(

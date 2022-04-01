@@ -7,7 +7,7 @@ import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/data/secure_storage.dart';
 
 String convertCurrentTime() {
-  String convTime = DateFormat("EEEE, MMMM d").format(DateTime.now());
+  String convTime = DateFormat("EEEE, MMMM dd").format(DateTime.now());
   return convTime;
 }
 

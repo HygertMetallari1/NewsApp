@@ -19,7 +19,7 @@ class _OrderByMenuState extends State<OrderByMenu> {
 
   @override
   void initState() {
-    if(FiltersData().orderBy != null) {
+    if (FiltersData().orderBy != null) {
       selectedItem = FiltersData().orderBy!;
     } else {
       selectedItem = tr("pop_menu.order_by");
@@ -42,42 +42,35 @@ class _OrderByMenuState extends State<OrderByMenu> {
             removeButton = true;
           });
           FiltersData().setOrderByFilter(selected.toString());
-          BlocProvider.of<HomeBlocNews>(context).add(
-              HomeNewsEvent.orderBy(
-                  orderBy: selected.toString()
-              )
-          );
+          BlocProvider.of<HomeBlocNews>(context)
+              .add(HomeNewsEvent.orderBy(orderBy: selected.toString()));
         },
         initialValue: selectedItem,
         child: Row(
           children: [
-            Container(
-              constraints: const BoxConstraints(
-                  maxHeight: 45,
-                  maxWidth: 120
-              ),
-              padding: const EdgeInsets.all(13),
-              decoration: BoxDecoration(
+            Chip(
+                label: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Text(
+                        selectedItem,
+                        style: theme.textTheme.bodyText2!,
+                      ),
+                    ),
+                    Icon(
+                      Icons.sort,
+                      size: 20,
+                      color: NAColors.black.withOpacity(0.5),
+                    ),
+                  ],
+                ),
+                backgroundColor: NAColors.white,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
-                  border: Border.all(
-                      color: NAColors.gray.withOpacity(0.5)
-                  )
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    selectedItem,
-                    style: theme.textTheme.bodyText2!,
-                  ),
-                  Icon(
-                    Icons.sort,
-                    size: 20,
-                    color: NAColors.black.withOpacity(0.5),
-                  ),
-                ],
-              ),
-            ),
+                ),
+                side: BorderSide(color: NAColors.black.withOpacity(0.1))),
             Visibility(
               visible: removeButton,
               child: TouchableOpacity(
@@ -87,11 +80,8 @@ class _OrderByMenuState extends State<OrderByMenu> {
                     selectedItem = tr("pop_menu.order_by");
                     removeButton = false;
                   });
-                  BlocProvider.of<HomeBlocNews>(context).add(
-                     const  HomeNewsEvent.orderBy(
-                          orderBy: null
-                      )
-                  );
+                  BlocProvider.of<HomeBlocNews>(context)
+                      .add(const HomeNewsEvent.orderBy(orderBy: null));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
@@ -106,29 +96,28 @@ class _OrderByMenuState extends State<OrderByMenu> {
             ),
           ],
         ),
-        itemBuilder: (context) => <PopupMenuItem> [
-          PopupMenuItem(
-            child: Text(
-              tr("pop_menu.relevance"),
-              style: theme.textTheme.bodyText1,
-            ),
-            value:  tr("pop_menu.relevance"),
-          ),
-          PopupMenuItem(
-            child: Text(
-              tr("pop_menu.newest"),
-              style: theme.textTheme.bodyText1,
-            ),
-            value: tr("pop_menu.newest"),
-          ),
-          PopupMenuItem(
-            child: Text(
-              tr("pop_menu.oldest"),
-              style: theme.textTheme.bodyText1,
-            ),
-            value:  tr("pop_menu.oldest"),
-          ),
-        ]
-    );
+        itemBuilder: (context) => <PopupMenuItem>[
+              PopupMenuItem(
+                child: Text(
+                  tr("pop_menu.relevance"),
+                  style: theme.textTheme.bodyText1,
+                ),
+                value: tr("pop_menu.relevance"),
+              ),
+              PopupMenuItem(
+                child: Text(
+                  tr("pop_menu.newest"),
+                  style: theme.textTheme.bodyText1,
+                ),
+                value: tr("pop_menu.newest"),
+              ),
+              PopupMenuItem(
+                child: Text(
+                  tr("pop_menu.oldest"),
+                  style: theme.textTheme.bodyText1,
+                ),
+                value: tr("pop_menu.oldest"),
+              ),
+            ]);
   }
 }
