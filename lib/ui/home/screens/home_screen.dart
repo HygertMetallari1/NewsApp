@@ -77,8 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
       listener: (context, state) {
         state.maybeWhen(
             resetList: () {
-              _news = [];
-              saveToPageStorage(_news);
+              setState(() {
+                _news = [];
+                saveToPageStorage(_news);
+              });
             },
             loadedNews: (news, isTheEndOfTheList) {
               if(news.isNotEmpty) {

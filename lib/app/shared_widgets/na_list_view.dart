@@ -21,9 +21,10 @@ class NewsListView extends StatefulWidget {
 }
 
 class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver{
-  late ScrollController scrollController = ScrollController();
-  late var bloc;
+  ScrollController scrollController = ScrollController();
+  late Bloc bloc;
   bool showBackToTopButton = false;
+  bool isFirstTimeAdding = false;
 
   void  loadNextPage() {
     if(widget.blocType == HomeBlocNews) {
@@ -45,9 +46,20 @@ class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver
 
   @override
   void didChangeDependencies() {
+    setState(() {
+      isFirstTimeAdding = widget.news.length == 10;
+    });
     scrollController.addListener(() {
       if (isScrollAtBottom()) {
         loadNextPage();
+      }
+      //To override the saved list position and automatically scroll the list to the top
+      //whenever there is a new list loaded
+      if(scrollController.offset != 0 && isFirstTimeAdding)  {
+        scrollController.jumpTo(0);
+        setState(() {
+          isFirstTimeAdding = false;
+        });
       }
     });
     super.didChangeDependencies();

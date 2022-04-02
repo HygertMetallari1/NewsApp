@@ -90,14 +90,20 @@ Future<bool> checkLocationServices() async {
 List<NewsItem> convertedNewsList (dynamic responseData) {
   List<NewsItem> newsList = [];
   final results = responseData["response"]["results"] as List;
+  String content = "";
   if(results.isNotEmpty) {
     for(int i = 0; i < results.length ; i++) {
+
+      if(results[i]["blocks"]["totalBodyBlocks"] != 0) {
+        content = results[i]["blocks"]["body"][0]["bodyTextSummary"].toString();
+      }
+
       Map<String, dynamic> json = {
         "headline" : results[i]["fields"]["headline"] ,
         "trailText": stripHtml(results[i]["fields"]["trailText"]),
         "publishDate": convertPublishDate(results[i]["webPublicationDate"].toString()),
         "author": results[i]["fields"]["byline"],
-        "content":  results[i]["blocks"]["body"][0]["bodyTextSummary"],
+        "content": content,
         "thumbnail": results[i]["fields"]["thumbnail"]
       };
       if(i == 0) {
