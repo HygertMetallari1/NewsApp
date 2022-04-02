@@ -118,7 +118,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
 
   void _emitHomeNewsList(Emitter<HomeNewsState> emit) {
     if (_currentPage == _pages || _currentPage > _pages) {
-      emit(HomeNewsState.loadedNews(_news, isTheEndOfList: true));
+      emit(HomeNewsState.loadedNews(_news, isTheEndOfList: true)); // To check if there is no more news of the current query
     } else {
       emit(HomeNewsState.loadedNews(_news));
     }
@@ -131,4 +131,10 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
     _currentPage = 1;
   }
 
+  /*@override
+  void onChange(Change<HomeNewsState> change) {
+    debugPrint("Old state is🟢 ${change.currentState}");
+    debugPrint("New state is🔵 ${change.nextState}");
+    super.onChange(change);
+  }*/
 }

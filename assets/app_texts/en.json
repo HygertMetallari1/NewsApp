@@ -1,8 +1,14 @@
 {
   "navigation": {
     "home_tab": "Home",
-    "headlines_tab": "Headlines",
+    "headlines_tab": "Sections",
     "saved_tab": "Saved"
+  },
+  "sections_tabs": {
+    "news": "News",
+    "sport": "Sport",
+    "lifestyle": "Lifestyle",
+    "culture": "Culture"
   },
   "home": {
     "your_briefings": "Your\nbriefing",

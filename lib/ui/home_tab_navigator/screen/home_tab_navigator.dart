@@ -5,7 +5,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/routing/routes.dart';
 import 'package:newsapp/app/theme.dart';
-import 'package:newsapp/ui/headlines/screens/headlines_screen.dart';
+import 'package:newsapp/ui/sections/screens/sections_screen.dart';
 import 'package:newsapp/ui/home/screens/home_screen.dart';
 import 'package:newsapp/ui/home_tab_navigator/cubit/tab_cubit.dart';
 import 'package:newsapp/ui/saved/screens/saved_screen.dart';
@@ -32,8 +32,8 @@ class _HomeTabNavigatorState extends State<HomeTabNavigator> {
               case "/home": {
                 return const HomeScreen();
               }
-              case "/headlines": {
-                return const HeadlinesScreen();
+              case "/sections": {
+                return const SectionsScreen();
               }
               case "/saved": {
                 return const SavedScreen();
@@ -72,9 +72,9 @@ class _HomeTabNavigatorState extends State<HomeTabNavigator> {
                    activeIcon: NewsAppAssets.selectedHome
                  ),
                 BottomNavigationBarItem(
-                  icon: NewsAppAssets.headlines,
+                  icon: NewsAppAssets.section,
                   label: tr("navigation.headlines_tab"),
-                  activeIcon: NewsAppAssets.selectedHeadlines
+                  activeIcon: NewsAppAssets.selectedSection
                 ),
                 BottomNavigationBarItem(
                   icon: NewsAppAssets.saved,

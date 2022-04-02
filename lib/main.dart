@@ -5,7 +5,6 @@ import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/api_manager.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
-import 'package:newsapp/ui/home/screens/home_screen.dart';
 import 'package:newsapp/ui/home_tab_navigator/cubit/tab_cubit.dart';
 import 'package:newsapp/ui/home_tab_navigator/screen/home_tab_navigator.dart';
 import 'package:newsapp/ui/remote_config/bloc/remote_config_bloc.dart';
@@ -104,13 +103,9 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
 
 class _StartupBlocs {
   late final RemoteConfigBloc remoteConfigBloc;
-  late final HomeBlocNews homeBlocNews;
-  late final WeatherBloc weatherBloc;
   late final TabCubit tabCubit;
   _StartupBlocs() {
     remoteConfigBloc = RemoteConfigBloc()..add(const RemoteConfigEvent.getValues());
-    homeBlocNews = HomeBlocNews();
-    weatherBloc = WeatherBloc();
     tabCubit = TabCubit();
   }
 }

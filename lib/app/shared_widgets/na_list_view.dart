@@ -8,12 +8,12 @@ import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 
 class NewsListView extends StatefulWidget {
   final List<NewsItem> news;
-  final bool? isTheEndOfTheList;
+  final bool? isTheEndOfList;
   final Type blocType;
   const NewsListView({Key? key,
     required this.news,
     required this.blocType,
-    this.isTheEndOfTheList
+    this.isTheEndOfList
   }) : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver
 
   bool isScrollAtBottom() {
     if (scrollController.position.maxScrollExtent
-        == scrollController.offset && widget.isTheEndOfTheList == null) {
+        == scrollController.offset && widget.isTheEndOfList == null) {
       return true;
     } else {
       return false;
@@ -122,7 +122,7 @@ class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver
                           color: NAColors.gray,
                         ),
                         if(index == widget.news.length - 1)... [
-                          if(widget.isTheEndOfTheList == null)... [
+                          if(widget.isTheEndOfList == null)... [
                             const CircularProgressIndicator(
                               color: NAColors.blue,
                             )

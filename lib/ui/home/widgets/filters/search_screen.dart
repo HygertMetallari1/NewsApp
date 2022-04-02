@@ -90,12 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         homeNewsBloc.add(const HomeNewsEvent.searchNews(queryField: null));
                       });
                     },
-                     child: Image.asset(
-                        "assets/images/cross.png",
-                         width: 24,
-                         height: 24,
-                         color: NAColors.black,
-                     )
+                     child: NewsAppAssets.remove
                   )
                   : NewsAppAssets.search,
           ),

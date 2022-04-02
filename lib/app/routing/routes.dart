@@ -1,5 +1,5 @@
 class Routes {
   static const home = "/home";
-  static const headlines = "/headlines";
+  static const headlines = "/sections";
   static const saved = "/saved";
 }

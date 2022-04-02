@@ -5,7 +5,7 @@ part 'tab_state.dart';
 class TabCubit extends Cubit<TabState> {
   List<String> route = const [
     "/home",
-    "/headlines",
+    "/sections",
     "/saved"
   ];
 

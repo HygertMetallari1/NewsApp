@@ -18,17 +18,23 @@ class _NAErrorScreenState extends State<NAErrorScreen> {
   late String path;
 
   @override
-  void initState() {
+  void didChangeDependencies() {
      if(widget.errorMessage == internetError) {
-       path = "assets/images/no-internet.png";
+       setState(() {
+         path = "assets/images/no-internet.png";
+       });
      }
-     if(widget.errorMessage == emptyList){
-       path = "assets/images/empty_list.png";
+     else if(widget.errorMessage == emptyList){
+       setState(() {
+         path = "assets/images/empty_list.png";
+       });
      }
      else {
-       path = "assets/images/error.png";
+       setState(() {
+         path = "assets/images/error.png";
+       });
      }
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override

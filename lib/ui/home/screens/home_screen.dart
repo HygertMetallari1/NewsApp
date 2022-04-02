@@ -28,14 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   HomeBlocNews homeBlocNews = HomeBlocNews();
   List<NewsItem> _news = [];
-  bool? _isTheEndOfTheList;
+  bool? _isTheEndOfList;
+  bool savedTheNewsOnce = false;
 
   void updateNewsState() {
     final fetchedNews = PageStorage.of(context)!.readState(context, identifier: widget.key);
-    if (fetchedNews != null) {
-      setState(() {
+    if (fetchedNews != null ) {
         _news = fetchedNews;
-      });
+      if(_news.isEmpty) {
+        homeBlocNews.add(const HomeNewsEvent.unfilteredNews());
+      }
     } else {
       homeBlocNews.add(const HomeNewsEvent.unfilteredNews());
     }
@@ -75,23 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
   _buildBody(BuildContext context, ThemeData theme) {
     return BlocListener<HomeBlocNews, HomeNewsState>(
       listener: (context, state) {
-        state.maybeWhen(
+        state.whenOrNull(
             resetList: () {
-              setState(() {
                 _news = [];
                 saveToPageStorage(_news);
-              });
             },
-            loadedNews: (news, isTheEndOfTheList) {
-              if(news.isNotEmpty) {
-                setState(() {
-                  _news.addAll(news);
-                  _isTheEndOfTheList = isTheEndOfTheList;
-                });
-                saveToPageStorage(_news);
-              }
-            },
-            orElse: () => const SizedBox()
         );
       },
       child: Padding(
@@ -111,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     } else  {
                       return NewsListView(
                           news: _news,
-                          isTheEndOfTheList: _isTheEndOfTheList,
+                          isTheEndOfList: _isTheEndOfList,
                           blocType: HomeBlocNews,
                       );
                     }
@@ -120,9 +110,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     if(news.isEmpty) {
                       return  NAErrorScreen(errorMessage: (tr("errors.empty_list")));
                     } else {
+                      if(savedTheNewsOnce == false) {
+                        //TODO: Fix the page storage flow during tab switch;
+                        _saveHomeNewsToPageStorage(news, isTheEndOfList);
+                      }
                       return NewsListView(
                           news: _news,
-                          isTheEndOfTheList: _isTheEndOfTheList,
+                          isTheEndOfList: _isTheEndOfList,
                           blocType: HomeBlocNews,
                       );
                     }
@@ -135,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   orElse: () {
                     return NewsListView(
                         news: _news,
-                        isTheEndOfTheList: _isTheEndOfTheList,
+                        isTheEndOfList: _isTheEndOfList,
                         blocType: HomeBlocNews,
                     );
                   },
@@ -146,6 +140,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void _saveHomeNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
+      _news.addAll(news);
+      _isTheEndOfList = isTheEndOfList;
+    saveToPageStorage(_news);
+    savedTheNewsOnce = true;
   }
 
   @swidget

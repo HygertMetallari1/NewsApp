@@ -8,11 +8,19 @@ class NewsAppAssets {
     Icons.home,
     size: 26,
   );
-  static const Icon headlines = Icon(Icons.language);
-  static const Icon selectedHeadlines = Icon(
-    Icons.language,
-    size: 26,
+
+  static Image section = Image.asset(
+      "assets/images/sections.png",
+      width: 25,
+      height: 25,
   );
+  static Image selectedSection = Image.asset(
+    "assets/images/sections.png",
+    width: 26,
+    height: 26,
+    color: NAColors.blue,
+  );
+
   static const Icon saved = Icon(Icons.bookmark);
   static const Icon selectedSaved = Icon (
     Icons.bookmark,
@@ -35,5 +43,10 @@ class NewsAppAssets {
     color: NAColors.white,
     size: 24,
   );
-
+  static Image remove = Image.asset(
+    "assets/images/cross.png",
+    width: 24,
+    height: 24,
+    color: NAColors.black,
+  );
 }

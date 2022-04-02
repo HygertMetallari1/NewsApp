@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
@@ -85,12 +86,7 @@ class _OrderByMenuState extends State<OrderByMenu> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: Image.asset(
-                    "assets/images/cross.png",
-                    width: 24,
-                    height: 24,
-                    color: NAColors.black,
-                  ),
+                  child: NewsAppAssets.remove
                 ),
               ),
             ),
