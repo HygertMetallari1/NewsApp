@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
@@ -16,6 +17,7 @@ import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home/screens/weather_bottom_sheet.dart';
 import 'package:newsapp/ui/home/widgets/filters/date_selector.dart';
 import 'package:newsapp/ui/home/widgets/filters/order_by_pop_menu.dart';
+import 'package:collection/collection.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key = const PageStorageKey('homeNews')}) : super(key: key);
@@ -98,28 +100,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       return const CircularProgressIndicator(
                         color: NAColors.blue,
                       );
-                    } else  {
-                      return NewsListView(
+                    }
+                    return NewsListView(
                           news: _news,
                           isTheEndOfList: _isTheEndOfList,
                           blocType: HomeBlocNews,
-                      );
-                    }
+                    );
                   },
                   loadedNews: (news, isTheEndOfList) {
                     if(news.isEmpty) {
                       return  NAErrorScreen(errorMessage: (tr("errors.empty_list")));
-                    } else {
-                      if(savedTheNewsOnce == false) {
-                        //TODO: Fix the page storage flow during tab switch;
-                        _saveHomeNewsToPageStorage(news, isTheEndOfList);
-                      }
-                      return NewsListView(
+                    }
+                    if(areTheSame(_news, news) == false) {
+                      _saveHomeNewsToPageStorage(news, isTheEndOfList);
+                    }
+                    return NewsListView(
                           news: _news,
                           isTheEndOfList: _isTheEndOfList,
                           blocType: HomeBlocNews,
                       );
-                    }
                   },
                   newsError: (newsError) {
                     return NAErrorScreen(

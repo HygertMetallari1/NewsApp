@@ -130,11 +130,5 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
     _pages = 0;
     _currentPage = 1;
   }
-
-  /*@override
-  void onChange(Change<HomeNewsState> change) {
-    debugPrint("Old state is🟢 ${change.currentState}");
-    debugPrint("New state is🔵 ${change.nextState}");
-    super.onChange(change);
-  }*/
+  
 }

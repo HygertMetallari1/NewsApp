@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:geolocator/geolocator.dart';
@@ -86,6 +87,19 @@ Future<bool> checkLocationServices() async {
   return true;
 }
 
+bool areTheSame(List<NewsItem> storedList, List<NewsItem> blocList) { // compare to not store the same news at the pages store
+  int storedListLength = storedList.length;
+  if(listEquals(storedList, blocList) == false) {
+    if(storedList.length > 10) {
+      if(listEquals(storedList.sublist(storedListLength - 10, storedListLength), blocList) == false) {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+  return true;
+}
 
 List<NewsItem> convertedNewsList (dynamic responseData) {
   List<NewsItem> newsList = [];
@@ -93,11 +107,9 @@ List<NewsItem> convertedNewsList (dynamic responseData) {
   String content = "";
   if(results.isNotEmpty) {
     for(int i = 0; i < results.length ; i++) {
-
       if(results[i]["blocks"]["totalBodyBlocks"] != 0) {
         content = results[i]["blocks"]["body"][0]["bodyTextSummary"].toString();
       }
-
       Map<String, dynamic> json = {
         "headline" : results[i]["fields"]["headline"] ,
         "trailText": stripHtml(results[i]["fields"]["trailText"]),
@@ -127,14 +139,10 @@ String stripHtml(String text) {
 
 String convertPublishDate(String date) {
   String now = DateTime.now().toString();
-
-  String convTime = "";
   if(date.substring(8, 10) == now.substring(8, 10)){
-    convTime = date.substring(11, 16);
-  } else {
-    convTime = date.substring(0,10);
+    return date.substring(11, 16);
   }
-  return convTime;
+  return date.substring(0,10);
 }
 
 Widget buildLoaderListItem() {
