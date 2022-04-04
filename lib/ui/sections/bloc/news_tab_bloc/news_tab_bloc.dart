@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:newsapp/data/dio_error_handler.dart';
 import 'package:newsapp/data/models/news/news.dart';
-import 'package:newsapp/data/services/news_service/news_sections_service.dart';
+import 'package:newsapp/data/services/news_service.dart';
 
 part 'news_tab_bloc.freezed.dart';
 part 'news_tab_event.dart';
@@ -14,16 +14,18 @@ class NewsTabBloc extends Bloc<NewsTabEvent, NewsTabState> {
   List<NewsItem> _news = [];
   int  _currentPage = 1;
   int _pages = 0;
+  String currentSection = "";
 
   NewsTabBloc() : super(const NewsTabState.initial()) {
     on<NewsTabEvent> ((event, emit) async {
       await event.when(
-        loadNews: () async{
+        loadNews: (chosenSection) async{
           _loadReset(emit);
+          currentSection = chosenSection ?? "world";
           try {
-            _news = await NewsSectionsService().getNewsSection(_currentPage);
+            _news = await NewsService().getNewsSection(_currentPage, currentSection);
             _checkPages(_news);
-            _emitHomeNewsList(emit);
+            _emitNewsTabList(emit);
           } on DioError catch (error) {
             emit(NewsTabState.newsError(
                 APIErrorHandler.fromDioError(error).message ?? tr("error.unexpected_error"))
@@ -36,9 +38,9 @@ class NewsTabBloc extends Bloc<NewsTabEvent, NewsTabState> {
           try {
             if(_pages != 0) {
               if(_currentPage < _pages) {
-                _news = await NewsSectionsService().getNewsSection(_currentPage);
+                _news = await NewsService().getNewsSection(_currentPage, currentSection);
               }
-              _emitHomeNewsList(emit);
+              _emitNewsTabList(emit);
             }
           } on DioError catch (error) {
             emit(NewsTabState.newsError(
@@ -56,7 +58,7 @@ class NewsTabBloc extends Bloc<NewsTabEvent, NewsTabState> {
     }
   }
 
-  void _emitHomeNewsList(Emitter<NewsTabState> emit) {
+  void _emitNewsTabList(Emitter<NewsTabState> emit) {
     if (_currentPage == _pages || _currentPage > _pages) {
       emit(NewsTabState.loadedNews(_news, isTheEndOfList: true));
     } else {

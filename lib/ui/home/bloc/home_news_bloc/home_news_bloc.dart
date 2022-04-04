@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:bloc/bloc.dart';
 import 'package:newsapp/data/dio_error_handler.dart';
 import 'package:newsapp/data/models/news/news.dart';
-import 'package:newsapp/data/services/news_service/search_news_service.dart';
+import 'package:newsapp/data/services/news_service.dart';
 import 'package:newsapp/ui/home/widgets/filters/filters_data.dart';
 
 part 'home_news_bloc.freezed.dart';
@@ -24,7 +24,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           unfilteredNews: () async {
             _loadReset(emit);
             try {
-              _news = await SearchNewsService().getNews();
+              _news = await NewsService().getNews();
               _checkPages(_news);
               _emitHomeNewsList(emit);
             }  on DioError catch (error) {
@@ -36,7 +36,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           searchNews: (String? query) async {
             _loadReset(emit);
             try {
-              _news = await SearchNewsService().getNews(
+              _news = await NewsService().getNews(
                   queryTerm: query,
                   orderBy: FiltersData().orderBy,
                   fromDate: FiltersData().fromDate,
@@ -53,7 +53,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           orderBy: (String? orderBy) async{
             _loadReset(emit);
             try {
-              _news = await SearchNewsService().getNews(
+              _news = await NewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
                   orderBy: orderBy,
                   fromDate: FiltersData().fromDate,
@@ -70,7 +70,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
           selectDate: (String? fromDate, String? toDate) async{
             _loadReset(emit);
             try {
-              _news = await SearchNewsService().getNews(
+              _news = await NewsService().getNews(
                   queryTerm: FiltersData().searchQuery,
                   orderBy: FiltersData().orderBy,
                   fromDate: fromDate,
@@ -90,7 +90,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
             try {
               if(_pages != 0) {
                 if(_currentPage < _pages) {
-                  _news = await SearchNewsService().getNews(
+                  _news = await NewsService().getNews(
                       queryTerm: FiltersData().searchQuery,
                       orderBy: FiltersData().orderBy,
                       fromDate: FiltersData().fromDate,

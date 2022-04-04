@@ -9,7 +9,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:newsapp/data/dio_error_handler.dart';
 import 'package:newsapp/data/models/weather/weather.dart';
 import 'package:newsapp/data/secure_storage.dart';
-import 'package:newsapp/data/services/weather_service/weather_service.dart';
+import 'package:newsapp/data/services/weather_service.dart';
 
 part 'weather_bloc.freezed.dart';
 part 'weather_event.dart';

@@ -17,8 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NewsTabEventTearOff {
   const _$NewsTabEventTearOff();
 
-  _LoadNews loadNews() {
-    return const _LoadNews();
+  _LoadNews loadNews({String? chosenSection}) {
+    return _LoadNews(
+      chosenSection: chosenSection,
+    );
   }
 
   _LoadNextPage loadNextPage() {
@@ -33,19 +35,19 @@ const $NewsTabEvent = _$NewsTabEventTearOff();
 mixin _$NewsTabEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadNews,
+    required TResult Function(String? chosenSection) loadNews,
     required TResult Function() loadNextPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loadNews,
+    TResult Function(String? chosenSection)? loadNews,
     TResult Function()? loadNextPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadNews,
+    TResult Function(String? chosenSection)? loadNews,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) =>
@@ -91,6 +93,7 @@ class _$NewsTabEventCopyWithImpl<$Res> implements $NewsTabEventCopyWith<$Res> {
 abstract class _$LoadNewsCopyWith<$Res> {
   factory _$LoadNewsCopyWith(_LoadNews value, $Res Function(_LoadNews) then) =
       __$LoadNewsCopyWithImpl<$Res>;
+  $Res call({String? chosenSection});
 }
 
 /// @nodoc
@@ -101,54 +104,78 @@ class __$LoadNewsCopyWithImpl<$Res> extends _$NewsTabEventCopyWithImpl<$Res>
 
   @override
   _LoadNews get _value => super._value as _LoadNews;
+
+  @override
+  $Res call({
+    Object? chosenSection = freezed,
+  }) {
+    return _then(_LoadNews(
+      chosenSection: chosenSection == freezed
+          ? _value.chosenSection
+          : chosenSection // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_LoadNews implements _LoadNews {
-  const _$_LoadNews();
+  const _$_LoadNews({this.chosenSection});
+
+  @override
+  final String? chosenSection;
 
   @override
   String toString() {
-    return 'NewsTabEvent.loadNews()';
+    return 'NewsTabEvent.loadNews(chosenSection: $chosenSection)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _LoadNews);
+        (other.runtimeType == runtimeType &&
+            other is _LoadNews &&
+            const DeepCollectionEquality()
+                .equals(other.chosenSection, chosenSection));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(chosenSection));
+
+  @JsonKey(ignore: true)
+  @override
+  _$LoadNewsCopyWith<_LoadNews> get copyWith =>
+      __$LoadNewsCopyWithImpl<_LoadNews>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadNews,
+    required TResult Function(String? chosenSection) loadNews,
     required TResult Function() loadNextPage,
   }) {
-    return loadNews();
+    return loadNews(chosenSection);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loadNews,
+    TResult Function(String? chosenSection)? loadNews,
     TResult Function()? loadNextPage,
   }) {
-    return loadNews?.call();
+    return loadNews?.call(chosenSection);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadNews,
+    TResult Function(String? chosenSection)? loadNews,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) {
     if (loadNews != null) {
-      return loadNews();
+      return loadNews(chosenSection);
     }
     return orElse();
   }
@@ -186,7 +213,12 @@ class _$_LoadNews implements _LoadNews {
 }
 
 abstract class _LoadNews implements NewsTabEvent {
-  const factory _LoadNews() = _$_LoadNews;
+  const factory _LoadNews({String? chosenSection}) = _$_LoadNews;
+
+  String? get chosenSection;
+  @JsonKey(ignore: true)
+  _$LoadNewsCopyWith<_LoadNews> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -229,7 +261,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadNews,
+    required TResult Function(String? chosenSection) loadNews,
     required TResult Function() loadNextPage,
   }) {
     return loadNextPage();
@@ -238,7 +270,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loadNews,
+    TResult Function(String? chosenSection)? loadNews,
     TResult Function()? loadNextPage,
   }) {
     return loadNextPage?.call();
@@ -247,7 +279,7 @@ class _$_LoadNextPage implements _LoadNextPage {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadNews,
+    TResult Function(String? chosenSection)? loadNews,
     TResult Function()? loadNextPage,
     required TResult orElse(),
   }) {

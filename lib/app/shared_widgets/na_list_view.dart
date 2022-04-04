@@ -74,7 +74,7 @@ class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver
 
   void scrollToTop() {
     scrollController.animateTo(0,
-        duration: const Duration(microseconds: 1), curve: Curves.linear);
+        duration: const Duration(milliseconds: 20), curve: Curves.linear);
   }
 
   @override

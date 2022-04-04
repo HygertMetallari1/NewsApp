@@ -25,11 +25,7 @@ class _NewsTabState extends State<NewsTab> {
         PageStorage.of(context)!.readState(context, identifier: widget.key);
     if (fetchedNews != null) {
       _news = fetchedNews;
-      if (_news.isEmpty) {
-        newsTabBloc.add(const NewsTabEvent.loadNews());
-      }
     }
-    newsTabBloc.add(const NewsTabEvent.loadNews());
   }
 
   void saveToPageStorage(List<NewsItem> newNewsState) {
@@ -47,9 +43,9 @@ class _NewsTabState extends State<NewsTab> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: RefreshIndicator(
-      onRefresh: () async {
-        return newsTabBloc.add(const NewsTabEvent.loadNews());
-      },
+        onRefresh: () async {
+          return newsTabBloc.add(const NewsTabEvent.loadNews());
+        },
       color: NAColors.blue,
       child: BlocListener<NewsTabBloc, NewsTabState>(
         listener: (context, state) {
