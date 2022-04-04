@@ -5,6 +5,7 @@ import 'package:newsapp/app/shared_widgets/na_news_item.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
+import 'package:newsapp/ui/sections/bloc/news_tab_bloc/news_tab_bloc.dart';
 
 class NewsListView extends StatefulWidget {
   final List<NewsItem> news;
@@ -31,6 +32,12 @@ class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver
       setState(() {
         bloc = HomeBlocNews();
         bloc =  BlocProvider.of<HomeBlocNews>(context)..add(const HomeNewsEvent.loadNextPage());
+      });
+    }
+    if(widget.blocType == NewsTabBloc) {
+      setState(() {
+        bloc = NewsTabBloc();
+        bloc = BlocProvider.of<NewsTabBloc>(context)..add(const NewsTabEvent.loadNextPage());
       });
     }
   }

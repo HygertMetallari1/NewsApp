@@ -17,7 +17,6 @@ import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home/screens/weather_bottom_sheet.dart';
 import 'package:newsapp/ui/home/widgets/filters/date_selector.dart';
 import 'package:newsapp/ui/home/widgets/filters/order_by_pop_menu.dart';
-import 'package:collection/collection.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key = const PageStorageKey('homeNews')}) : super(key: key);
@@ -31,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
   HomeBlocNews homeBlocNews = HomeBlocNews();
   List<NewsItem> _news = [];
   bool? _isTheEndOfList;
-  bool savedTheNewsOnce = false;
 
   void updateNewsState() {
     final fetchedNews = PageStorage.of(context)!.readState(context, identifier: widget.key);
@@ -145,7 +143,6 @@ class _HomeScreenState extends State<HomeScreen> {
       _news.addAll(news);
       _isTheEndOfList = isTheEndOfList;
     saveToPageStorage(_news);
-    savedTheNewsOnce = true;
   }
 
   @swidget

@@ -2,9 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/shared_widgets/na_app_bar.dart';
+import 'package:newsapp/ui/sections/screens/culture_tab.dart';
+import 'package:newsapp/ui/sections/screens/lifestyle_tab.dart';
+import 'package:newsapp/ui/sections/screens/news_tab.dart';
+import 'package:newsapp/ui/sections/screens/sport_tab.dart';
 
 class SectionsScreen extends StatefulWidget {
-  const SectionsScreen({Key? key = const PageStorageKey('headlinesNews')}) : super(key: key);
+  const SectionsScreen({Key? key = const PageStorageKey('newsSections')}) : super(key: key);
 
   @override
   _SectionsScreenState createState() => _SectionsScreenState();
@@ -53,6 +57,14 @@ class _SectionsScreenState extends State<SectionsScreen> {
               ),
             ],
           ),
+        ),
+        body: const TabBarView(
+          children: <Widget>[
+            NewsTab(),
+            SportTab(),
+            LifestyleTab(),
+            CultureTab(),
+          ],
         ),
       ),
     );

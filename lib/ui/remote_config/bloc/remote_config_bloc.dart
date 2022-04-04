@@ -6,7 +6,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:newsapp/data/models/na_remote_config/na_remote_config.dart';
-import 'package:newsapp/data/secure_storage.dart';
+
 
 part 'remote_config_bloc.freezed.dart';
 part 'remote_config_event.dart';
