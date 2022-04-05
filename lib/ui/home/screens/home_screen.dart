@@ -30,16 +30,15 @@ class _HomeScreenState extends State<HomeScreen> {
   HomeBlocNews homeBlocNews = HomeBlocNews();
   List<NewsItem> _news = [];
   bool? _isTheEndOfList;
+  static const List<String> subSections = <String>[
+    "World",
+    ""
+  ];
 
   void updateNewsState() {
     final fetchedNews = PageStorage.of(context)!.readState(context, identifier: widget.key);
     if (fetchedNews != null ) {
         _news = fetchedNews;
-      if(_news.isEmpty) {
-        homeBlocNews.add(const HomeNewsEvent.unfilteredNews());
-      }
-    } else {
-      homeBlocNews.add(const HomeNewsEvent.unfilteredNews());
     }
   }
 

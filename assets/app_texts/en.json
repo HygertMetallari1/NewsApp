@@ -10,9 +10,33 @@
     "lifestyle": "Lifestyle",
     "culture": "Culture"
   },
+  "sub_categories": {
+    "news_tab": {
+      "world": "World",
+      "politics": "Politics",
+      "environment": "Environment",
+      "science": "Science",
+      "business": "Business",
+      "technology": "Technology"
+    },
+    "sport_tab": {
+      "football": "Football"
+    },
+    "life_and_style_tab": {
+      "food": "Food",
+      "fashion": "Fashion",
+      "film": "Film",
+      "travel": "travel"
+    },
+    "culture_tab": {
+      "books": "Books",
+      "music": "Music",
+      "tv_and_radio": "Tv-And-Radio",
+      "games": "Games",
+      "stage": "Stage"
+    }
+  },
   "home": {
-    "your_briefings": "Your\nbriefing",
-    "your_local_weather": "Your local weather",
     "turn_on_location": "Enable location service on your device to see weather on your current location ",
     "search": "Search news"
   },

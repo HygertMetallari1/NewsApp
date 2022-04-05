@@ -86,7 +86,6 @@ final ThemeData naTheme = ThemeData(
       fontWeight: FontWeight.w700,
       fontSize: 36 * fontMultiplier,
       letterSpacing: 0.25,
-      color: NAColors.black,
     ),
     headline5: TextStyle(
       fontWeight: FontWeight.w700,

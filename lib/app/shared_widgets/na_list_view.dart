@@ -21,7 +21,7 @@ class NewsListView extends StatefulWidget {
   _NewsListViewState createState() => _NewsListViewState();
 }
 
-class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver{
+class _NewsListViewState extends State<NewsListView>{
   ScrollController scrollController = ScrollController();
   late Bloc bloc;
   bool showBackToTopButton = false;
@@ -91,11 +91,12 @@ class _NewsListViewState extends State<NewsListView> with WidgetsBindingObserver
         children: [
             NotificationListener(
             onNotification: (notification) {
-              if(notification is ScrollStartNotification) {
-                WidgetsBinding.instance
-                    ?.addPostFrameCallback((_) => setState(() {
-                      showBackToTopButton = true;
-                }));
+              if(notification is ScrollNotification) {
+                if(mounted) {
+                  setState(() {
+                    showBackToTopButton = true;
+                  });
+                }
               }
               if(notification is ScrollEndNotification){
                 Future.delayed(const Duration(seconds: 5), () {

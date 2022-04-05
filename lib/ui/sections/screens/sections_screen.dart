@@ -73,11 +73,17 @@ class _SectionsScreenState extends State<SectionsScreen> {
 
   @swidget
   _buildTabLabel(BuildContext context, ThemeData theme, String label) {
-    return Text(
-      label,
-      style: theme.textTheme.bodyText2?.copyWith(
-        fontWeight: FontWeight.bold,
-      ),
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            label,
+            style: theme.textTheme.bodyText2?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

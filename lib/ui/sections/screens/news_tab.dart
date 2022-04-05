@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/shared_widgets/na_error_screen.dart';
 import 'package:newsapp/app/shared_widgets/na_list_view.dart';
 import 'package:newsapp/app/theme.dart';
@@ -19,6 +20,16 @@ class _NewsTabState extends State<NewsTab> {
   NewsTabBloc newsTabBloc = NewsTabBloc();
   List<NewsItem> _news = [];
   bool? _isTheEndOfList;
+  int? _selectedSubCategory = 0;
+
+  static List<String> subCategories = <String> [
+    tr("sub_categories.news_tab.world"),
+    tr("sub_categories.news_tab.politics"),
+    tr("sub_categories.news_tab.environment"),
+    tr("sub_categories.news_tab.science"),
+    tr("sub_categories.news_tab.world.business"),
+    tr("sub_categories.news_tab.technology"),
+  ];
 
   void updateNewsTabState() {
     final fetchedNews =
@@ -41,6 +52,7 @@ class _NewsTabState extends State<NewsTab> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
         body: RefreshIndicator(
         onRefresh: () async {
@@ -58,6 +70,16 @@ class _NewsTabState extends State<NewsTab> {
             padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
             child: Column(
               children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: const ScrollPhysics(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ..._buildNewsSectionChipMenu(context, theme),
+                    ],
+                  ),
+                ),
                 BlocBuilder<NewsTabBloc, NewsTabState>(
                   builder: (context, state) {
                     return state.maybeWhen(
@@ -106,6 +128,35 @@ class _NewsTabState extends State<NewsTab> {
             )),
       ),
     ));
+  }
+
+  @swidget
+  _buildNewsSectionChipMenu(BuildContext context, ThemeData theme) {
+    return List.generate(
+        subCategories.length, (index) => Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: ChoiceChip(
+          label: Text(
+            subCategories[index],
+            style: theme.textTheme.bodyText2?.copyWith(
+              color: _selectedSubCategory == index ? NAColors.white : NAColors.black
+            ),
+          ),
+          side: BorderSide(
+              color: _selectedSubCategory == index ? NAColors.white : NAColors.black.withOpacity(0.1)
+          ),
+          selectedColor: NAColors.blue,
+          backgroundColor: NAColors.white,
+          selected: _selectedSubCategory == index,
+          onSelected: (selected) {
+            setState(() {
+              _selectedSubCategory = selected ? index : null;
+            });
+            BlocProvider.of<NewsTabBloc>(context).add(NewsTabEvent.loadNews(chosenSection: subCategories[index].toLowerCase()));
+          },
+      ),
+        )
+    );
   }
   void _saveHomeNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
     _news.addAll(news);
