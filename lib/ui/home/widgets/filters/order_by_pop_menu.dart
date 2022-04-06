@@ -31,6 +31,9 @@ class _OrderByMenuState extends State<OrderByMenu> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
     return PopupMenuButton(
         padding: const EdgeInsets.only(top: 8.0),
         offset: const Offset(0, kToolbarHeight),
@@ -63,15 +66,15 @@ class _OrderByMenuState extends State<OrderByMenu> {
                     Icon(
                       Icons.sort,
                       size: 20,
-                      color: NAColors.black.withOpacity(0.5),
+                      color: isDarkMode ? NAColors.white.withOpacity(0.5) : NAColors.black.withOpacity(0.5),
                     ),
                   ],
                 ),
-                backgroundColor: NAColors.white,
+                backgroundColor: isDarkMode ? NAColors.black : NAColors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
-                side: BorderSide(color: NAColors.black.withOpacity(0.1))),
+                side: BorderSide(color: isDarkMode ? NAColors.white.withOpacity(0.1) :NAColors.black.withOpacity(0.1))),
             Visibility(
               visible: removeButton,
               child: TouchableOpacity(

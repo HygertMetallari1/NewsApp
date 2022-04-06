@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 
 class NAColors {
-  static const Color black = Color(0xFF070707);
+  static const Color black = Color.fromRGBO(24,24,24,1);
   static const Color error = Color(0xFFFF3B30);
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color _white16 = Color(0x29FFFFFF);
+  static const Color white = Color.fromRGBO(228,230,235,1);
   static const Color gray = Colors.grey;
-  static Color blackBlendWithWhite = Color.alphaBlend(_white16, black);
   static const Color white38 = Color(0x61FFFFFF);
   static const Color blue = Color.fromRGBO(72, 133, 237, 1);
   static const Color calendarAccent = Color(0xFF7B61FF);
-  static Color black006 = black.withOpacity(.06);
 }
 
 extension FontWeightExt on FontWeight {
@@ -25,7 +22,6 @@ double fontMultiplier = isSmallScreen ? 0.8 : 1;
 
 final ThemeData naTheme = ThemeData(
   primaryColor: NAColors.white,
-  dialogBackgroundColor: NAColors.white,
   backgroundColor: NAColors.white,
   scaffoldBackgroundColor: NAColors.white,
   splashColor: Colors.transparent,
@@ -129,3 +125,48 @@ final ThemeData naTheme = ThemeData(
     ),
   ),
 );
+
+ThemeData darkThemeData(BuildContext context) {
+  return ThemeData.dark().copyWith(
+    backgroundColor: NAColors.black,
+    primaryColor: NAColors.black,
+    scaffoldBackgroundColor: NAColors.black,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+
+    //APP BAR Dark Mode
+    appBarTheme: const AppBarTheme(
+        color: NAColors.black,
+        elevation: 0,
+        centerTitle: true
+    ),
+    //BOTTOM NAV BAR Dark Mode
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      elevation: 1,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: NAColors.black,
+      selectedItemColor: NAColors.blue,
+      unselectedItemColor: NAColors.white,
+      selectedIconTheme: IconThemeData(
+          color: NAColors.blue
+      ),
+      unselectedIconTheme: IconThemeData(
+          color: NAColors.white
+      ),
+    ),
+
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+      },
+    ),
+    //Color scheme dark mode
+    colorScheme: ThemeData.dark().colorScheme.copyWith(
+      primary: NAColors.black,
+      secondary: NAColors.black,
+    ),
+  );
+}

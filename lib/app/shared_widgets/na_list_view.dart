@@ -6,6 +6,8 @@ import 'package:newsapp/app/shared_widgets/na_news_item.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
+import 'package:newsapp/ui/sections/blocs/culture_tab_bloc/culture_tab_bloc.dart';
+import 'package:newsapp/ui/sections/blocs/lifestyle_tab_bloc/lifestyle_tab_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/news_tab_bloc/news_tab_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/sport_tab_bloc/sport_tab_bloc.dart';
 
@@ -48,6 +50,18 @@ class _NewsListViewState extends State<NewsListView>{
         bloc = BlocProvider.of<SportTabBloc>(context)..add(const SportTabEvent.loadNextPage());
       });
     }
+    if(widget.blocType == LifestyleTabBloc) {
+      setState(() {
+        bloc = LifestyleTabBloc();
+        bloc = BlocProvider.of<LifestyleTabBloc>(context)..add(const LifestyleTabEvent.loadNextPage());
+      });
+    }
+    if(widget.blocType == CultureTabBloc) {
+      setState(() {
+        bloc = CultureTabBloc();
+        bloc = BlocProvider.of<CultureTabBloc>(context)..add(const CultureTabEvent.loadNextPage());
+      });
+    }
   }
 
   bool isScrollAtBottom() {
@@ -62,7 +76,7 @@ class _NewsListViewState extends State<NewsListView>{
   @override
   void didChangeDependencies() {
     setState(() {
-      isFirstTimeAdding = widget.news.length == 10;
+      isFirstTimeAdding = widget.news.length <= 10;
     });
     scrollController.addListener(() {
       if (isScrollAtBottom()) {
@@ -70,7 +84,7 @@ class _NewsListViewState extends State<NewsListView>{
       }
       //To override the saved list position and automatically scroll the list to the top
       //whenever there is a new list loaded
-      if(scrollController.offset != 0 && isFirstTimeAdding)  {
+      if(isFirstTimeAdding)  {
         scrollController.jumpTo(0);
         setState(() {
           isFirstTimeAdding = false;

@@ -36,6 +36,7 @@ class _NewsTabState extends State<NewsTab> with NewsListMixin{
 
   @override
   void didChangeDependencies() {
+    newsTabBloc = BlocProvider.of<NewsTabBloc>(context);
       setState(() {
         _news = getStoredNewsList();
       });

@@ -38,6 +38,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
     final border = OutlineInputBorder(
       borderSide: BorderSide.none,
       borderRadius: BorderRadius.circular(12),
@@ -72,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
             });
           },
           style: theme.textTheme.bodyText1?.copyWith(
-            color: NAColors.black,
+            color: isDarkMode ? NAColors.white :NAColors.black,
             fontSize: 15,
           ),
           decoration: InputDecoration(

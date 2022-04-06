@@ -8,11 +8,13 @@ import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home_tab_navigator/cubit/tab_cubit.dart';
 import 'package:newsapp/ui/home_tab_navigator/screen/home_tab_navigator.dart';
 import 'package:newsapp/ui/remote_config/bloc/remote_config_bloc.dart';
+import 'package:newsapp/ui/sections/blocs/lifestyle_tab_bloc/lifestyle_tab_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/news_tab_bloc/news_tab_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/sport_tab_bloc/sport_tab_bloc.dart';
 
 import 'app/routing/pages.dart';
 import 'app/theme.dart';
+import 'ui/sections/blocs/culture_tab_bloc/culture_tab_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +37,8 @@ void main() async {
             BlocProvider(create: (_) => WeatherBloc()..add(const WeatherEvent.appStarted())),
             BlocProvider(create: (_) => NewsTabBloc()..add(const NewsTabEvent.loadNews())),
             BlocProvider(create: (_) => SportTabBloc()..add(const SportTabEvent.loadNews())),
+            BlocProvider(create: (_) => LifestyleTabBloc()..add(const LifestyleTabEvent.loadNews())),
+            BlocProvider(create: (_) => CultureTabBloc()..add(const CultureTabEvent.loadNews())),
             BlocProvider(create: (_) => startUpBlocs.tabCubit)
           ], child: const NewsApp(),
         ),
@@ -74,6 +78,7 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
       locale: context.locale,
       routes: pages,
       theme: naTheme,
+      darkTheme: darkThemeData(context),
       themeMode: ThemeMode.system,
       home: const HomeTabNavigator(),
       debugShowCheckedModeBanner: false,

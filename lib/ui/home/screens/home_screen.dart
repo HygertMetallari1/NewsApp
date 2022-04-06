@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> with NewsListMixin{
 
   @override
   void didChangeDependencies() {
+    homeBlocNews = BlocProvider.of<HomeBlocNews>(context);
     _news = getStoredNewsList();
     super.didChangeDependencies();
   }
@@ -141,7 +142,6 @@ class _HomeScreenState extends State<HomeScreen> with NewsListMixin{
             child: Text(
               convertCurrentTime(),
               style: theme.textTheme.bodyText1?.copyWith(
-                color: Colors.black,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.1,
               ),
@@ -155,6 +155,9 @@ class _HomeScreenState extends State<HomeScreen> with NewsListMixin{
 
   @swidget
   _buildWeatherButton(BuildContext context, ThemeData theme) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
         return state.maybeWhen(
@@ -192,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> with NewsListMixin{
                       convertMaxTemp(currentDay.maxTemp),
                       style: theme.textTheme.caption?.copyWith(
                         fontWeight: FontWeight.w400,
-                        color: NAColors.black,
+                        color: isDarkMode ? NAColors.white :NAColors.black,
                         fontSize: 17
                       ),
                     ),

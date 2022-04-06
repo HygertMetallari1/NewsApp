@@ -73,7 +73,7 @@ class _SportTabState extends State<SportTab> with NewsListMixin{
                                 errorMessage: (tr("errors.empty_list")));
                           }
                           if (areTheSame(_news, news) == false) {
-                            _saveHomeNewsToPageStorage(news, isTheEndOfList);
+                            _saveSportNewsToPageStorage(news, isTheEndOfList);
                           }
                           return NewsListView(
                             news: _news,
@@ -99,7 +99,7 @@ class _SportTabState extends State<SportTab> with NewsListMixin{
         ));
   }
 
-  void _saveHomeNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
+  void _saveSportNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
     _news.addAll(news);
     _isTheEndOfList = isTheEndOfList;
     saveToPageStorage(_news);

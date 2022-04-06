@@ -51,6 +51,9 @@ class _DateSelectorState extends State<DateSelector> {
 
   @swidget
   _buildSelectorChip(BuildContext context, ThemeData theme, String label) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
     return TouchableOpacity(
       onPressed: () async {
         await showDateRangePicker(
@@ -104,16 +107,16 @@ class _DateSelectorState extends State<DateSelector> {
                   Icon(
                     Icons.calendar_today_rounded,
                     size: 20,
-                    color: NAColors.black.withOpacity(0.5),
+                    color:  isDarkMode ? NAColors.white.withOpacity(0.5) : NAColors.black.withOpacity(0.5),
                   ),
                 ],
               ),
-              backgroundColor: NAColors.white,
+              backgroundColor: isDarkMode ? NAColors.black : NAColors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
               side: BorderSide(
-                  color: NAColors.black.withOpacity(0.1)
+                  color: isDarkMode ? NAColors.white.withOpacity(0.1) :NAColors.black.withOpacity(0.1),
               )
           ),
           Visibility(

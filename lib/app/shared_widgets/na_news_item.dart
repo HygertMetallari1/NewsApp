@@ -72,10 +72,6 @@ class _NewsItemUiState extends State<NewsItemUi> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                            widget.trailText,
-                          style: theme.textTheme.bodyText1,
-                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: Row(

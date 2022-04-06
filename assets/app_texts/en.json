@@ -19,14 +19,11 @@
       "business": "Business",
       "technology": "Technology"
     },
-    "sport_tab": {
-      "football": "Football"
-    },
     "life_and_style_tab": {
       "food": "Food",
       "fashion": "Fashion",
       "film": "Film",
-      "travel": "travel"
+      "travel": "Travel"
     },
     "culture_tab": {
       "books": "Books",
