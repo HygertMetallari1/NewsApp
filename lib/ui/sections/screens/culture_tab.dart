@@ -11,18 +11,20 @@ import 'package:newsapp/ui/news_list_mixin.dart';
 import 'package:newsapp/ui/sections/blocs/culture_tab_bloc/culture_tab_bloc.dart';
 
 class CultureTab extends StatefulWidget {
-  const CultureTab({Key? key = const PageStorageKey('cultureTab')}) : super(key: key);
+  const CultureTab({Key? key = const PageStorageKey('cultureTab')})
+      : super(key: key);
 
   @override
   _CultureTabState createState() => _CultureTabState();
 }
 
-class _CultureTabState extends State<CultureTab> with NewsListMixin{
+class _CultureTabState extends State<CultureTab> with HelperMixin {
   CultureTabBloc cultureTabBloc = CultureTabBloc();
   List<NewsItem> _news = [];
   bool? _isTheEndOfList;
   int? _selectedSubCategory = -1;
 
+  static const int _cultureSectionIndex = 3;
   static List<String> subCategories = <String>[
     tr("sub_categories.culture_tab.books"),
     tr("sub_categories.culture_tab.music"),
@@ -35,6 +37,7 @@ class _CultureTabState extends State<CultureTab> with NewsListMixin{
   void didChangeDependencies() {
     cultureTabBloc = BlocProvider.of<CultureTabBloc>(context);
     setState(() {
+      _selectedSubCategory = getSubSectionIndex(_cultureSectionIndex);
       _news = getStoredNewsList();
     });
     super.didChangeDependencies();
@@ -45,115 +48,119 @@ class _CultureTabState extends State<CultureTab> with NewsListMixin{
     var theme = Theme.of(context);
     return Scaffold(
         body: RefreshIndicator(
-          onRefresh: () async {
-            return cultureTabBloc.add(const CultureTabEvent.loadNews());
-          },
-          color: NAColors.blue,
-          child: BlocListener<CultureTabBloc, CultureTabState>(
-            listener: (context, state) {
-              state.whenOrNull(resetList: () {
-                _news = [];
-                saveToPageStorage(_news);
-              });
-            },
-            child: Padding(
-                padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
-                child: Column(
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      physics: const ScrollPhysics(),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ..._buildLifestyleSectionChipMenu(context, theme),
-                        ],
-                      ),
-                    ),
-                    BlocBuilder<CultureTabBloc, CultureTabState>(
-                      builder: (context, state) {
-                        return state.maybeWhen(loadingNews: () {
-                          if (_news.isEmpty) {
-                            return Padding(
-                              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5 ),
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: NAColors.blue,
-                                ),
-                              ),
-                            );
-                          }
-                          return NewsListView(
-                            news: _news,
-                            isTheEndOfList: _isTheEndOfList,
-                            blocType: CultureTabBloc,
-                          );
-                        }, loadedNews: (news, isTheEndOfList) {
-                          if (news.isEmpty) {
-                            return NAErrorScreen(
-                                errorMessage: (tr("errors.empty_list")));
-                          }
-                          if (areTheSame(_news, news) == false) {
-                            _saveCultureNewsToPageStorage(news, isTheEndOfList);
-                          }
-                          return NewsListView(
-                            news: _news,
-                            isTheEndOfList: _isTheEndOfList,
-                            blocType: CultureTabBloc,
-                          );
-                        }, newsError: (newsError) {
-                          return NAErrorScreen(
-                            errorMessage: newsError,
-                          );
-                        }, orElse: () {
-                          return NewsListView(
-                            news: _news,
-                            isTheEndOfList: _isTheEndOfList,
-                            blocType: CultureTabBloc,
-                          );
-                        });
-                      },
-                    ),
-                  ],
-                )),
-          ),
-        ));
+      onRefresh: () async {
+        return cultureTabBloc.add(const CultureTabEvent.loadNews());
+      },
+      color: NAColors.blue,
+      child: BlocListener<CultureTabBloc, CultureTabState>(
+        listener: (context, state) {
+          state.whenOrNull(resetList: () {
+            _news = [];
+            saveToPageStorage(_news);
+          });
+        },
+        child: Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
+            child: Column(
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: const ScrollPhysics(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ..._buildLifestyleSectionChipMenu(context, theme),
+                    ],
+                  ),
+                ),
+                BlocBuilder<CultureTabBloc, CultureTabState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(loadingNews: () {
+                      if (_news.isEmpty) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height / 5),
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: NAColors.blue,
+                            ),
+                          ),
+                        );
+                      }
+                      return NewsListView(
+                        news: _news,
+                        isTheEndOfList: _isTheEndOfList,
+                        blocType: CultureTabBloc,
+                      );
+                    }, loadedNews: (news, isTheEndOfList) {
+                      if (news.isEmpty) {
+                        return NAErrorScreen(
+                            errorMessage: (tr("errors.empty_list")));
+                      }
+                      if (areTheSame(_news, news) == false) {
+                        _saveCultureNewsToPageStorage(news, isTheEndOfList);
+                      }
+                      return NewsListView(
+                        news: _news,
+                        isTheEndOfList: _isTheEndOfList,
+                        blocType: CultureTabBloc,
+                      );
+                    }, newsError: (newsError) {
+                      return NAErrorScreen(
+                        errorMessage: newsError,
+                      );
+                    }, orElse: () {
+                      return NewsListView(
+                        news: _news,
+                        isTheEndOfList: _isTheEndOfList,
+                        blocType: CultureTabBloc,
+                      );
+                    });
+                  },
+                ),
+              ],
+            )),
+      ),
+    ));
   }
 
   @swidget
   _buildLifestyleSectionChipMenu(BuildContext context, ThemeData theme) {
     return List.generate(
         subCategories.length,
-            (index) => Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: ChoiceChip(
-            label: Text(
-              subCategories[index],
-              style: theme.textTheme.bodyText2?.copyWith(
-                  color: _selectedSubCategory == index
-                      ? NAColors.white
-                      : NAColors.black),
-            ),
-            side: BorderSide(
-                color: _selectedSubCategory == index
-                    ? NAColors.white
-                    : NAColors.black.withOpacity(0.1)),
-            selectedColor: NAColors.blue,
-            backgroundColor: NAColors.white,
-            selected: _selectedSubCategory == index,
-            onSelected: (selected) {
-              setState(() {
-                _selectedSubCategory = selected ? index : null;
-              });
-              BlocProvider.of<CultureTabBloc>(context).add(
-                  CultureTabEvent.loadNews(
-                      chosenSection: subCategories[index].toLowerCase()));
-            },
-          ),
-        ));
+        (index) => Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: ChoiceChip(
+                label: Text(
+                  subCategories[index],
+                  style: theme.textTheme.bodyText2?.copyWith(
+                      color: _selectedSubCategory == index
+                          ? NAColors.white
+                          : NAColors.black),
+                ),
+                side: BorderSide(
+                    color: _selectedSubCategory == index
+                        ? NAColors.white
+                        : NAColors.black.withOpacity(0.1)),
+                selectedColor: NAColors.blue,
+                backgroundColor: NAColors.white,
+                selected: _selectedSubCategory == index,
+                onSelected: (selected) {
+                  setState(() {
+                    _selectedSubCategory = selected ? index : null;
+                    saveSubSectionIndex(selected ? index : -1, _cultureSectionIndex);
+                  });
+                  BlocProvider.of<CultureTabBloc>(context).add(
+                      CultureTabEvent.loadNews(
+                          chosenSection: subCategories[index].toLowerCase()));
+                },
+              ),
+            )
+        );
   }
 
-  void _saveCultureNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
+  void _saveCultureNewsToPageStorage(
+      List<NewsItem> news, bool? isTheEndOfList) {
     _news.addAll(news);
     _isTheEndOfList = isTheEndOfList;
     saveToPageStorage(_news);

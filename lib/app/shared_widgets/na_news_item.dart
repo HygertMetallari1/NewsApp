@@ -31,6 +31,8 @@ class _NewsItemUiState extends State<NewsItemUi> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -82,7 +84,7 @@ class _NewsItemUiState extends State<NewsItemUi> {
                                   child: Text(
                                     "Author: " + widget.author!,
                                     style: theme.textTheme.caption?.copyWith(
-                                      color: NAColors.black.withOpacity(0.6),
+                                      color: isDarkMode ? NAColors.gray  :NAColors.black.withOpacity(0.6),
                                       fontSize: 11,
                                       fontStyle: FontStyle.italic,
                                     ),
@@ -92,7 +94,7 @@ class _NewsItemUiState extends State<NewsItemUi> {
                               Text(
                                 widget.publishDate,
                                 style: theme.textTheme.caption?.copyWith(
-                                  color: NAColors.black.withOpacity(0.6),
+                                  color: isDarkMode ? NAColors.gray  :NAColors.black.withOpacity(0.6),
                                   fontSize: 11,
                                 ),
                               )

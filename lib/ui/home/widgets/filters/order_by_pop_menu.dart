@@ -22,6 +22,7 @@ class _OrderByMenuState extends State<OrderByMenu> {
   void initState() {
     if (FiltersData().orderBy != null) {
       selectedItem = FiltersData().orderBy!;
+      removeButton = true;
     } else {
       selectedItem = tr("pop_menu.order_by");
     }

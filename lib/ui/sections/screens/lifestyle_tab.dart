@@ -17,12 +17,13 @@ class LifestyleTab extends StatefulWidget {
   _LifestyleTabState createState() => _LifestyleTabState();
 }
 
-class _LifestyleTabState extends State<LifestyleTab> with NewsListMixin{
+class _LifestyleTabState extends State<LifestyleTab> with HelperMixin{
   LifestyleTabBloc lifestyleTabBloc = LifestyleTabBloc();
   List<NewsItem> _news = [];
   bool? _isTheEndOfList;
   int? _selectedSubCategory = -1;
 
+  static const int _lifeStyleSectionIndex = 2;
   static List<String> subCategories = <String>[
     tr("sub_categories.life_and_style_tab.food"),
     tr("sub_categories.life_and_style_tab.fashion"),
@@ -35,6 +36,7 @@ class _LifestyleTabState extends State<LifestyleTab> with NewsListMixin{
     lifestyleTabBloc = BlocProvider.of<LifestyleTabBloc>(context);
     setState(() {
       _news = getStoredNewsList();
+      _selectedSubCategory = getSubSectionIndex(_lifeStyleSectionIndex);
     });
     super.didChangeDependencies();
   }
@@ -139,6 +141,7 @@ class _LifestyleTabState extends State<LifestyleTab> with NewsListMixin{
             onSelected: (selected) {
               setState(() {
                 _selectedSubCategory = selected ? index : null;
+                saveSubSectionIndex(selected ? index : -1, _lifeStyleSectionIndex);
               });
               BlocProvider.of<LifestyleTabBloc>(context).add(
                   LifestyleTabEvent.loadNews(

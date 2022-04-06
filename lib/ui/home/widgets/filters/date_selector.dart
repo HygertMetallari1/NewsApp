@@ -33,6 +33,7 @@ class _DateSelectorState extends State<DateSelector> {
   void initState() {
     if(isFdEmpty != true && isTdEmpty != true) {
       datePickerChipLabel =  FiltersData().fromDate! + " / " + FiltersData().toDate!;
+      removeButton = true;
     } else {
       datePickerChipLabel = tr("date_selector.select_date");
     }
@@ -62,16 +63,26 @@ class _DateSelectorState extends State<DateSelector> {
           lastDate: now,
           builder: (context, child) {
             return Theme(
-              data: ThemeData.light().copyWith(
-                colorScheme: const ColorScheme.dark(
-                  primary: NAColors.blue,
-                  onPrimary: NAColors.white,
-                  surface: NAColors.blue,
-                  onSurface: NAColors.black,
+              data: isDarkMode
+                  ?ThemeData.dark().copyWith(
+                      colorScheme: const ColorScheme.dark(
+                        primary: NAColors.calendarAccent,
+                        onPrimary: NAColors.black,
+                        surface: NAColors.calendarAccent,
+                        onSurface: NAColors.black,
+                      ),
+                      dialogBackgroundColor: NAColors.black,
+                  )
+                  :ThemeData.light().copyWith(
+                  colorScheme: const ColorScheme.dark(
+                    primary: NAColors.blue,
+                    onPrimary: NAColors.white,
+                    surface: NAColors.blue,
+                    onSurface: NAColors.white,
+                  ),
+                  dialogBackgroundColor: NAColors.white,
                 ),
-                dialogBackgroundColor: NAColors.white,
-              ),
-              child: child!,
+                child: child!,
             );
           },
         ).then((selectedRange) {

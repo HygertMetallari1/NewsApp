@@ -26,7 +26,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with NewsListMixin{
+class _HomeScreenState extends State<HomeScreen> with HelperMixin{
 
   HomeBlocNews homeBlocNews = HomeBlocNews();
   List<NewsItem> _news = [];

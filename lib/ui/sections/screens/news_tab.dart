@@ -18,12 +18,13 @@ class NewsTab extends StatefulWidget {
   _NewsTabState createState() => _NewsTabState();
 }
 
-class _NewsTabState extends State<NewsTab> with NewsListMixin{
+class _NewsTabState extends State<NewsTab> with HelperMixin{
   NewsTabBloc newsTabBloc = NewsTabBloc();
   List<NewsItem> _news = [];
   bool? _isTheEndOfList;
   int? _selectedSubCategory = 0;
 
+  static const int _newsSectionIndex = 0;
   static List<String> subCategories = <String>[
     tr("sub_categories.news_tab.world"),
     tr("sub_categories.news_tab.politics"),
@@ -39,6 +40,7 @@ class _NewsTabState extends State<NewsTab> with NewsListMixin{
     newsTabBloc = BlocProvider.of<NewsTabBloc>(context);
       setState(() {
         _news = getStoredNewsList();
+        _selectedSubCategory = getSubSectionIndex(_newsSectionIndex);
       });
     super.didChangeDependencies();
   }
@@ -147,6 +149,7 @@ class _NewsTabState extends State<NewsTab> with NewsListMixin{
                 onSelected: (selected) {
                   setState(() {
                     _selectedSubCategory = selected ? index : null;
+                    saveSubSectionIndex(selected ? index : 0, _newsSectionIndex);
                   });
                   BlocProvider.of<NewsTabBloc>(context).add(
                       NewsTabEvent.loadNews(

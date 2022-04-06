@@ -16,7 +16,7 @@ class SportTab extends StatefulWidget {
   _SportTabState createState() => _SportTabState();
 }
 
-class _SportTabState extends State<SportTab> with NewsListMixin{
+class _SportTabState extends State<SportTab> with HelperMixin{
   SportTabBloc sportTabBloc = SportTabBloc();
   List<NewsItem> _news = [];
   bool? _isTheEndOfList;

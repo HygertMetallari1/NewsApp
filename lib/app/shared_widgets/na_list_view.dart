@@ -79,19 +79,23 @@ class _NewsListViewState extends State<NewsListView>{
       isFirstTimeAdding = widget.news.length <= 10;
     });
     scrollController.addListener(() {
-      if (isScrollAtBottom()) {
-        loadNextPage();
-      }
-      //To override the saved list position and automatically scroll the list to the top
-      //whenever there is a new list loaded
-      if(isFirstTimeAdding)  {
-        scrollController.jumpTo(0);
-        setState(() {
-          isFirstTimeAdding = false;
-        });
-      }
+      _scrollControllerListener();
     });
     super.didChangeDependencies();
+  }
+
+  void _scrollControllerListener() {
+    if (isScrollAtBottom()) {
+      loadNextPage();
+    }
+    //To override the saved list position and automatically scroll the list to the top
+    //whenever there is a new list loaded
+    if(isFirstTimeAdding)  {
+      scrollController.jumpTo(0);
+      setState(() {
+        isFirstTimeAdding = false;
+      });
+    }
   }
 
   void scrollToTop() {
