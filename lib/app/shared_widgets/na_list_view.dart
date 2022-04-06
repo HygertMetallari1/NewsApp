@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/shared_widgets/na_news_item.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
-import 'package:newsapp/ui/sections/bloc/news_tab_bloc/news_tab_bloc.dart';
+import 'package:newsapp/ui/sections/blocs/news_tab_bloc/news_tab_bloc.dart';
+import 'package:newsapp/ui/sections/blocs/sport_tab_bloc/sport_tab_bloc.dart';
 
 class NewsListView extends StatefulWidget {
   final List<NewsItem> news;
@@ -38,6 +40,12 @@ class _NewsListViewState extends State<NewsListView>{
       setState(() {
         bloc = NewsTabBloc();
         bloc = BlocProvider.of<NewsTabBloc>(context)..add(const NewsTabEvent.loadNextPage());
+      });
+    }
+    if(widget.blocType == SportTabBloc) {
+      setState(() {
+        bloc = SportTabBloc();
+        bloc = BlocProvider.of<SportTabBloc>(context)..add(const SportTabEvent.loadNextPage());
       });
     }
   }

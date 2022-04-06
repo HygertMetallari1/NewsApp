@@ -8,54 +8,32 @@ import 'package:newsapp/ui/sections/screens/news_tab.dart';
 import 'package:newsapp/ui/sections/screens/sport_tab.dart';
 
 class SectionsScreen extends StatefulWidget {
-  const SectionsScreen({Key? key = const PageStorageKey('newsSections')}) : super(key: key);
+  const SectionsScreen({Key? key = const PageStorageKey('newsSections')})
+      : super(key: key);
 
   @override
   _SectionsScreenState createState() => _SectionsScreenState();
 }
 
 class _SectionsScreenState extends State<SectionsScreen> {
+  static List<String> sectionLabels = <String>[
+    tr("sections_tabs.news"),
+    tr("sections_tabs.sport"),
+    tr("sections_tabs.lifestyle"),
+    tr("sections_tabs.culture"),
+  ];
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return DefaultTabController(
-      length: 4,
+      length: sectionLabels.length,
       child: Scaffold(
         appBar: NAAppBar(
           showSearchButton: false,
           appBarTitle: tr("navigation.headlines_tab"),
           appBarHeight: 100,
           tabBar: TabBar(
-            tabs: <Widget>[
-              Tab(
-                child: _buildTabLabel(
-                    context,
-                    theme,
-                    tr("sections_tabs.news"),
-                ),
-              ),
-              Tab(
-                child: _buildTabLabel(
-                  context,
-                  theme,
-                  tr("sections_tabs.sport"),
-                ),
-              ),
-              Tab(
-                child: _buildTabLabel(
-                  context,
-                  theme,
-                  tr("sections_tabs.lifestyle"),
-                ),
-              ),
-              Tab(
-                child: _buildTabLabel(
-                  context,
-                  theme,
-                  tr("sections_tabs.culture"),
-                ),
-              ),
-            ],
+            tabs: <Widget>[..._buildTabs(context, theme)],
           ),
         ),
         body: const TabBarView(
@@ -70,20 +48,26 @@ class _SectionsScreenState extends State<SectionsScreen> {
     );
   }
 
-
   @swidget
-  _buildTabLabel(BuildContext context, ThemeData theme, String label) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            label,
-            style: theme.textTheme.bodyText2?.copyWith(
-              fontWeight: FontWeight.bold,
+  _buildTabs(BuildContext context, ThemeData theme) {
+    return List.generate(
+      sectionLabels.length,
+      (index) => Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Text(
+                sectionLabels[index],
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText2?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

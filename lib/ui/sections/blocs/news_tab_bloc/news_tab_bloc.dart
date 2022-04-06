@@ -14,16 +14,16 @@ class NewsTabBloc extends Bloc<NewsTabEvent, NewsTabState> {
   List<NewsItem> _news = [];
   int  _currentPage = 1;
   int _pages = 0;
-  String currentSection = "";
+  String _currentSection = "";
 
   NewsTabBloc() : super(const NewsTabState.initial()) {
     on<NewsTabEvent> ((event, emit) async {
       await event.when(
         loadNews: (chosenSection) async{
           _loadReset(emit);
-          currentSection = chosenSection ?? "world";
+          _currentSection = chosenSection ?? "world";
           try {
-            _news = await NewsService().getNewsSection(_currentPage, currentSection);
+            _news = await NewsService().getNewsSection(_currentPage, _currentSection);
             _checkPages(_news);
             _emitNewsTabList(emit);
           } on DioError catch (error) {
@@ -38,7 +38,7 @@ class NewsTabBloc extends Bloc<NewsTabEvent, NewsTabState> {
           try {
             if(_pages != 0) {
               if(_currentPage < _pages) {
-                _news = await NewsService().getNewsSection(_currentPage, currentSection);
+                _news = await NewsService().getNewsSection(_currentPage, _currentSection);
               }
               _emitNewsTabList(emit);
             }

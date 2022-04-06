@@ -9,7 +9,6 @@ class Endpoints {
     "business": _baseUrl + "business",
     "technology": _baseUrl + "technology",
     "sport": _baseUrl + "sport",
-    "football": _baseUrl + "football",
     "lifeandstyle": _baseUrl + "lifeandstyle",
     "food" : _baseUrl + "food",
     "fashion" : _baseUrl + "fashion",

@@ -17,6 +17,7 @@ import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home/screens/weather_bottom_sheet.dart';
 import 'package:newsapp/ui/home/widgets/filters/date_selector.dart';
 import 'package:newsapp/ui/home/widgets/filters/order_by_pop_menu.dart';
+import 'package:newsapp/ui/news_list_mixin.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key = const PageStorageKey('homeNews')}) : super(key: key);
@@ -25,31 +26,16 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with NewsListMixin{
 
   HomeBlocNews homeBlocNews = HomeBlocNews();
   List<NewsItem> _news = [];
   bool? _isTheEndOfList;
-  static const List<String> subSections = <String>[
-    "World",
-    ""
-  ];
 
-  void updateNewsState() {
-    final fetchedNews = PageStorage.of(context)!.readState(context, identifier: widget.key);
-    if (fetchedNews != null ) {
-        _news = fetchedNews;
-    }
-  }
-
-  void saveToPageStorage(List<NewsItem> newNewsState) {
-    PageStorage.of(context)!
-        .writeState(context, newNewsState, identifier: widget.key);
-  }
 
   @override
   void didChangeDependencies() {
-    updateNewsState();
+    _news = getStoredNewsList();
     super.didChangeDependencies();
   }
 
@@ -263,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @swidget
   _buildSecondTopRow() {
     return Padding(
-      padding: const EdgeInsets.only(top: 50.0),
+      padding: const EdgeInsets.only(top: 20.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

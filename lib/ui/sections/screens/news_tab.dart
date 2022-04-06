@@ -7,7 +7,9 @@ import 'package:newsapp/app/shared_widgets/na_list_view.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/models/news/news.dart';
-import 'package:newsapp/ui/sections/bloc/news_tab_bloc/news_tab_bloc.dart';
+import 'package:newsapp/ui/news_list_mixin.dart';
+import 'package:newsapp/ui/sections/blocs/news_tab_bloc/news_tab_bloc.dart';
+
 
 class NewsTab extends StatefulWidget {
   const NewsTab({Key? key = const PageStorageKey('newsTab')}) : super(key: key);
@@ -16,37 +18,27 @@ class NewsTab extends StatefulWidget {
   _NewsTabState createState() => _NewsTabState();
 }
 
-class _NewsTabState extends State<NewsTab> {
+class _NewsTabState extends State<NewsTab> with NewsListMixin{
   NewsTabBloc newsTabBloc = NewsTabBloc();
   List<NewsItem> _news = [];
   bool? _isTheEndOfList;
   int? _selectedSubCategory = 0;
 
-  static List<String> subCategories = <String> [
+  static List<String> subCategories = <String>[
     tr("sub_categories.news_tab.world"),
     tr("sub_categories.news_tab.politics"),
     tr("sub_categories.news_tab.environment"),
     tr("sub_categories.news_tab.science"),
-    tr("sub_categories.news_tab.world.business"),
+    tr("sub_categories.news_tab.business"),
     tr("sub_categories.news_tab.technology"),
   ];
 
-  void updateNewsTabState() {
-    final fetchedNews =
-        PageStorage.of(context)!.readState(context, identifier: widget.key);
-    if (fetchedNews != null) {
-      _news = fetchedNews;
-    }
-  }
-
-  void saveToPageStorage(List<NewsItem> newNewsState) {
-    PageStorage.of(context)!
-        .writeState(context, newNewsState, identifier: widget.key);
-  }
 
   @override
   void didChangeDependencies() {
-    updateNewsTabState();
+      setState(() {
+        _news = getStoredNewsList();
+      });
     super.didChangeDependencies();
   }
 
@@ -55,9 +47,9 @@ class _NewsTabState extends State<NewsTab> {
     var theme = Theme.of(context);
     return Scaffold(
         body: RefreshIndicator(
-        onRefresh: () async {
-          return newsTabBloc.add(const NewsTabEvent.loadNews());
-        },
+      onRefresh: () async {
+        return newsTabBloc.add(const NewsTabEvent.loadNews());
+      },
       color: NAColors.blue,
       child: BlocListener<NewsTabBloc, NewsTabState>(
         listener: (context, state) {
@@ -82,44 +74,44 @@ class _NewsTabState extends State<NewsTab> {
                 ),
                 BlocBuilder<NewsTabBloc, NewsTabState>(
                   builder: (context, state) {
-                    return state.maybeWhen(
-                        loadingNews: () {
-                          if(_news.isEmpty) {
-                            return const Center(
-                              child: CircularProgressIndicator(
-                                color: NAColors.blue,
-                              ),
-                            );
-                          }
-                          return NewsListView(
-                            news: _news,
-                            isTheEndOfList: _isTheEndOfList,
-                            blocType: NewsTabBloc,
-                          );
-                        },
-                        loadedNews: (news, isTheEndOfList) {
-                          if(news.isEmpty) {
-                            return  NAErrorScreen(errorMessage: (tr("errors.empty_list")));
-                          }
-                          if(areTheSame(_news, news) == false) {
-                            _saveHomeNewsToPageStorage(news, isTheEndOfList);
-                          }
-                          return NewsListView(
-                            news: _news,
-                            isTheEndOfList: _isTheEndOfList,
-                            blocType: NewsTabBloc,
-                          );
-                        },
-                        newsError: (newsError) {
-                          return NAErrorScreen(
-                            errorMessage: newsError,
-                          );
-                        },
-                        orElse: () {
-                          return NewsListView(
-                          news: _news,
-                          isTheEndOfList: _isTheEndOfList,
-                          blocType: NewsTabBloc,
+                    return state.maybeWhen(loadingNews: () {
+                      if (_news.isEmpty) {
+                        return Padding(
+                          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5 ),
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: NAColors.blue,
+                            ),
+                          ),
+                        );
+                      }
+                      return NewsListView(
+                        news: _news,
+                        isTheEndOfList: _isTheEndOfList,
+                        blocType: NewsTabBloc,
+                      );
+                    }, loadedNews: (news, isTheEndOfList) {
+                      if (news.isEmpty) {
+                        return NAErrorScreen(
+                            errorMessage: (tr("errors.empty_list")));
+                      }
+                      if (areTheSame(_news, news) == false) {
+                        _saveHomeNewsToPageStorage(news, isTheEndOfList);
+                      }
+                      return NewsListView(
+                        news: _news,
+                        isTheEndOfList: _isTheEndOfList,
+                        blocType: NewsTabBloc,
+                      );
+                    }, newsError: (newsError) {
+                      return NAErrorScreen(
+                        errorMessage: newsError,
+                      );
+                    }, orElse: () {
+                      return NewsListView(
+                        news: _news,
+                        isTheEndOfList: _isTheEndOfList,
+                        blocType: NewsTabBloc,
                       );
                     });
                   },
@@ -133,31 +125,36 @@ class _NewsTabState extends State<NewsTab> {
   @swidget
   _buildNewsSectionChipMenu(BuildContext context, ThemeData theme) {
     return List.generate(
-        subCategories.length, (index) => Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: ChoiceChip(
-          label: Text(
-            subCategories[index],
-            style: theme.textTheme.bodyText2?.copyWith(
-              color: _selectedSubCategory == index ? NAColors.white : NAColors.black
-            ),
-          ),
-          side: BorderSide(
-              color: _selectedSubCategory == index ? NAColors.white : NAColors.black.withOpacity(0.1)
-          ),
-          selectedColor: NAColors.blue,
-          backgroundColor: NAColors.white,
-          selected: _selectedSubCategory == index,
-          onSelected: (selected) {
-            setState(() {
-              _selectedSubCategory = selected ? index : null;
-            });
-            BlocProvider.of<NewsTabBloc>(context).add(NewsTabEvent.loadNews(chosenSection: subCategories[index].toLowerCase()));
-          },
-      ),
-        )
-    );
-  }
+        subCategories.length,
+        (index) => Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: ChoiceChip(
+                label: Text(
+                  subCategories[index],
+                  style: theme.textTheme.bodyText2?.copyWith(
+                      color: _selectedSubCategory == index
+                          ? NAColors.white
+                          : NAColors.black),
+                ),
+                side: BorderSide(
+                    color: _selectedSubCategory == index
+                        ? NAColors.white
+                        : NAColors.black.withOpacity(0.1)),
+                selectedColor: NAColors.blue,
+                backgroundColor: NAColors.white,
+                selected: _selectedSubCategory == index,
+                onSelected: (selected) {
+                  setState(() {
+                    _selectedSubCategory = selected ? index : null;
+                  });
+                  BlocProvider.of<NewsTabBloc>(context).add(
+                      NewsTabEvent.loadNews(
+                          chosenSection: subCategories[index].toLowerCase()));
+                },
+              ),
+            ));
+        }
+
   void _saveHomeNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
     _news.addAll(news);
     _isTheEndOfList = isTheEndOfList;
