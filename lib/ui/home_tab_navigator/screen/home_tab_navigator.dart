@@ -5,6 +5,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/routing/routes.dart';
 import 'package:newsapp/app/theme.dart';
+import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/ui/sections/screens/sections_screen.dart';
 import 'package:newsapp/ui/home/screens/home_screen.dart';
 import 'package:newsapp/ui/home_tab_navigator/cubit/tab_cubit.dart';
@@ -49,6 +50,7 @@ class _HomeTabNavigatorState extends State<HomeTabNavigator> {
 
   @swidget
   _buildBottomNavigationBar(BuildContext context, ThemeData theme) {
+
     TabCubit _tabCubit = BlocProvider.of<TabCubit>(context);
     return BlocBuilder<TabCubit, TabState>(
       builder: (context, state) {
@@ -72,7 +74,12 @@ class _HomeTabNavigatorState extends State<HomeTabNavigator> {
                    activeIcon: NewsAppAssets.selectedHome
                  ),
                 BottomNavigationBarItem(
-                  icon: NewsAppAssets.section,
+                  icon: Image.asset(
+                    "assets/images/sections.png",
+                    width: 25,
+                    height: 25,
+                    color: isDarkMode(context) ? NAColors.white70 : NAColors.black,
+                  ),
                   label: tr("navigation.headlines_tab"),
                   activeIcon: NewsAppAssets.selectedSection
                 ),

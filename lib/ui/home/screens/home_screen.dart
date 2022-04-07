@@ -155,8 +155,6 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
 
   @swidget
   _buildWeatherButton(BuildContext context, ThemeData theme) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
 
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
@@ -195,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
                       convertMaxTemp(currentDay.maxTemp),
                       style: theme.textTheme.caption?.copyWith(
                         fontWeight: FontWeight.w400,
-                        color: isDarkMode ? NAColors.white :NAColors.black,
+                        color: isDarkMode(context) ? NAColors.white : NAColors.black,
                         fontSize: 17
                       ),
                     ),

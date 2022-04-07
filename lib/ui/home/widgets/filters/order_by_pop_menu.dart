@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
+import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 import 'package:newsapp/ui/home/widgets/filters/filters_data.dart';
 
@@ -32,8 +33,6 @@ class _OrderByMenuState extends State<OrderByMenu> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
 
     return PopupMenuButton(
         padding: const EdgeInsets.only(top: 8.0),
@@ -67,15 +66,15 @@ class _OrderByMenuState extends State<OrderByMenu> {
                     Icon(
                       Icons.sort,
                       size: 20,
-                      color: isDarkMode ? NAColors.white.withOpacity(0.5) : NAColors.black.withOpacity(0.5),
+                      color: isDarkMode(context) ? NAColors.white.withOpacity(0.5) : NAColors.black.withOpacity(0.5),
                     ),
                   ],
                 ),
-                backgroundColor: isDarkMode ? NAColors.black : NAColors.white,
+                backgroundColor: isDarkMode(context) ? NAColors.black : NAColors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
-                side: BorderSide(color: isDarkMode ? NAColors.white.withOpacity(0.1) :NAColors.black.withOpacity(0.1))),
+                side: BorderSide(color: isDarkMode(context) ? NAColors.white.withOpacity(0.1) :NAColors.black.withOpacity(0.1))),
             Visibility(
               visible: removeButton,
               child: TouchableOpacity(
@@ -90,7 +89,12 @@ class _OrderByMenuState extends State<OrderByMenu> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: NewsAppAssets.remove
+                  child: Image.asset(
+                    "assets/images/cross.png",
+                    width: 24,
+                    height: 24,
+                    color: isDarkMode(context) ? NAColors.white70 : NAColors.black,
+                  ),
                 ),
               ),
             ),

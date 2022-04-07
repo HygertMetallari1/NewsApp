@@ -65,14 +65,22 @@ class _NewsTabState extends State<NewsTab> with HelperMixin{
             padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
             child: Column(
               children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  physics: const ScrollPhysics(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ..._buildNewsSectionChipMenu(context, theme),
-                    ],
+                ClipRRect(
+                  clipBehavior: Clip.hardEdge,
+                  borderRadius: const  BorderRadius.horizontal(
+                    left: Radius.circular(45),
+                    right: Radius.circular(45)
+                  ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    clipBehavior: Clip.hardEdge,
+                    physics: const ScrollPhysics(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ..._buildNewsSectionChipMenu(context, theme),
+                      ],
+                    ),
                   ),
                 ),
                 BlocBuilder<NewsTabBloc, NewsTabState>(
@@ -137,14 +145,15 @@ class _NewsTabState extends State<NewsTab> with HelperMixin{
                   style: theme.textTheme.bodyText2?.copyWith(
                       color: _selectedSubCategory == index
                           ? NAColors.white
-                          : NAColors.black),
+                          : isDarkMode(context) ? NAColors.white70 : NAColors.black,
+                  ),
                 ),
                 side: BorderSide(
                     color: _selectedSubCategory == index
                         ? NAColors.white
-                        : NAColors.black.withOpacity(0.1)),
+                        : isDarkMode(context) ? NAColors.white70 : NAColors.black.withOpacity(0.1)),
                 selectedColor: NAColors.blue,
-                backgroundColor: NAColors.white,
+                backgroundColor: isDarkMode(context) ? NAColors.black :NAColors.white,
                 selected: _selectedSubCategory == index,
                 onSelected: (selected) {
                   setState(() {

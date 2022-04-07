@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
+import 'package:newsapp/app/utils.dart';
 
 class NewsDetail extends StatelessWidget {
   final String headline;
@@ -77,7 +78,7 @@ class NewsDetail extends StatelessWidget {
                     Text(
                       "Author: " + author!,
                       style: theme.textTheme.caption?.copyWith(
-                        color: NAColors.black.withOpacity(0.6),
+                        color: isDarkMode(context) ? NAColors.gray : NAColors.black.withOpacity(0.6),
                         fontSize: 11,
                         fontStyle: FontStyle.italic,
                       ),
@@ -86,7 +87,7 @@ class NewsDetail extends StatelessWidget {
                   Text(
                     publishDate,
                     style: theme.textTheme.caption?.copyWith(
-                      color: NAColors.black.withOpacity(0.6),
+                      color: isDarkMode(context) ? NAColors.gray : NAColors.black.withOpacity(0.6),
                       fontSize: 11,
                     ),
                   )

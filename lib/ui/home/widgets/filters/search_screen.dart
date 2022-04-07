@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
+import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 import 'package:newsapp/ui/home/widgets/filters/filters_data.dart';
 
@@ -38,8 +39,6 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
 
     final border = OutlineInputBorder(
       borderSide: BorderSide.none,
@@ -75,7 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
             });
           },
           style: theme.textTheme.bodyText1?.copyWith(
-            color: isDarkMode ? NAColors.white :NAColors.black,
+            color: isDarkMode(context) ? NAColors.white :NAColors.black,
             fontSize: 15,
           ),
           decoration: InputDecoration(
@@ -93,7 +92,12 @@ class _SearchScreenState extends State<SearchScreen> {
                         homeNewsBloc.add(const HomeNewsEvent.searchNews(queryField: null));
                       });
                     },
-                     child: NewsAppAssets.remove
+                     child: Image.asset(
+                       "assets/images/cross.png",
+                       width: 24,
+                       height: 24,
+                       color: isDarkMode(context) ? NAColors.white : NAColors.black,
+                     ),
                   )
                   : NewsAppAssets.search,
           ),

@@ -128,7 +128,8 @@ ThemeData darkThemeData(BuildContext context) {
     highlightColor: Colors.transparent,
     //APP BAR Dark Mode
     appBarTheme: const AppBarTheme(
-        color: NAColors.black, elevation: 0, centerTitle: true),
+        color: NAColors.black, elevation: 0, centerTitle: true
+    ),
     //BOTTOM NAV BAR Dark Mode
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       elevation: 1,
@@ -153,7 +154,9 @@ ThemeData darkThemeData(BuildContext context) {
       },
     ),
     //Color scheme dark mode
-
+    iconTheme: const IconThemeData(
+      color: NAColors.white70
+    ),
     fontFamily: "OpenSans",
 
     textTheme: TextTheme(

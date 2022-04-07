@@ -129,14 +129,14 @@ class _LifestyleTabState extends State<LifestyleTab> with HelperMixin{
               style: theme.textTheme.bodyText2?.copyWith(
                   color: _selectedSubCategory == index
                       ? NAColors.white
-                      : NAColors.black),
+                      : isDarkMode(context) ? NAColors.white70 : NAColors.black),
             ),
             side: BorderSide(
                 color: _selectedSubCategory == index
                     ? NAColors.white
-                    : NAColors.black.withOpacity(0.1)),
+                    : isDarkMode(context) ? NAColors.white70 : NAColors.black.withOpacity(0.1)),
             selectedColor: NAColors.blue,
-            backgroundColor: NAColors.white,
+            backgroundColor: isDarkMode(context) ? NAColors.black :NAColors.white,
             selected: _selectedSubCategory == index,
             onSelected: (selected) {
               setState(() {

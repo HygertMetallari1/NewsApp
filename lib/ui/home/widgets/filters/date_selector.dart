@@ -52,9 +52,6 @@ class _DateSelectorState extends State<DateSelector> {
 
   @swidget
   _buildSelectorChip(BuildContext context, ThemeData theme, String label) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
-
     return TouchableOpacity(
       onPressed: () async {
         await showDateRangePicker(
@@ -63,7 +60,7 @@ class _DateSelectorState extends State<DateSelector> {
           lastDate: now,
           builder: (context, child) {
             return Theme(
-              data: isDarkMode
+              data: isDarkMode(context)
                   ?ThemeData.dark().copyWith(
                       colorScheme: const ColorScheme.dark(
                         primary: NAColors.calendarAccent,
@@ -118,16 +115,16 @@ class _DateSelectorState extends State<DateSelector> {
                   Icon(
                     Icons.calendar_today_rounded,
                     size: 20,
-                    color:  isDarkMode ? NAColors.white.withOpacity(0.5) : NAColors.black.withOpacity(0.5),
+                    color:  isDarkMode(context) ? NAColors.white.withOpacity(0.5) : NAColors.black.withOpacity(0.5),
                   ),
                 ],
               ),
-              backgroundColor: isDarkMode ? NAColors.black : NAColors.white,
+              backgroundColor: isDarkMode(context) ? NAColors.black : NAColors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
               side: BorderSide(
-                  color: isDarkMode ? NAColors.white.withOpacity(0.1) :NAColors.black.withOpacity(0.1),
+                  color: isDarkMode(context) ? NAColors.white.withOpacity(0.1) :NAColors.black.withOpacity(0.1),
               )
           ),
           Visibility(
@@ -146,7 +143,12 @@ class _DateSelectorState extends State<DateSelector> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: NewsAppAssets.remove,
+                child: Image.asset(
+                  "assets/images/cross.png",
+                  width: 24,
+                  height: 24,
+                  color: isDarkMode(context) ? NAColors.white70 : NAColors.black,
+                ),
               ),
             ),
           )

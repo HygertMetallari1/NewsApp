@@ -38,15 +38,12 @@ class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
   
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
-
     WeatherItem currentDay = widget.forecastingList[0];
     var theme = Theme.of(context);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: isDarkMode ? NAColors.black :NAColors.white,
+        color: isDarkMode(context) ? NAColors.black :NAColors.white,
         borderRadius: const BorderRadius.only(
             topRight: Radius.circular(13),
             topLeft: Radius.circular(13)

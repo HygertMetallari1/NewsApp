@@ -13,13 +13,6 @@ class NewsAppAssets {
     size: 26,
   );
 
-  static Image section = Image.asset(
-      "assets/images/sections.png",
-      width: 25,
-      height: 25,
-      color:  NewsAppAssets._().isDarkMode ? NAColors.white : NAColors.black,
-  );
-
   static Image selectedSection = Image.asset(
     "assets/images/sections.png",
     width: 26,
@@ -46,12 +39,5 @@ class NewsAppAssets {
     Icons.arrow_upward,
     color: NAColors.white,
     size: 24,
-  );
-
-  static Image remove = Image.asset(
-    "assets/images/cross.png",
-    width: 24,
-    height: 24,
-    color: NewsAppAssets._().isDarkMode ? NAColors.white : NAColors.black,
   );
 }

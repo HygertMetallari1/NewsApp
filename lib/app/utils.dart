@@ -35,6 +35,12 @@ String convertTemperatures(double maxTemp, double minTemp) {
   return temperatures;
 }
 
+bool isDarkMode(BuildContext context) {
+  var brightness = MediaQuery.of(context).platformBrightness;
+  bool isDarkMode = brightness == Brightness.dark;
+  return isDarkMode;
+}
+
 Future<Set<double>> getLocation() async {
   //If the device doesn't have a last location or current location
   // the function will return Silicon Valley.CA.USA location
