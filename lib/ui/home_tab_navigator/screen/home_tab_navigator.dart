@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/news_app_assets.dart';
-import 'package:newsapp/app/routing/routes.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/ui/sections/screens/sections_screen.dart';
