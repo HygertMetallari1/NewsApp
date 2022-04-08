@@ -36,8 +36,8 @@ class _NewsDetailState extends State<NewsDetail> {
   late NewsItem newsItem;
 
   @override
-  void didChangeDependencies() { //To check if the clicked news was saved before
-      setState(() {
+  void didChangeDependencies() {//To check if the clicked news was saved before
+    setState(() {
         newsItem = NewsItem(
             headline: widget.headline,
             trailText: widget.trailText,
@@ -80,7 +80,16 @@ class _NewsDetailState extends State<NewsDetail> {
                   BlocProvider.of<SavedNewsBloc>(context).add(SavedNewsEvent.removeNews(news: newsItem));
                 }
               },
-              icon: isSaved? NewsAppAssets.selectedSaved : NewsAppAssets.savedOutlined
+              icon: isSaved
+                  ? Icon (
+                      Icons.bookmark,
+                      size: 26,
+                      color: isDarkMode(context) ? NAColors.white70 : NAColors.black,
+                  )
+                  : Icon(
+                      Icons.bookmark_outline,
+                      color: isDarkMode(context) ? NAColors.white70 : NAColors.black,
+                    )
           )
         ],
       ),

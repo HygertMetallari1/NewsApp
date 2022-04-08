@@ -34,6 +34,7 @@ class _SavedScreenState extends State<SavedScreen> {
         padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
               child: SizedBox(

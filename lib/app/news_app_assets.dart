@@ -4,8 +4,6 @@ import 'package:newsapp/app/theme.dart';
 
 class NewsAppAssets {
   NewsAppAssets._();
-  late var brightness = SchedulerBinding.instance!.window.platformBrightness;
-  late bool isDarkMode = brightness == Brightness.dark;
 
   static const Icon home = Icon(Icons.home);
   static const Icon selectedHome = Icon(

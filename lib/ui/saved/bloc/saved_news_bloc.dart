@@ -14,9 +14,9 @@ class SavedNewsBloc extends Bloc<SavedNewsEvent, SavedNewsState> {
   List<NewsItem> _news = [];
 
   SavedNewsBloc() : super(const SavedNewsState.initial()) {
-    on<SavedNewsEvent>((event, emit) async{
-        await event.when(
-            loadSavedNews: () async {
+    on<SavedNewsEvent>((event, emit) {
+        event.when(
+            loadSavedNews: () {
               emit(const SavedNewsState.loadingSavedNews());
               try {
                 List<NewsItem> savedNews = SavedNews().getSavedNews();
@@ -26,10 +26,10 @@ class SavedNewsBloc extends Bloc<SavedNewsEvent, SavedNewsState> {
                 rethrow;
               }
             },
-            saveNews: (news) async {
+            saveNews: (news) {
               emit(const SavedNewsState.loadingSavedNews());
               try {
-                await SavedNews().saveNews(news);
+                SavedNews().saveNews(news);
                 add(const SavedNewsEvent.loadSavedNews());
               } catch (error) {
                 _emitError(emit);
@@ -54,7 +54,7 @@ class SavedNewsBloc extends Bloc<SavedNewsEvent, SavedNewsState> {
   void _emitSavedNews(Emitter<SavedNewsState> emit, List<NewsItem> news) {
     _news.clear();
     _news = news;
-    emit(SavedNewsState.loadedSavedNews(_news));
+    emit(SavedNewsState.loadedSavedNews(_news.reversed.toList()));
   }
 
   void _emitError(Emitter<SavedNewsState> emit) {

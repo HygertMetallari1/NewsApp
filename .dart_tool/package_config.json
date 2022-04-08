@@ -122,24 +122,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "cloud_firestore",
-      "rootUri": "file:///Users/metallari/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-3.1.11",
-      "packageUri": "lib/",
-      "languageVersion": "2.16"
-    },
-    {
-      "name": "cloud_firestore_platform_interface",
-      "rootUri": "file:///Users/metallari/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_platform_interface-5.5.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.16"
-    },
-    {
-      "name": "cloud_firestore_web",
-      "rootUri": "file:///Users/metallari/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-2.6.11",
-      "packageUri": "lib/",
-      "languageVersion": "2.16"
-    },
-    {
       "name": "code_builder",
       "rootUri": "file:///Users/metallari/flutter/.pub-cache/hosted/pub.dartlang.org/code_builder-4.1.0",
       "packageUri": "lib/",
@@ -208,18 +190,6 @@
     {
       "name": "file",
       "rootUri": "file:///Users/metallari/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "firebase_analytics",
-      "rootUri": "file:///Users/metallari/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics-5.0.15",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
-      "name": "firebase_analytics_platform_interface",
-      "rootUri": "file:///Users/metallari/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics_platform_interface-1.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -824,7 +794,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-04-08T00:21:33.011373Z",
+  "generated": "2022-04-08T10:14:01.300351Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

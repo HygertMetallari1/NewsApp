@@ -157,8 +157,8 @@ ThemeData darkThemeData(BuildContext context) {
     iconTheme: const IconThemeData(
       color: NAColors.white70
     ),
-    fontFamily: "OpenSans",
 
+    fontFamily: "OpenSans",
     textTheme: TextTheme(
         headline4: TextStyle(
             fontWeight: FontWeight.w700,

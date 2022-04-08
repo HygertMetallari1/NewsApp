@@ -99,7 +99,7 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
       });
     }
     if(state == AppLifecycleState.resumed) {
-      await Hive.openBox<NewsItem>(savedNewsBoxName);
+      initHive();
       if(appShown == false) {
         setState(() {
           appShown = true;

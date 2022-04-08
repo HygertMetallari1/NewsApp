@@ -10,31 +10,30 @@ class SavedNews {
     List<NewsItem> news = [];
     if(_savedNewsBox.isNotEmpty) {
       news.addAll(_savedNewsBox.values.toList().cast<NewsItem>());
-      return news.reversed.toList();
+      return news;
     }
     return news;
   }
 
-  Future<void> saveNews(NewsItem news) async {
-    await _savedNewsBox.add(news);
+  void saveNews(NewsItem news) {
+    _savedNewsBox.add(news);
   }
 
-  Future<void> removeSavedNews(NewsItem news) async {
+  void removeSavedNews(NewsItem news) {
     for(int currentKey in _savedNewsBox.keys) {
-      NewsItem savedNews = await _savedNewsBox.get(currentKey);
+      NewsItem savedNews =  _savedNewsBox.get(currentKey);
       if(savedNews == news) {
-          await _savedNewsBox.delete(currentKey);
+        _savedNewsBox.delete(currentKey);
       }
     }
   }
 
   bool isClickedNewsSaved(NewsItem news) {
     if(_savedNewsBox.isNotEmpty) {
-      for(NewsItem savedNews in _savedNewsBox.values) {
+      for(var savedNews in _savedNewsBox.values) {
         if(savedNews == news) {
           return true;
         }
-        return false;
       }
     }
     return false;
