@@ -5,7 +5,7 @@ import 'package:newsapp/app/shared_widgets/na_app_bar.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
-import 'package:newsapp/ui/news_list_mixin.dart';
+import 'package:newsapp/ui/helper_mixin.dart';
 import 'package:newsapp/ui/sections/screens/culture_tab.dart';
 import 'package:newsapp/ui/sections/screens/lifestyle_tab.dart';
 import 'package:newsapp/ui/sections/screens/news_tab.dart';

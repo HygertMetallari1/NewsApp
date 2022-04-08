@@ -22,13 +22,27 @@ class _$NewsItemTearOff {
   const _$NewsItemTearOff();
 
   _NewsItem call(
-      {int? pages,
-      required String headline,
-      required String trailText,
-      required String publishDate,
-      required String? author,
-      required String content,
-      required String? thumbnail}) {
+      {@JsonKey(name: "pages", required: false, nullable: true)
+      @HiveField(0)
+          int? pages,
+      @JsonKey(name: "headline", required: true, disallowNullValue: true)
+      @HiveField(1)
+          required String headline,
+      @JsonKey(name: "trailText", required: true, disallowNullValue: true)
+      @HiveField(2)
+          required String trailText,
+      @JsonKey(name: "publishDate", required: true, disallowNullValue: true)
+      @HiveField(3)
+          required String publishDate,
+      @JsonKey(name: "author", required: false, nullable: true)
+      @HiveField(4)
+          String? author,
+      @JsonKey(name: "content", required: true, disallowNullValue: true)
+      @HiveField(5)
+          required String content,
+      @JsonKey(name: "thumbnail", required: false, nullable: true)
+      @HiveField(6)
+          String? thumbnail}) {
     return _NewsItem(
       pages: pages,
       headline: headline,
@@ -50,12 +64,26 @@ const $NewsItem = _$NewsItemTearOff();
 
 /// @nodoc
 mixin _$NewsItem {
+  @JsonKey(name: "pages", required: false, nullable: true)
+  @HiveField(0)
   int? get pages => throw _privateConstructorUsedError;
+  @JsonKey(name: "headline", required: true, disallowNullValue: true)
+  @HiveField(1)
   String get headline => throw _privateConstructorUsedError;
+  @JsonKey(name: "trailText", required: true, disallowNullValue: true)
+  @HiveField(2)
   String get trailText => throw _privateConstructorUsedError;
+  @JsonKey(name: "publishDate", required: true, disallowNullValue: true)
+  @HiveField(3)
   String get publishDate => throw _privateConstructorUsedError;
+  @JsonKey(name: "author", required: false, nullable: true)
+  @HiveField(4)
   String? get author => throw _privateConstructorUsedError;
+  @JsonKey(name: "content", required: true, disallowNullValue: true)
+  @HiveField(5)
   String get content => throw _privateConstructorUsedError;
+  @JsonKey(name: "thumbnail", required: false, nullable: true)
+  @HiveField(6)
   String? get thumbnail => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -69,13 +97,27 @@ abstract class $NewsItemCopyWith<$Res> {
   factory $NewsItemCopyWith(NewsItem value, $Res Function(NewsItem) then) =
       _$NewsItemCopyWithImpl<$Res>;
   $Res call(
-      {int? pages,
-      String headline,
-      String trailText,
-      String publishDate,
-      String? author,
-      String content,
-      String? thumbnail});
+      {@JsonKey(name: "pages", required: false, nullable: true)
+      @HiveField(0)
+          int? pages,
+      @JsonKey(name: "headline", required: true, disallowNullValue: true)
+      @HiveField(1)
+          String headline,
+      @JsonKey(name: "trailText", required: true, disallowNullValue: true)
+      @HiveField(2)
+          String trailText,
+      @JsonKey(name: "publishDate", required: true, disallowNullValue: true)
+      @HiveField(3)
+          String publishDate,
+      @JsonKey(name: "author", required: false, nullable: true)
+      @HiveField(4)
+          String? author,
+      @JsonKey(name: "content", required: true, disallowNullValue: true)
+      @HiveField(5)
+          String content,
+      @JsonKey(name: "thumbnail", required: false, nullable: true)
+      @HiveField(6)
+          String? thumbnail});
 }
 
 /// @nodoc
@@ -135,13 +177,27 @@ abstract class _$NewsItemCopyWith<$Res> implements $NewsItemCopyWith<$Res> {
       __$NewsItemCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int? pages,
-      String headline,
-      String trailText,
-      String publishDate,
-      String? author,
-      String content,
-      String? thumbnail});
+      {@JsonKey(name: "pages", required: false, nullable: true)
+      @HiveField(0)
+          int? pages,
+      @JsonKey(name: "headline", required: true, disallowNullValue: true)
+      @HiveField(1)
+          String headline,
+      @JsonKey(name: "trailText", required: true, disallowNullValue: true)
+      @HiveField(2)
+          String trailText,
+      @JsonKey(name: "publishDate", required: true, disallowNullValue: true)
+      @HiveField(3)
+          String publishDate,
+      @JsonKey(name: "author", required: false, nullable: true)
+      @HiveField(4)
+          String? author,
+      @JsonKey(name: "content", required: true, disallowNullValue: true)
+      @HiveField(5)
+          String content,
+      @JsonKey(name: "thumbnail", required: false, nullable: true)
+      @HiveField(6)
+          String? thumbnail});
 }
 
 /// @nodoc
@@ -200,30 +256,58 @@ class __$NewsItemCopyWithImpl<$Res> extends _$NewsItemCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_NewsItem implements _NewsItem {
   _$_NewsItem(
-      {this.pages,
-      required this.headline,
-      required this.trailText,
-      required this.publishDate,
-      required this.author,
-      required this.content,
-      required this.thumbnail});
+      {@JsonKey(name: "pages", required: false, nullable: true)
+      @HiveField(0)
+          this.pages,
+      @JsonKey(name: "headline", required: true, disallowNullValue: true)
+      @HiveField(1)
+          required this.headline,
+      @JsonKey(name: "trailText", required: true, disallowNullValue: true)
+      @HiveField(2)
+          required this.trailText,
+      @JsonKey(name: "publishDate", required: true, disallowNullValue: true)
+      @HiveField(3)
+          required this.publishDate,
+      @JsonKey(name: "author", required: false, nullable: true)
+      @HiveField(4)
+          this.author,
+      @JsonKey(name: "content", required: true, disallowNullValue: true)
+      @HiveField(5)
+          required this.content,
+      @JsonKey(name: "thumbnail", required: false, nullable: true)
+      @HiveField(6)
+          this.thumbnail});
 
   factory _$_NewsItem.fromJson(Map<String, dynamic> json) =>
       _$$_NewsItemFromJson(json);
 
   @override
+  @JsonKey(name: "pages", required: false, nullable: true)
+  @HiveField(0)
   final int? pages;
   @override
+  @JsonKey(name: "headline", required: true, disallowNullValue: true)
+  @HiveField(1)
   final String headline;
   @override
+  @JsonKey(name: "trailText", required: true, disallowNullValue: true)
+  @HiveField(2)
   final String trailText;
   @override
+  @JsonKey(name: "publishDate", required: true, disallowNullValue: true)
+  @HiveField(3)
   final String publishDate;
   @override
+  @JsonKey(name: "author", required: false, nullable: true)
+  @HiveField(4)
   final String? author;
   @override
+  @JsonKey(name: "content", required: true, disallowNullValue: true)
+  @HiveField(5)
   final String content;
   @override
+  @JsonKey(name: "thumbnail", required: false, nullable: true)
+  @HiveField(6)
   final String? thumbnail;
 
   @override
@@ -270,29 +354,57 @@ class _$_NewsItem implements _NewsItem {
 
 abstract class _NewsItem implements NewsItem {
   factory _NewsItem(
-      {int? pages,
-      required String headline,
-      required String trailText,
-      required String publishDate,
-      required String? author,
-      required String content,
-      required String? thumbnail}) = _$_NewsItem;
+      {@JsonKey(name: "pages", required: false, nullable: true)
+      @HiveField(0)
+          int? pages,
+      @JsonKey(name: "headline", required: true, disallowNullValue: true)
+      @HiveField(1)
+          required String headline,
+      @JsonKey(name: "trailText", required: true, disallowNullValue: true)
+      @HiveField(2)
+          required String trailText,
+      @JsonKey(name: "publishDate", required: true, disallowNullValue: true)
+      @HiveField(3)
+          required String publishDate,
+      @JsonKey(name: "author", required: false, nullable: true)
+      @HiveField(4)
+          String? author,
+      @JsonKey(name: "content", required: true, disallowNullValue: true)
+      @HiveField(5)
+          required String content,
+      @JsonKey(name: "thumbnail", required: false, nullable: true)
+      @HiveField(6)
+          String? thumbnail}) = _$_NewsItem;
 
   factory _NewsItem.fromJson(Map<String, dynamic> json) = _$_NewsItem.fromJson;
 
   @override
+  @JsonKey(name: "pages", required: false, nullable: true)
+  @HiveField(0)
   int? get pages;
   @override
+  @JsonKey(name: "headline", required: true, disallowNullValue: true)
+  @HiveField(1)
   String get headline;
   @override
+  @JsonKey(name: "trailText", required: true, disallowNullValue: true)
+  @HiveField(2)
   String get trailText;
   @override
+  @JsonKey(name: "publishDate", required: true, disallowNullValue: true)
+  @HiveField(3)
   String get publishDate;
   @override
+  @JsonKey(name: "author", required: false, nullable: true)
+  @HiveField(4)
   String? get author;
   @override
+  @JsonKey(name: "content", required: true, disallowNullValue: true)
+  @HiveField(5)
   String get content;
   @override
+  @JsonKey(name: "thumbnail", required: false, nullable: true)
+  @HiveField(6)
   String? get thumbnail;
   @override
   @JsonKey(ignore: true)

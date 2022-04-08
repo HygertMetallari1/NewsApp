@@ -15,6 +15,7 @@ class NAErrorScreen extends StatefulWidget {
 class _NAErrorScreenState extends State<NAErrorScreen> {
   final String  internetError = tr("errors.internet_error");
   final String emptyList = tr("errors.empty_list");
+  final String emptySavedList = tr("errors.empty_saved_list");
   late String path;
 
   @override
@@ -24,7 +25,7 @@ class _NAErrorScreenState extends State<NAErrorScreen> {
          path = "assets/images/no-internet.png";
        });
      }
-     else if(widget.errorMessage == emptyList){
+     else if(widget.errorMessage == emptyList || widget.errorMessage == emptySavedList){
        setState(() {
          path = "assets/images/empty_list.png";
        });

@@ -84,8 +84,8 @@ class _DateSelectorState extends State<DateSelector> {
           },
         ).then((selectedRange) {
           if(selectedRange != null) {
-            var fromDate = convertQueryTime(selectedRange.start);
-            var toDate = convertQueryTime(selectedRange.end);
+            var fromDate = _convertQueryTime(selectedRange.start);
+            var toDate = _convertQueryTime(selectedRange.end);
             FiltersData().setFromDate(fromDate);
             FiltersData().setToDate(toDate);
             setState(() {
@@ -155,6 +155,11 @@ class _DateSelectorState extends State<DateSelector> {
         ],
       ),
     );
+  }
+
+  String _convertQueryTime(DateTime date) {
+    String convQueryTime = DateFormat("yyyy-MM-dd").format(date);
+    return convQueryTime;
   }
 
 }

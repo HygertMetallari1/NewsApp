@@ -1,26 +1,33 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'dart:core';
 import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
+import 'package:hive/hive.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/data/secure_storage.dart';
+import 'package:path_provider/path_provider.dart';
 
-String convertCurrentTime() {
-  String convTime = DateFormat("EEEE, MMMM dd").format(DateTime.now());
-  return convTime;
-}
+const String savedNewsBoxName = "saved_news";
 
-String convertQueryTime(DateTime date) {
-  String convQueryTime = DateFormat("yyyy-MM-dd").format(date);
-  return convQueryTime;
-}
+initHive() async {
+  _initHive() async {
+    Directory appDocumentDirectory = await getApplicationDocumentsDirectory();
+    Hive.init(appDocumentDirectory.path);
+    Hive.registerAdapter(NewsItemAdapter());
+    await Hive.openBox<NewsItem>(savedNewsBoxName);
+  }
 
-String convertWeatherTimestamp (int timestamp) {
-  DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-  String converted =  DateFormat("EEE").format(date);
-  return converted.toUpperCase();
+  try {
+    await _initHive();
+  } catch (e) {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    documentsDirectory.delete(recursive: true);
+    await _initHive();
+  }
 }
 
 String convertMaxTemp(double maxTemp) {
@@ -28,17 +35,18 @@ String convertMaxTemp(double maxTemp) {
   return convMaxTemp;
 }
 
-String convertTemperatures(double maxTemp, double minTemp) {
-  String convMaxTemp = maxTemp.toInt().toString()+"°";
-  String convMinTemp =  minTemp.toInt().toString()+"°";
-  String temperatures = convMaxTemp + " " + convMinTemp;
-  return temperatures;
-}
-
 bool isDarkMode(BuildContext context) {
   var brightness = MediaQuery.of(context).platformBrightness;
   bool isDarkMode = brightness == Brightness.dark;
   return isDarkMode;
+}
+
+
+Widget progressIndicator({double? width}) {
+  return CircularProgressIndicator(
+    color: NAColors.blue,
+    strokeWidth: width ?? 4.0,
+  );
 }
 
 Future<Set<double>> getLocation() async {
@@ -118,7 +126,7 @@ List<NewsItem> convertedNewsList (dynamic responseData) {
       }
       Map<String, dynamic> json = {
         "headline" : results[i]["fields"]["headline"] ,
-        "trailText": stripHtml(results[i]["fields"]["trailText"]),
+        "trailText": _stripHtml(results[i]["fields"]["trailText"]),
         "publishDate": convertPublishDate(results[i]["webPublicationDate"].toString()),
         "author": results[i]["fields"]["byline"],
         "content": content,
@@ -133,7 +141,7 @@ List<NewsItem> convertedNewsList (dynamic responseData) {
   return newsList;
 }
 
-String stripHtml(String text) {
+String _stripHtml(String text) {
   RegExp exp = RegExp(
       r"<[^>]*>",
       multiLine: true,
@@ -149,14 +157,6 @@ String convertPublishDate(String date) {
     return date.substring(11, 16);
   }
   return date.substring(0,10);
-}
-
-Widget buildLoaderListItem() {
-  return const Center(
-    child: CircularProgressIndicator(
-      color: NAColors.blue,
-    ),
-  );
 }
 
 extension StringExtension on String {

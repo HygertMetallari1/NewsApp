@@ -17,7 +17,7 @@ import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home/screens/weather_bottom_sheet.dart';
 import 'package:newsapp/ui/home/widgets/filters/date_selector.dart';
 import 'package:newsapp/ui/home/widgets/filters/order_by_pop_menu.dart';
-import 'package:newsapp/ui/news_list_mixin.dart';
+import 'package:newsapp/ui/helper_mixin.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key = const PageStorageKey('homeNews')}) : super(key: key);
@@ -81,9 +81,7 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
                 return state.maybeWhen(
                   loadingNews: () {
                     if(_news.isEmpty) {
-                      return const CircularProgressIndicator(
-                        color: NAColors.blue,
-                      );
+                      return progressIndicator();
                     }
                     return NewsListView(
                           news: _news,
@@ -140,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
         children: <Widget>[
           Expanded(
             child: Text(
-              convertCurrentTime(),
+              _convertCurrentTime(),
               style: theme.textTheme.bodyText1?.copyWith(
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.1,
@@ -160,17 +158,12 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
       builder: (context, state) {
         return state.maybeWhen(
           loading: () {
-            return const Padding(
-              padding: EdgeInsets.only(right: 20.0),
+            return Padding(
+              padding: const EdgeInsets.only(right: 20.0),
               child: SizedBox(
                 width: 20,
                 height: 20,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: NAColors.blue,
-                    strokeWidth: 3,
-                  ),
-                ),
+                child: progressIndicator(width: 3.0)
               ),
             );
           },
@@ -234,7 +227,12 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
       },
     );
   }
-  
+
+  String _convertCurrentTime() {
+    String convTime = DateFormat("EEEE, MMMM dd").format(DateTime.now());
+    return convTime;
+  }
+
   _showWeatherBottomSheet(
       BuildContext context,
       ThemeData theme,

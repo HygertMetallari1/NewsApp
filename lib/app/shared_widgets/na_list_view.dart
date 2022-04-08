@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/shared_widgets/na_news_item.dart';
 import 'package:newsapp/app/theme.dart';
+import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
+import 'package:newsapp/ui/saved/bloc/saved_news_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/culture_tab_bloc/culture_tab_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/lifestyle_tab_bloc/lifestyle_tab_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/news_tab_bloc/news_tab_bloc.dart';
@@ -157,9 +159,7 @@ class _NewsListViewState extends State<NewsListView>{
                         ),
                         if(index == widget.news.length - 1)... [
                           if(widget.isTheEndOfList == null)... [
-                            const CircularProgressIndicator(
-                              color: NAColors.blue,
-                            )
+                            progressIndicator()
                           ]
                         ]
                       ]

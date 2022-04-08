@@ -71,15 +71,10 @@ class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
                         ),
                       ),
                       if(location.isEmpty) ... [
-                        const SizedBox(
+                        SizedBox(
                           width: 20,
                           height: 20,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: NAColors.blue,
-                              strokeWidth: 3,
-                            ),
-                          ),
+                          child: progressIndicator(width: 3.0)
                         ),
                       ] else ... [
                         Text(
@@ -151,12 +146,12 @@ class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
 
   @swidget
   _buildWeatherItem(BuildContext context, ThemeData theme, WeatherItem weatherItem) {
-    String temperatures = convertTemperatures(weatherItem.maxTemp, weatherItem.minTemp);
+    String temperatures = _convertTemperatures(weatherItem.maxTemp, weatherItem.minTemp);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Text(
-          convertWeatherTimestamp(weatherItem.day),
+          _convertWeatherTimestamp(weatherItem.day),
           style: theme.textTheme.caption?.copyWith(
             fontSize: 15
           ),
@@ -188,6 +183,18 @@ class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
     );
   }
 
+  String _convertWeatherTimestamp (int timestamp) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    String converted =  DateFormat("EEE").format(date);
+    return converted.toUpperCase();
+  }
+
+  String _convertTemperatures(double maxTemp, double minTemp) {
+    String convMaxTemp = maxTemp.toInt().toString()+"°";
+    String convMinTemp =  minTemp.toInt().toString()+"°";
+    String temperatures = convMaxTemp + " " + convMinTemp;
+    return temperatures;
+  }
 }
 
 

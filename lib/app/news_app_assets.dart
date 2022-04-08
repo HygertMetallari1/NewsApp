@@ -21,6 +21,7 @@ class NewsAppAssets {
   );
 
   static const Icon saved = Icon(Icons.bookmark);
+  static const Icon savedOutlined = Icon(Icons.bookmark_outline);
   static const Icon selectedSaved = Icon (
     Icons.bookmark,
     size: 26,

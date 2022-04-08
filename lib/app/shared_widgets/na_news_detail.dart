@@ -1,11 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
+import 'package:newsapp/data/models/news/news.dart';
+import 'package:newsapp/data/saved_news_db.dart';
+import 'package:newsapp/ui/saved/bloc/saved_news_bloc.dart';
 
-class NewsDetail extends StatelessWidget {
+class NewsDetail extends StatefulWidget {
   final String headline;
   final String trailText;
   final String publishDate;
@@ -24,6 +28,30 @@ class NewsDetail extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<NewsDetail> createState() => _NewsDetailState();
+}
+
+class _NewsDetailState extends State<NewsDetail> {
+  late bool isSaved;
+  late NewsItem newsItem;
+
+  @override
+  void didChangeDependencies() { //To check if the clicked news was saved before
+      setState(() {
+        newsItem = NewsItem(
+            headline: widget.headline,
+            trailText: widget.trailText,
+            author: widget.author,
+            publishDate: widget.publishDate,
+            content: widget.content,
+            thumbnail: widget.thumbnail
+        );
+        isSaved = SavedNews().isClickedNewsSaved(newsItem);
+      });
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Scaffold(
@@ -38,14 +66,31 @@ class NewsDetail extends StatelessWidget {
             fontSize: 24,
             letterSpacing: 1
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  isSaved = !isSaved;
+                });
+                if(isSaved) {
+                  BlocProvider.of<SavedNewsBloc>(context).add(SavedNewsEvent.saveNews(news: newsItem));
+                  debugPrint("Save event");
+                }
+                else {
+                  BlocProvider.of<SavedNewsBloc>(context).add(SavedNewsEvent.removeNews(news: newsItem));
+                }
+              },
+              icon: isSaved? NewsAppAssets.selectedSaved : NewsAppAssets.savedOutlined
+          )
+        ],
       ),
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: Column(
           children: <Widget>[
-            if(thumbnail != null)... [
+            if(widget.thumbnail != null)... [
               Image.network(
-                  thumbnail!,
+                  widget.thumbnail!,
                   fit: BoxFit.cover,
                 ),
             ] else ...[
@@ -54,7 +99,7 @@ class NewsDetail extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
               child: Text(
-                headline,
+                widget.headline,
                 style: theme.textTheme.headline6?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -63,7 +108,7 @@ class NewsDetail extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
               child: Text(
-                trailText,
+                widget.trailText,
                 style: theme.textTheme.bodyText2?.copyWith(
                   fontWeight: FontWeight.bold
                 ),
@@ -74,9 +119,9 @@ class NewsDetail extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  if(author != null) ... [
+                  if(widget.author != null) ... [
                     Text(
-                      "Author: " + author!,
+                      "Author: " + widget.author!,
                       style: theme.textTheme.caption?.copyWith(
                         color: isDarkMode(context) ? NAColors.gray : NAColors.black.withOpacity(0.6),
                         fontSize: 11,
@@ -85,7 +130,7 @@ class NewsDetail extends StatelessWidget {
                     ),
                   ],
                   Text(
-                    publishDate,
+                    widget.publishDate,
                     style: theme.textTheme.caption?.copyWith(
                       color: isDarkMode(context) ? NAColors.gray : NAColors.black.withOpacity(0.6),
                       fontSize: 11,
@@ -97,7 +142,7 @@ class NewsDetail extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
               child: Text(
-                content,
+                widget.content,
                 style: theme.textTheme.bodyText1,
               ),
             )

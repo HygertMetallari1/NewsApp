@@ -7,7 +7,7 @@ import 'package:newsapp/app/shared_widgets/na_list_view.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/models/news/news.dart';
-import 'package:newsapp/ui/news_list_mixin.dart';
+import 'package:newsapp/ui/helper_mixin.dart';
 import 'package:newsapp/ui/sections/blocs/lifestyle_tab_bloc/lifestyle_tab_bloc.dart';
 
 class LifestyleTab extends StatefulWidget {
@@ -73,11 +73,7 @@ class _LifestyleTabState extends State<LifestyleTab> with HelperMixin{
                           if (_news.isEmpty) {
                             return Padding(
                               padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5 ),
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: NAColors.blue,
-                                ),
-                              ),
+                              child: progressIndicator()
                             );
                           }
                           return NewsListView(

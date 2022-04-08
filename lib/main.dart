@@ -1,13 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/api_manager.dart';
+import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home_tab_navigator/cubit/tab_cubit.dart';
 import 'package:newsapp/ui/home_tab_navigator/screen/home_tab_navigator.dart';
 import 'package:newsapp/ui/remote_config/bloc/remote_config_bloc.dart';
+import 'package:newsapp/ui/saved/bloc/saved_news_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/lifestyle_tab_bloc/lifestyle_tab_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/news_tab_bloc/news_tab_bloc.dart';
 import 'package:newsapp/ui/sections/blocs/sport_tab_bloc/sport_tab_bloc.dart';
@@ -19,6 +22,7 @@ import 'ui/sections/blocs/culture_tab_bloc/culture_tab_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  initHive();
   late final _StartupBlocs startUpBlocs;
   await checkLocationServices();
   startUpBlocs = await createStartUpBlocs();
@@ -33,13 +37,14 @@ void main() async {
         child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => startUpBlocs.remoteConfigBloc),
+            BlocProvider(create: (_) => startUpBlocs.tabCubit),
             BlocProvider(create: (_) => HomeBlocNews()..add(const HomeNewsEvent.unfilteredNews())),
             BlocProvider(create: (_) => WeatherBloc()..add(const WeatherEvent.appStarted())),
             BlocProvider(create: (_) => NewsTabBloc()..add(const NewsTabEvent.loadNews())),
             BlocProvider(create: (_) => SportTabBloc()..add(const SportTabEvent.loadNews())),
             BlocProvider(create: (_) => LifestyleTabBloc()..add(const LifestyleTabEvent.loadNews())),
             BlocProvider(create: (_) => CultureTabBloc()..add(const CultureTabEvent.loadNews())),
-            BlocProvider(create: (_) => startUpBlocs.tabCubit)
+            BlocProvider(create: (_) => SavedNewsBloc()..add(const SavedNewsEvent.loadSavedNews()))
           ], child: const NewsApp(),
         ),
       )
@@ -88,11 +93,13 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if(state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
+      Hive.close();
       setState(() {
         appShown = false;
       });
     }
     if(state == AppLifecycleState.resumed) {
+      await Hive.openBox<NewsItem>(savedNewsBoxName);
       if(appShown == false) {
         setState(() {
           appShown = true;
@@ -101,6 +108,7 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
         BlocProvider.of<WeatherBloc>(context).add(const WeatherEvent.appStarted());
       }
     }
+
     super.didChangeAppLifecycleState(state);
   }
 
