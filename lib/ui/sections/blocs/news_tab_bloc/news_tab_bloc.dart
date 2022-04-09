@@ -60,9 +60,9 @@ class NewsTabBloc extends Bloc<NewsTabEvent, NewsTabState> {
 
   void _emitNewsTabList(Emitter<NewsTabState> emit) {
     if (_currentPage == _pages || _currentPage > _pages) {
-      emit(NewsTabState.loadedNews(_news, isTheEndOfList: true));
+      emit(NewsTabState.loadedNews(_news, true));
     } else {
-      emit(NewsTabState.loadedNews(_news));
+      emit(NewsTabState.loadedNews(_news, false));
     }
   }
 

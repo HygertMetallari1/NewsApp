@@ -28,9 +28,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
               _checkPages(_news);
               _emitHomeNewsList(emit);
             }  on DioError catch (error) {
-              emit(HomeNewsState.newsError(
-                  APIErrorHandler.fromDioError(error).message ?? tr("error.unexpected_error"))
-              );
+              _emitError(emit, error);
             }
           },
           searchNews: (String? query) async {
@@ -45,9 +43,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
               _checkPages(_news);
               _emitHomeNewsList(emit);
             }  on DioError catch (error) {
-              emit(HomeNewsState.newsError(
-                  APIErrorHandler.fromDioError(error).message ?? tr("error.unexpected_error"))
-              );
+              _emitError(emit, error);
             }
           },
           orderBy: (String? orderBy) async{
@@ -62,9 +58,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
               _checkPages(_news);
               _emitHomeNewsList(emit);
             }  on DioError catch (error) {
-              emit(HomeNewsState.newsError(
-                  APIErrorHandler.fromDioError(error).message ?? tr("error.unexpected_error"))
-              );
+              _emitError(emit, error);
             }
            },
           selectDate: (String? fromDate, String? toDate) async{
@@ -79,9 +73,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
               _checkPages(_news);
               _emitHomeNewsList(emit);
             } on DioError catch (error) {
-              emit(HomeNewsState.newsError(
-                  APIErrorHandler.fromDioError(error).message ?? tr("error.unexpected_error"))
-              );
+              _emitError(emit, error);
             }
           },
           loadNextPage: () async {
@@ -101,9 +93,7 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
                 _emitHomeNewsList(emit);
               }
             } on DioError catch (error) {
-              emit(HomeNewsState.newsError(
-                  APIErrorHandler.fromDioError(error).message ?? tr("error.unexpected_error"))
-              );
+              _emitError(emit, error);
             }
           }
       );
@@ -118,9 +108,9 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
 
   void _emitHomeNewsList(Emitter<HomeNewsState> emit) {
     if (_currentPage == _pages || _currentPage > _pages) {
-      emit(HomeNewsState.loadedNews(_news, isTheEndOfList: true)); // To check if there is no more news of the current query
+      emit(HomeNewsState.loadedNews(_news, true)); // To check if there is no more news of the current query
     } else {
-      emit(HomeNewsState.loadedNews(_news));
+      emit(HomeNewsState.loadedNews(_news, false));
     }
   }
 
@@ -130,5 +120,10 @@ class HomeBlocNews extends Bloc<HomeNewsEvent, HomeNewsState>{
     _pages = 0;
     _currentPage = 1;
   }
-  
+
+  void _emitError(Emitter<HomeNewsState> emit, DioError error) {
+    emit(HomeNewsState.newsError(
+        APIErrorHandler.fromDioError(error).message ?? tr("error.unexpected_error"))
+    );
+  }
 }

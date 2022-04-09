@@ -20,7 +20,7 @@ class _SavedScreenState extends State<SavedScreen> {
 
   @override
   void didChangeDependencies() {
-     savedNewsBloc = BlocProvider.of<SavedNewsBloc>(context);
+    savedNewsBloc = BlocProvider.of<SavedNewsBloc>(context);
     super.didChangeDependencies();
   }
   @override
@@ -48,27 +48,27 @@ class _SavedScreenState extends State<SavedScreen> {
                         return state.maybeWhen(
                           loadingSavedNews: () {
                             return _buildIndicator(
-                                context,
-                                progressIndicator(),
+                              context,
+                              progressIndicator(),
                             );
                           },
                           loadedSavedNews: (news) {
                             if(news.isNotEmpty) {
-                              return NewsListView(news: news, blocType: SavedNewsBloc, isTheEndOfList: true);
+                              return NewsListView(news: news.reversed.toList(), blocType: SavedNewsBloc, isTheEndOfList: true);
                             }
                             return _buildIndicator(
-                                context,
-                                NAErrorScreen(errorMessage: tr("errors.empty_saved_list"),
+                              context,
+                              NAErrorScreen(errorMessage: tr("errors.empty_saved_list"),
                               ),
                             );
                           },
                           savedNewsError: (error) {
                             return _buildIndicator(
-                                context,
-                                NAErrorScreen(errorMessage: error),
+                              context,
+                              NAErrorScreen(errorMessage: error),
                             );
                           },
-                            orElse: () => const SizedBox(),
+                          orElse: () => const SizedBox(),
                         );
                       },
                     ),

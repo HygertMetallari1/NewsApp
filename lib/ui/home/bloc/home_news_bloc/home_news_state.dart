@@ -6,7 +6,7 @@ class HomeNewsState with _$HomeNewsState {
   const factory HomeNewsState.loadingNews() = _LoadingNews;
   const factory HomeNewsState.loadedNews(
   List<NewsItem> news,
-  {bool? isTheEndOfList}) = _LoadedNews;
+  bool isTheEndOfList) = _LoadedNews;
   const factory HomeNewsState.newsError(String error) = _NewsError;
   const factory HomeNewsState.resetList() = _ResetList;
 }

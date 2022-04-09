@@ -6,4 +6,5 @@ class RemoteConfigState with _$RemoteConfigState {
   const factory RemoteConfigState.remoteConfig({
     required NARemoteConfig naRemoteConfig
   }) = _RemoteConfig;
+  const factory RemoteConfigState.remoteConfigError() = _RemoteConfigError;
 }

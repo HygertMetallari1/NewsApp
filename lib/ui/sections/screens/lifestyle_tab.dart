@@ -20,7 +20,7 @@ class LifestyleTab extends StatefulWidget {
 class _LifestyleTabState extends State<LifestyleTab> with HelperMixin{
   LifestyleTabBloc lifestyleTabBloc = LifestyleTabBloc();
   List<NewsItem> _news = [];
-  bool? _isTheEndOfList;
+  bool _isTheEndOfList = false;
   int? _selectedSubCategory = -1;
 
   static const int _lifeStyleSectionIndex = 2;
@@ -34,6 +34,14 @@ class _LifestyleTabState extends State<LifestyleTab> with HelperMixin{
   @override
   void didChangeDependencies() {
     lifestyleTabBloc = BlocProvider.of<LifestyleTabBloc>(context);
+    lifestyleTabBloc.state.whenOrNull(
+        newsError: (error) => lifestyleTabBloc..add(LifestyleTabEvent.loadNews(
+            chosenSection: _selectedSubCategory == -1
+                ? null
+                : subCategories[_selectedSubCategory!]
+          )
+        )
+    );
     setState(() {
       _news = getStoredNewsList();
       _selectedSubCategory = getSubSectionIndex(_lifeStyleSectionIndex);
@@ -71,10 +79,7 @@ class _LifestyleTabState extends State<LifestyleTab> with HelperMixin{
                       builder: (context, state) {
                         return state.maybeWhen(loadingNews: () {
                           if (_news.isEmpty) {
-                            return Padding(
-                              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5 ),
-                              child: progressIndicator()
-                            );
+                            return buildIndicator(progressIndicator());
                           }
                           return NewsListView(
                             news: _news,
@@ -83,8 +88,7 @@ class _LifestyleTabState extends State<LifestyleTab> with HelperMixin{
                           );
                         }, loadedNews: (news, isTheEndOfList) {
                           if (news.isEmpty) {
-                            return NAErrorScreen(
-                                errorMessage: (tr("errors.empty_list")));
+                            return buildIndicator(NAErrorScreen(errorMessage: (tr("errors.empty_list"))));
                           }
                           if (areTheSame(_news, news) == false) {
                             _saveLifestyleNewsToPageStorage(news, isTheEndOfList);
@@ -95,9 +99,7 @@ class _LifestyleTabState extends State<LifestyleTab> with HelperMixin{
                             blocType: LifestyleTabBloc,
                           );
                         }, newsError: (newsError) {
-                          return NAErrorScreen(
-                            errorMessage: newsError,
-                          );
+                          return buildIndicator(NAErrorScreen(errorMessage: newsError,));
                         }, orElse: () {
                           return NewsListView(
                             news: _news,
@@ -147,7 +149,7 @@ class _LifestyleTabState extends State<LifestyleTab> with HelperMixin{
         ));
   }
 
-  void _saveLifestyleNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
+  void _saveLifestyleNewsToPageStorage(List<NewsItem> news, bool isTheEndOfList) {
     _news.addAll(news);
     _isTheEndOfList = isTheEndOfList;
     saveToPageStorage(_news);

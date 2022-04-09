@@ -17,10 +17,13 @@ class RemoteConfigBloc extends Bloc<RemoteConfigEvent, RemoteConfigState> {
     on<RemoteConfigEvent> ((event, emit) async {
      await event.when(
           getValues: () async {
-            final firebaseRemoteConfig = await _setupRemoteConfig();
-            final naRemoteConfig = NARemoteConfig.fromRemoteConfig(firebaseRemoteConfig);
-            debugPrint("Remote config data ☑️ ${naRemoteConfig.toString()}");
-            emit(RemoteConfigState.remoteConfig(naRemoteConfig: naRemoteConfig));
+            try {
+              final firebaseRemoteConfig = await _setupRemoteConfig();
+              final naRemoteConfig = NARemoteConfig.fromRemoteConfig(firebaseRemoteConfig);
+              emit(RemoteConfigState.remoteConfig(naRemoteConfig: naRemoteConfig));
+            } catch (error) {
+              emit(const RemoteConfigState.remoteConfigError());
+            }
           }
       );
     });

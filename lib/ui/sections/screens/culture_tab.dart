@@ -21,8 +21,8 @@ class CultureTab extends StatefulWidget {
 class _CultureTabState extends State<CultureTab> with HelperMixin {
   CultureTabBloc cultureTabBloc = CultureTabBloc();
   List<NewsItem> _news = [];
-  bool? _isTheEndOfList;
-  int? _selectedSubCategory = -1;
+  bool _isTheEndOfList = false;
+  int _selectedSubCategory = -1;
 
   static const int _cultureSectionIndex = 3;
   static List<String> subCategories = <String>[
@@ -36,6 +36,14 @@ class _CultureTabState extends State<CultureTab> with HelperMixin {
   @override
   void didChangeDependencies() {
     cultureTabBloc = BlocProvider.of<CultureTabBloc>(context);
+    cultureTabBloc.state.whenOrNull(
+      newsError: (error) => cultureTabBloc..add(CultureTabEvent.loadNews(
+          chosenSection: _selectedSubCategory == -1
+              ? null
+              : subCategories[_selectedSubCategory]
+        )
+      )
+    );
     setState(() {
       _selectedSubCategory = getSubSectionIndex(_cultureSectionIndex);
       _news = getStoredNewsList();
@@ -85,11 +93,7 @@ class _CultureTabState extends State<CultureTab> with HelperMixin {
                   builder: (context, state) {
                     return state.maybeWhen(loadingNews: () {
                       if (_news.isEmpty) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height / 5),
-                          child: progressIndicator()
-                        );
+                        return buildIndicator(progressIndicator());
                       }
                       return NewsListView(
                         news: _news,
@@ -98,8 +102,7 @@ class _CultureTabState extends State<CultureTab> with HelperMixin {
                       );
                     }, loadedNews: (news, isTheEndOfList) {
                       if (news.isEmpty) {
-                        return NAErrorScreen(
-                            errorMessage: (tr("errors.empty_list")));
+                        return buildIndicator(NAErrorScreen(errorMessage: (tr("errors.empty_list"))));
                       }
                       if (areTheSame(_news, news) == false) {
                         _saveCultureNewsToPageStorage(news, isTheEndOfList);
@@ -110,9 +113,7 @@ class _CultureTabState extends State<CultureTab> with HelperMixin {
                         blocType: CultureTabBloc,
                       );
                     }, newsError: (newsError) {
-                      return NAErrorScreen(
-                        errorMessage: newsError,
-                      );
+                      return buildIndicator(NAErrorScreen(errorMessage: newsError,));
                     }, orElse: () {
                       return NewsListView(
                         news: _news,
@@ -151,7 +152,7 @@ class _CultureTabState extends State<CultureTab> with HelperMixin {
                 selected: _selectedSubCategory == index,
                 onSelected: (selected) {
                   setState(() {
-                    _selectedSubCategory = selected ? index : null;
+                    _selectedSubCategory = (selected ? index : null)!;
                     saveSubSectionIndex(selected ? index : -1, _cultureSectionIndex);
                   });
                   BlocProvider.of<CultureTabBloc>(context).add(
@@ -164,7 +165,7 @@ class _CultureTabState extends State<CultureTab> with HelperMixin {
   }
 
   void _saveCultureNewsToPageStorage(
-      List<NewsItem> news, bool? isTheEndOfList) {
+      List<NewsItem> news, bool isTheEndOfList) {
     _news.addAll(news);
     _isTheEndOfList = isTheEndOfList;
     saveToPageStorage(_news);

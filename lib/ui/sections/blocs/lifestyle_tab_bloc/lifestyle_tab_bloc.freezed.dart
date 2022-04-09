@@ -340,10 +340,10 @@ class _$LifestyleTabStateTearOff {
     return const _LoadingNews();
   }
 
-  _LoadedNews loadedNews(List<NewsItem> news, {bool? isTheEndOfList}) {
+  _LoadedNews loadedNews(List<NewsItem> news, bool isTheEndOfList) {
     return _LoadedNews(
       news,
-      isTheEndOfList: isTheEndOfList,
+      isTheEndOfList,
     );
   }
 
@@ -367,7 +367,7 @@ mixin _$LifestyleTabState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+    required TResult Function(List<NewsItem> news, bool isTheEndOfList)
         loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
@@ -377,7 +377,7 @@ mixin _$LifestyleTabState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) =>
@@ -386,7 +386,7 @@ mixin _$LifestyleTabState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
@@ -479,7 +479,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+    required TResult Function(List<NewsItem> news, bool isTheEndOfList)
         loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
@@ -492,7 +492,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
@@ -504,7 +504,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
@@ -603,7 +603,7 @@ class _$_LoadingNews implements _LoadingNews {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+    required TResult Function(List<NewsItem> news, bool isTheEndOfList)
         loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
@@ -616,7 +616,7 @@ class _$_LoadingNews implements _LoadingNews {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
@@ -628,7 +628,7 @@ class _$_LoadingNews implements _LoadingNews {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
@@ -689,7 +689,7 @@ abstract class _$LoadedNewsCopyWith<$Res> {
   factory _$LoadedNewsCopyWith(
           _LoadedNews value, $Res Function(_LoadedNews) then) =
       __$LoadedNewsCopyWithImpl<$Res>;
-  $Res call({List<NewsItem> news, bool? isTheEndOfList});
+  $Res call({List<NewsItem> news, bool isTheEndOfList});
 }
 
 /// @nodoc
@@ -713,10 +713,10 @@ class __$LoadedNewsCopyWithImpl<$Res>
           ? _value.news
           : news // ignore: cast_nullable_to_non_nullable
               as List<NewsItem>,
-      isTheEndOfList: isTheEndOfList == freezed
+      isTheEndOfList == freezed
           ? _value.isTheEndOfList
           : isTheEndOfList // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
     ));
   }
 }
@@ -724,12 +724,12 @@ class __$LoadedNewsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoadedNews implements _LoadedNews {
-  const _$_LoadedNews(this.news, {this.isTheEndOfList});
+  const _$_LoadedNews(this.news, this.isTheEndOfList);
 
   @override
   final List<NewsItem> news;
   @override
-  final bool? isTheEndOfList;
+  final bool isTheEndOfList;
 
   @override
   String toString() {
@@ -762,7 +762,7 @@ class _$_LoadedNews implements _LoadedNews {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+    required TResult Function(List<NewsItem> news, bool isTheEndOfList)
         loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
@@ -775,7 +775,7 @@ class _$_LoadedNews implements _LoadedNews {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
@@ -787,7 +787,7 @@ class _$_LoadedNews implements _LoadedNews {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
@@ -840,11 +840,11 @@ class _$_LoadedNews implements _LoadedNews {
 }
 
 abstract class _LoadedNews implements LifestyleTabState {
-  const factory _LoadedNews(List<NewsItem> news, {bool? isTheEndOfList}) =
+  const factory _LoadedNews(List<NewsItem> news, bool isTheEndOfList) =
       _$_LoadedNews;
 
   List<NewsItem> get news;
-  bool? get isTheEndOfList;
+  bool get isTheEndOfList;
   @JsonKey(ignore: true)
   _$LoadedNewsCopyWith<_LoadedNews> get copyWith =>
       throw _privateConstructorUsedError;
@@ -916,7 +916,7 @@ class _$_NewsError implements _NewsError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+    required TResult Function(List<NewsItem> news, bool isTheEndOfList)
         loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
@@ -929,7 +929,7 @@ class _$_NewsError implements _NewsError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
@@ -941,7 +941,7 @@ class _$_NewsError implements _NewsError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),
@@ -1044,7 +1044,7 @@ class _$_ResetList implements _ResetList {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadingNews,
-    required TResult Function(List<NewsItem> news, bool? isTheEndOfList)
+    required TResult Function(List<NewsItem> news, bool isTheEndOfList)
         loadedNews,
     required TResult Function(String error) newsError,
     required TResult Function() resetList,
@@ -1057,7 +1057,7 @@ class _$_ResetList implements _ResetList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
   }) {
@@ -1069,7 +1069,7 @@ class _$_ResetList implements _ResetList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadingNews,
-    TResult Function(List<NewsItem> news, bool? isTheEndOfList)? loadedNews,
+    TResult Function(List<NewsItem> news, bool isTheEndOfList)? loadedNews,
     TResult Function(String error)? newsError,
     TResult Function()? resetList,
     required TResult orElse(),

@@ -60,9 +60,9 @@ class LifestyleTabBloc extends Bloc<LifestyleTabEvent, LifestyleTabState>{
 
   void _emitLifestyleTabList(Emitter<LifestyleTabState> emit) {
     if (_currentPage == _pages || _currentPage > _pages) {
-      emit(LifestyleTabState.loadedNews(_news, isTheEndOfList: true));
+      emit(LifestyleTabState.loadedNews(_news, true));
     } else {
-      emit(LifestyleTabState.loadedNews(_news));
+      emit(LifestyleTabState.loadedNews(_news, false));
     }
   }
 

@@ -30,12 +30,15 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
 
   HomeBlocNews homeBlocNews = HomeBlocNews();
   List<NewsItem> _news = [];
-  bool? _isTheEndOfList;
+  bool _isTheEndOfList = false;
 
 
   @override
   void didChangeDependencies() {
     homeBlocNews = BlocProvider.of<HomeBlocNews>(context);
+    homeBlocNews.state.whenOrNull(
+      newsError: (error) => homeBlocNews..add(const HomeNewsEvent.unfilteredNews())
+    );
     _news = getStoredNewsList();
     super.didChangeDependencies();
   }
@@ -123,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
     );
   }
 
-  void _saveHomeNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
+  void _saveHomeNewsToPageStorage(List<NewsItem> news, bool isTheEndOfList) {
       _news.addAll(news);
       _isTheEndOfList = isTheEndOfList;
     saveToPageStorage(_news);

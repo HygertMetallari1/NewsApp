@@ -15,12 +15,12 @@ import 'package:newsapp/ui/sections/blocs/sport_tab_bloc/sport_tab_bloc.dart';
 
 class NewsListView extends StatefulWidget {
   final List<NewsItem> news;
-  final bool? isTheEndOfList;
+  final bool isTheEndOfList;
   final Type blocType;
   const NewsListView({Key? key,
     required this.news,
     required this.blocType,
-    this.isTheEndOfList
+    required this.isTheEndOfList
   }) : super(key: key);
 
   @override
@@ -68,7 +68,7 @@ class _NewsListViewState extends State<NewsListView>{
 
   bool isScrollAtBottom() {
     if (scrollController.position.maxScrollExtent
-        == scrollController.offset && widget.isTheEndOfList == null) {
+        == scrollController.offset && widget.isTheEndOfList == false) {
       return true;
     } else {
       return false;
@@ -76,10 +76,15 @@ class _NewsListViewState extends State<NewsListView>{
   }
 
   @override
+  void initState() {
+    setState(() {
+     isFirstTimeAdding = widget.news.length <= 10;
+    });
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
-    /*setState(() {
-      isFirstTimeAdding = widget.news.length <= 10;
-    });*/
     scrollController.addListener(() {
       _scrollControllerListener();
     });
@@ -92,12 +97,12 @@ class _NewsListViewState extends State<NewsListView>{
     }
     //To override the saved list position and automatically scroll the list to the top
     //whenever there is a new list loaded
-    /*if(isFirstTimeAdding)  {
+    if(isFirstTimeAdding)  {
       scrollController.jumpTo(0);
       setState(() {
         isFirstTimeAdding = false;
       });
-    }*/
+    }
   }
 
   void scrollToTop() {
@@ -115,7 +120,6 @@ class _NewsListViewState extends State<NewsListView>{
   Widget build(BuildContext context) {
     return Expanded(
       child: Stack(
-        alignment: Alignment.bottomRight,
         children: [
             NotificationListener(
             onNotification: (notification) {
@@ -158,7 +162,7 @@ class _NewsListViewState extends State<NewsListView>{
                           color: NAColors.gray,
                         ),
                         if(index == widget.news.length - 1)... [
-                          if(widget.isTheEndOfList == null)... [
+                          if(widget.isTheEndOfList == false)... [
                             progressIndicator()
                           ]
                         ]
@@ -167,15 +171,19 @@ class _NewsListViewState extends State<NewsListView>{
                 }
             ),
           ),
-          Visibility(
-            visible: showBackToTopButton,
-            child: FloatingActionButton(
-              backgroundColor: NAColors.gray.withOpacity(0.5),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
+          Positioned(
+            bottom: kBottomNavigationBarHeight,
+            right: 0,
+            child: Visibility(
+              visible: showBackToTopButton,
+              child: FloatingActionButton(
+                backgroundColor: NAColors.gray.withOpacity(0.5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                onPressed: () => scrollToTop(),
+                child: NewsAppAssets.upArrow,
               ),
-              onPressed: () => scrollToTop(),
-              child: NewsAppAssets.upArrow,
             ),
           )
         ]

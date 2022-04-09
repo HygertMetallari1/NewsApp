@@ -93,13 +93,11 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if(state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
-      Hive.close();
       setState(() {
         appShown = false;
       });
     }
     if(state == AppLifecycleState.resumed) {
-      initHive();
       if(appShown == false) {
         setState(() {
           appShown = true;
@@ -115,6 +113,7 @@ class _NewsAppState extends State<NewsApp> with WidgetsBindingObserver{
   @override
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
+    Hive.close();
     super.dispose();
   }
 }

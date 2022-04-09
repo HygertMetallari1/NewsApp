@@ -54,7 +54,7 @@ class SavedNewsBloc extends Bloc<SavedNewsEvent, SavedNewsState> {
   void _emitSavedNews(Emitter<SavedNewsState> emit, List<NewsItem> news) {
     _news.clear();
     _news = news;
-    emit(SavedNewsState.loadedSavedNews(_news.reversed.toList()));
+    emit(SavedNewsState.loadedSavedNews(_news));
   }
 
   void _emitError(Emitter<SavedNewsState> emit) {

@@ -61,9 +61,9 @@ class CultureTabBloc extends Bloc<CultureTabEvent, CultureTabState>{
 
   void _emitCultureTabList(Emitter<CultureTabState> emit) {
     if (_currentPage == _pages || _currentPage > _pages) {
-      emit(CultureTabState.loadedNews(_news, isTheEndOfList: true));
+      emit(CultureTabState.loadedNews(_news, true));
     } else {
-      emit(CultureTabState.loadedNews(_news));
+      emit(CultureTabState.loadedNews(_news, false));
     }
   }
 

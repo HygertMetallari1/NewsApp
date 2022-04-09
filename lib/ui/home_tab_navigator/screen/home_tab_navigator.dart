@@ -5,6 +5,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/news_app_assets.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
+import 'package:newsapp/ui/remote_config/bloc/remote_config_bloc.dart';
 import 'package:newsapp/ui/sections/screens/sections_screen.dart';
 import 'package:newsapp/ui/home/screens/home_screen.dart';
 import 'package:newsapp/ui/home_tab_navigator/cubit/tab_cubit.dart';
@@ -26,21 +27,44 @@ class _HomeTabNavigatorState extends State<HomeTabNavigator> {
     return PageStorage(
       bucket: _bucket,
       child: Scaffold(
-        body: BlocBuilder<TabCubit, TabState>(
-          builder: (context, state) {
-            switch(state.selectedTab) {
-              case "/home": {
-                return const HomeScreen();
+        body: BlocListener<RemoteConfigBloc, RemoteConfigState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              remoteConfigError: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) {
+                    return AlertDialog(
+                      backgroundColor: NAColors.white70,
+                      content: Text(
+                          tr("errors.unexpected_error"),
+                          style: theme.textTheme.bodyText2?.copyWith(
+                              color: NAColors.error,
+                              fontWeight: FontWeight.bold
+                          )
+                      ),
+                    );
+                  },
+                );
               }
-              case "/sections": {
-                return const SectionsScreen();
-              }
-              case "/saved": {
-                return const SavedScreen();
-              }
-            }
-            return const HomeScreen();
+            );
           },
+          child: BlocBuilder<TabCubit, TabState>(
+            builder: (context, state) {
+              switch(state.selectedTab) {
+                case "/home": {
+                  return const HomeScreen();
+                }
+                case "/sections": {
+                  return const SectionsScreen();
+                }
+                case "/saved": {
+                  return const SavedScreen();
+                }
+              }
+              return const HomeScreen();
+            },
+          ),
         ),
         bottomNavigationBar: _buildBottomNavigationBar(context, theme),
       ),
@@ -49,7 +73,6 @@ class _HomeTabNavigatorState extends State<HomeTabNavigator> {
 
   @swidget
   _buildBottomNavigationBar(BuildContext context, ThemeData theme) {
-
     TabCubit _tabCubit = BlocProvider.of<TabCubit>(context);
     return BlocBuilder<TabCubit, TabState>(
       builder: (context, state) {

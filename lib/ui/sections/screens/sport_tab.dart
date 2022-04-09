@@ -19,11 +19,14 @@ class SportTab extends StatefulWidget {
 class _SportTabState extends State<SportTab> with HelperMixin{
   SportTabBloc sportTabBloc = SportTabBloc();
   List<NewsItem> _news = [];
-  bool? _isTheEndOfList;
+  bool _isTheEndOfList = false;
 
   @override
   void didChangeDependencies() {
     sportTabBloc = BlocProvider.of<SportTabBloc>(context);
+    sportTabBloc.state.whenOrNull(
+        newsError: (error) => sportTabBloc..add(const SportTabEvent.loadNews())
+    );
     setState(() {
       _news = getStoredNewsList();
     });
@@ -47,55 +50,53 @@ class _SportTabState extends State<SportTab> with HelperMixin{
             },
             child: Padding(
                 padding: const EdgeInsets.only(top: 8.0, left: 20.0, right: 20.0),
-                child: Column(
-                  children: [
-                    BlocBuilder<SportTabBloc, SportTabState>(
-                      builder: (context, state) {
-                        return state.maybeWhen(loadingNews: () {
-                          if (_news.isEmpty) {
-                            return Padding(
-                              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5 ),
-                              child: progressIndicator()
+                child: SizedBox(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Column(
+                    children: [
+                      BlocBuilder<SportTabBloc, SportTabState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(loadingNews: () {
+                            if (_news.isEmpty) {
+                              return buildIndicator(progressIndicator());
+                            }
+                            return NewsListView(
+                              news: _news,
+                              isTheEndOfList: _isTheEndOfList,
+                              blocType: SportTabBloc,
                             );
-                          }
-                          return NewsListView(
-                            news: _news,
-                            isTheEndOfList: _isTheEndOfList,
-                            blocType: SportTabBloc,
-                          );
-                        }, loadedNews: (news, isTheEndOfList) {
-                          if (news.isEmpty) {
-                            return NAErrorScreen(
-                                errorMessage: (tr("errors.empty_list")));
-                          }
-                          if (areTheSame(_news, news) == false) {
-                            _saveSportNewsToPageStorage(news, isTheEndOfList);
-                          }
-                          return NewsListView(
-                            news: _news,
-                            isTheEndOfList: _isTheEndOfList,
-                            blocType: SportTabBloc,
-                          );
-                        }, newsError: (newsError) {
-                          return NAErrorScreen(
-                            errorMessage: newsError,
-                          );
-                        }, orElse: () {
-                          return NewsListView(
-                            news: _news,
-                            isTheEndOfList: _isTheEndOfList,
-                            blocType: SportTabBloc,
-                          );
-                        });
-                      },
-                    ),
-                  ],
+                          }, loadedNews: (news, isTheEndOfList) {
+                            if (news.isEmpty) {
+                              return  buildIndicator(NAErrorScreen(errorMessage: (tr("errors.empty_list"))));
+                            }
+                            if (areTheSame(_news, news) == false) {
+                              _saveSportNewsToPageStorage(news, isTheEndOfList);
+                            }
+                            return NewsListView(
+                              news: _news,
+                              isTheEndOfList: _isTheEndOfList,
+                              blocType: SportTabBloc,
+                            );
+                          }, newsError: (newsError) {
+                            return buildIndicator(NAErrorScreen(errorMessage: newsError,));
+                          }, orElse: () {
+                            return NewsListView(
+                              news: _news,
+                              isTheEndOfList: _isTheEndOfList,
+                              blocType: SportTabBloc,
+                            );
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 )),
           ),
         ));
   }
 
-  void _saveSportNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
+  void _saveSportNewsToPageStorage(List<NewsItem> news, bool isTheEndOfList) {
     _news.addAll(news);
     _isTheEndOfList = isTheEndOfList;
     saveToPageStorage(_news);

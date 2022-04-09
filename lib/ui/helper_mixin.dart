@@ -35,4 +35,11 @@ mixin HelperMixin<T extends StatefulWidget> on State<T>{
     PageStorage.of(context)!
         .writeState(context, subSectionIndex, identifier: sectionIndex);
   }
+
+  Widget buildIndicator(Widget indicator) {
+    return Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
+        child: indicator
+    );
+  }
 }

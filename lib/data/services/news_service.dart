@@ -10,7 +10,7 @@ class NewsService {
 
   final Map<String, String> _queryParamsHomeNews = <String, String> {
     "show-fields":_showFields,
-    "show-blocks": _showBlocks
+    "show-blocks": _showBlocks,
   };
 
   final Map<String, String> _queryParamsNewsSection = <String, String> {

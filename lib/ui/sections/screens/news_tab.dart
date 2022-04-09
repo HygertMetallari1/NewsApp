@@ -21,7 +21,7 @@ class NewsTab extends StatefulWidget {
 class _NewsTabState extends State<NewsTab> with HelperMixin{
   NewsTabBloc newsTabBloc = NewsTabBloc();
   List<NewsItem> _news = [];
-  bool? _isTheEndOfList;
+  bool _isTheEndOfList = false;
   int? _selectedSubCategory = 0;
 
   static const int _newsSectionIndex = 0;
@@ -38,6 +38,14 @@ class _NewsTabState extends State<NewsTab> with HelperMixin{
   @override
   void didChangeDependencies() {
     newsTabBloc = BlocProvider.of<NewsTabBloc>(context);
+    newsTabBloc.state.whenOrNull(
+        newsError: (error) => newsTabBloc..add(NewsTabEvent.loadNews(
+            chosenSection: _selectedSubCategory == -1
+                ? null
+                : subCategories[_selectedSubCategory!]
+        )
+        )
+    );
       setState(() {
         _news = getStoredNewsList();
         _selectedSubCategory = getSubSectionIndex(_newsSectionIndex);
@@ -87,10 +95,7 @@ class _NewsTabState extends State<NewsTab> with HelperMixin{
                   builder: (context, state) {
                     return state.maybeWhen(loadingNews: () {
                       if (_news.isEmpty) {
-                        return Padding(
-                          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5 ),
-                          child: progressIndicator()
-                        );
+                        return buildIndicator(progressIndicator());
                       }
                       return NewsListView(
                         news: _news,
@@ -99,8 +104,7 @@ class _NewsTabState extends State<NewsTab> with HelperMixin{
                       );
                     }, loadedNews: (news, isTheEndOfList) {
                       if (news.isEmpty) {
-                        return NAErrorScreen(
-                            errorMessage: (tr("errors.empty_list")));
+                        return buildIndicator(NAErrorScreen(errorMessage: (tr("errors.empty_list"))));
                       }
                       if (areTheSame(_news, news) == false) {
                         _saveHomeNewsToPageStorage(news, isTheEndOfList);
@@ -111,9 +115,7 @@ class _NewsTabState extends State<NewsTab> with HelperMixin{
                         blocType: NewsTabBloc,
                       );
                     }, newsError: (newsError) {
-                      return NAErrorScreen(
-                        errorMessage: newsError,
-                      );
+                      return buildIndicator(NAErrorScreen(errorMessage: newsError,));
                     }, orElse: () {
                       return NewsListView(
                         news: _news,
@@ -164,7 +166,7 @@ class _NewsTabState extends State<NewsTab> with HelperMixin{
             ));
         }
 
-  void _saveHomeNewsToPageStorage(List<NewsItem> news, bool? isTheEndOfList) {
+  void _saveHomeNewsToPageStorage(List<NewsItem> news, bool isTheEndOfList) {
     _news.addAll(news);
     _isTheEndOfList = isTheEndOfList;
     saveToPageStorage(_news);

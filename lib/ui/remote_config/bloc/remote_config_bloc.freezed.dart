@@ -189,6 +189,10 @@ class _$RemoteConfigStateTearOff {
       naRemoteConfig: naRemoteConfig,
     );
   }
+
+  _RemoteConfigError remoteConfigError() {
+    return const _RemoteConfigError();
+  }
 }
 
 /// @nodoc
@@ -200,18 +204,21 @@ mixin _$RemoteConfigState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(NARemoteConfig naRemoteConfig) remoteConfig,
+    required TResult Function() remoteConfigError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
+    TResult Function()? remoteConfigError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
+    TResult Function()? remoteConfigError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -219,18 +226,21 @@ mixin _$RemoteConfigState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_RemoteConfig value) remoteConfig,
+    required TResult Function(_RemoteConfigError value) remoteConfigError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_RemoteConfig value)? remoteConfig,
+    TResult Function(_RemoteConfigError value)? remoteConfigError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_RemoteConfig value)? remoteConfig,
+    TResult Function(_RemoteConfigError value)? remoteConfigError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -293,6 +303,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(NARemoteConfig naRemoteConfig) remoteConfig,
+    required TResult Function() remoteConfigError,
   }) {
     return initial();
   }
@@ -302,6 +313,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
+    TResult Function()? remoteConfigError,
   }) {
     return initial?.call();
   }
@@ -311,6 +323,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
+    TResult Function()? remoteConfigError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -324,6 +337,7 @@ class _$_Initial implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_RemoteConfig value) remoteConfig,
+    required TResult Function(_RemoteConfigError value) remoteConfigError,
   }) {
     return initial(this);
   }
@@ -333,6 +347,7 @@ class _$_Initial implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_RemoteConfig value)? remoteConfig,
+    TResult Function(_RemoteConfigError value)? remoteConfigError,
   }) {
     return initial?.call(this);
   }
@@ -342,6 +357,7 @@ class _$_Initial implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_RemoteConfig value)? remoteConfig,
+    TResult Function(_RemoteConfigError value)? remoteConfigError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -432,6 +448,7 @@ class _$_RemoteConfig implements _RemoteConfig {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(NARemoteConfig naRemoteConfig) remoteConfig,
+    required TResult Function() remoteConfigError,
   }) {
     return remoteConfig(naRemoteConfig);
   }
@@ -441,6 +458,7 @@ class _$_RemoteConfig implements _RemoteConfig {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
+    TResult Function()? remoteConfigError,
   }) {
     return remoteConfig?.call(naRemoteConfig);
   }
@@ -450,6 +468,7 @@ class _$_RemoteConfig implements _RemoteConfig {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
+    TResult Function()? remoteConfigError,
     required TResult orElse(),
   }) {
     if (remoteConfig != null) {
@@ -463,6 +482,7 @@ class _$_RemoteConfig implements _RemoteConfig {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_RemoteConfig value) remoteConfig,
+    required TResult Function(_RemoteConfigError value) remoteConfigError,
   }) {
     return remoteConfig(this);
   }
@@ -472,6 +492,7 @@ class _$_RemoteConfig implements _RemoteConfig {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_RemoteConfig value)? remoteConfig,
+    TResult Function(_RemoteConfigError value)? remoteConfigError,
   }) {
     return remoteConfig?.call(this);
   }
@@ -481,6 +502,7 @@ class _$_RemoteConfig implements _RemoteConfig {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_RemoteConfig value)? remoteConfig,
+    TResult Function(_RemoteConfigError value)? remoteConfigError,
     required TResult orElse(),
   }) {
     if (remoteConfig != null) {
@@ -498,4 +520,115 @@ abstract class _RemoteConfig implements RemoteConfigState {
   @JsonKey(ignore: true)
   _$RemoteConfigCopyWith<_RemoteConfig> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$RemoteConfigErrorCopyWith<$Res> {
+  factory _$RemoteConfigErrorCopyWith(
+          _RemoteConfigError value, $Res Function(_RemoteConfigError) then) =
+      __$RemoteConfigErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$RemoteConfigErrorCopyWithImpl<$Res>
+    extends _$RemoteConfigStateCopyWithImpl<$Res>
+    implements _$RemoteConfigErrorCopyWith<$Res> {
+  __$RemoteConfigErrorCopyWithImpl(
+      _RemoteConfigError _value, $Res Function(_RemoteConfigError) _then)
+      : super(_value, (v) => _then(v as _RemoteConfigError));
+
+  @override
+  _RemoteConfigError get _value => super._value as _RemoteConfigError;
+}
+
+/// @nodoc
+
+class _$_RemoteConfigError implements _RemoteConfigError {
+  const _$_RemoteConfigError();
+
+  @override
+  String toString() {
+    return 'RemoteConfigState.remoteConfigError()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _RemoteConfigError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(NARemoteConfig naRemoteConfig) remoteConfig,
+    required TResult Function() remoteConfigError,
+  }) {
+    return remoteConfigError();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
+    TResult Function()? remoteConfigError,
+  }) {
+    return remoteConfigError?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(NARemoteConfig naRemoteConfig)? remoteConfig,
+    TResult Function()? remoteConfigError,
+    required TResult orElse(),
+  }) {
+    if (remoteConfigError != null) {
+      return remoteConfigError();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_RemoteConfig value) remoteConfig,
+    required TResult Function(_RemoteConfigError value) remoteConfigError,
+  }) {
+    return remoteConfigError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_RemoteConfig value)? remoteConfig,
+    TResult Function(_RemoteConfigError value)? remoteConfigError,
+  }) {
+    return remoteConfigError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_RemoteConfig value)? remoteConfig,
+    TResult Function(_RemoteConfigError value)? remoteConfigError,
+    required TResult orElse(),
+  }) {
+    if (remoteConfigError != null) {
+      return remoteConfigError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RemoteConfigError implements RemoteConfigState {
+  const factory _RemoteConfigError() = _$_RemoteConfigError;
 }

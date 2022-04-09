@@ -44,6 +44,7 @@ class _NAErrorScreenState extends State<NAErrorScreen> {
     return SizedBox(
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset(
               path,

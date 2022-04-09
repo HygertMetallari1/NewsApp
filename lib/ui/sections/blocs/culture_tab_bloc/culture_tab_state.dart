@@ -5,7 +5,7 @@ class CultureTabState with _$CultureTabState{
   const factory CultureTabState.loadingNews() = _LoadingNews;
   const factory CultureTabState.loadedNews(
       List<NewsItem> news,
-      {bool? isTheEndOfList}) = _LoadedNews;
+      bool isTheEndOfList) = _LoadedNews;
   const factory CultureTabState.newsError(String error) = _NewsError;
   const factory CultureTabState.resetList() = _ResetList;
 }

@@ -60,9 +60,9 @@ class SportTabBloc extends Bloc<SportTabEvent, SportTabState> {
 
   void _emitSportTabList(Emitter<SportTabState> emit) {
     if (_currentPage == _pages || _currentPage > _pages) {
-      emit(SportTabState.loadedNews(_news, isTheEndOfList: true));
+      emit(SportTabState.loadedNews(_news, true));
     } else {
-      emit(SportTabState.loadedNews(_news));
+      emit(SportTabState.loadedNews(_news, false));
     }
   }
 

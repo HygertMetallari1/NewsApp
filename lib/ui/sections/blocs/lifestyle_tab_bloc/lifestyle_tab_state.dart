@@ -5,7 +5,7 @@ class LifestyleTabState with _$LifestyleTabState{
   const factory LifestyleTabState.loadingNews() = _LoadingNews;
   const factory LifestyleTabState.loadedNews(
       List<NewsItem> news,
-      {bool? isTheEndOfList}) = _LoadedNews;
+      bool isTheEndOfList) = _LoadedNews;
   const factory LifestyleTabState.newsError(String error) = _NewsError;
   const factory LifestyleTabState.resetList() = _ResetList;
 }
