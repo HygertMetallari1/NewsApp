@@ -75,16 +75,17 @@ keystore.properties
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 
-#
-*/local.properties
-*/gradlew
-*/gradlew.bat
-*/settings.gradle
-*/build.gradle
-*/.packages
-*/.metadata
-*/.gradle
-*/.dart_tool
+
+**/NewsApp/local.properties
+**/NewsApp/gradlew
+**/NewsApp/gradlew.bat
+**/NewsApp/settings.gradle
+**/NewsApp/build.gradle
+**/NewsApp/.packages
+**/NewsApp/.metadata
+**/NewsApp/.gradle
+**/NewsApp/.dart_tool
+
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
 !**/ios/**/default.mode2v3
