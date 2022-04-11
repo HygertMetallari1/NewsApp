@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/app/news_app_assets.dart';
+import 'package:newsapp/app/shared_widgets/na_network_image.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
@@ -74,7 +75,6 @@ class _NewsDetailState extends State<NewsDetail> {
                 });
                 if(isSaved) {
                   BlocProvider.of<SavedNewsBloc>(context).add(SavedNewsEvent.saveNews(news: newsItem));
-                  debugPrint("Save event");
                 }
                 else {
                   BlocProvider.of<SavedNewsBloc>(context).add(SavedNewsEvent.removeNews(news: newsItem));
@@ -98,10 +98,11 @@ class _NewsDetailState extends State<NewsDetail> {
         child: Column(
           children: <Widget>[
             if(widget.thumbnail != null)... [
-              Image.network(
-                  widget.thumbnail!,
-                  fit: BoxFit.cover,
-                ),
+              NANetworkImage(
+                  imageUrl: widget.thumbnail!,
+                  isCovered: true,
+
+              )
             ] else ...[
               const SizedBox()
             ],

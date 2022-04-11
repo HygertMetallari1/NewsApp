@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:newsapp/app/shared_widgets/na_app_bar.dart';
 import 'package:newsapp/app/shared_widgets/na_error_screen.dart';
 import 'package:newsapp/app/shared_widgets/na_list_view.dart';
+import 'package:newsapp/app/shared_widgets/na_network_image.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/endpoints.dart';
@@ -52,14 +52,14 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
         showSearchButton: true,
         appBarTitle: tr("navigation.home_tab"),
       ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          return homeBlocNews.add(const HomeNewsEvent.unfilteredNews());
-        },
-        color: NAColors.blue,
-        child: _buildBody(context, theme)
-      )
-    );
+        body: RefreshIndicator(
+          color: NAColors.blue,
+          onRefresh: () async {
+            return homeBlocNews.add(const HomeNewsEvent.unfilteredNews());
+          },
+          child: _buildBody(context, theme),
+        )
+      );
   }
 
   @swidget
@@ -193,23 +193,12 @@ class _HomeScreenState extends State<HomeScreen> with HelperMixin{
                         fontSize: 17
                       ),
                     ),
-                    Image.network(
-                      Endpoints().getIconUrl(currentDay.icon),
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-                      width: 50,
-                      height: 50,
-                    ),
+                    NANetworkImage(
+                        imageUrl: Endpoints().getIconUrl(currentDay.icon),
+                        isCovered: false,
+                        width: 50,
+                        height: 50,
+                    )
                   ],
                 ),
             );

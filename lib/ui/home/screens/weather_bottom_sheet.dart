@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:newsapp/app/shared_widgets/na_network_image.dart';
 import 'package:newsapp/app/shared_widgets/touchable_opacity.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
@@ -35,11 +37,11 @@ class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
     });
     super.didChangeDependencies();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    WeatherItem currentDay = widget.forecastingList[0];
     var theme = Theme.of(context);
+    WeatherItem currentDay = widget.forecastingList[0];
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -86,22 +88,11 @@ class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
                   ),
                 ),
               ),
-              Image.network(
-                Endpoints().getIconUrl(currentDay.icon),
-                loadingBuilder: (BuildContext context, Widget child,
-                    ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                          : null,
-                    ),
-                  );
-                },
-                width: 100,
-                height: 100,
+              NANetworkImage(
+                  imageUrl: Endpoints().getIconUrl(currentDay.icon),
+                  isCovered: false,
+                  width: 100,
+                  height: 100,
               )
             ],
           ),
@@ -156,22 +147,11 @@ class _WeatherBottomSheetState extends State<WeatherBottomSheet> {
             fontSize: 15
           ),
         ),
-        Image.network(
-          Endpoints().getIconUrl(weatherItem.icon),
-          loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent? loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                    : null,
-              ),
-            );
-          },
-          width: 50,
-          height: 50,
+        NANetworkImage(
+            imageUrl: Endpoints().getIconUrl(weatherItem.icon),
+            isCovered: false,
+            width: 50,
+            height: 50,
         ),
         Text(
           temperatures,

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:newsapp/app/shared_widgets/na_network_image.dart';
 import 'package:newsapp/app/shared_widgets/na_news_detail.dart';
 import 'package:newsapp/app/theme.dart';
 import 'package:newsapp/app/utils.dart';
@@ -58,10 +59,10 @@ class _NewsItemUiState extends State<NewsItemUi> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     if(widget.thumbnail != null)... [
-                      Image.network(
-                        widget.thumbnail!,
-                        fit: BoxFit.cover,
-                      ),
+                      NANetworkImage(
+                          imageUrl: widget.thumbnail!,
+                          isCovered: true,
+                      )
                     ] else ...[
                       const SizedBox()
                     ],

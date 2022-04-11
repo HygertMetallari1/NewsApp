@@ -16,13 +16,7 @@ class SavedScreen extends StatefulWidget {
 }
 
 class _SavedScreenState extends State<SavedScreen> {
-  SavedNewsBloc savedNewsBloc = SavedNewsBloc();
 
-  @override
-  void didChangeDependencies() {
-    savedNewsBloc = BlocProvider.of<SavedNewsBloc>(context);
-    super.didChangeDependencies();
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

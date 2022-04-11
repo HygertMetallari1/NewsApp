@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:newsapp/app/utils.dart';
 import 'package:newsapp/data/api_manager.dart';
-import 'package:newsapp/data/models/news/news.dart';
 import 'package:newsapp/ui/home/bloc/home_news_bloc/home_news_bloc.dart';
 import 'package:newsapp/ui/home/bloc/weather_bloc/weather_bloc.dart';
 import 'package:newsapp/ui/home_tab_navigator/cubit/tab_cubit.dart';
@@ -58,6 +57,7 @@ Future<_StartupBlocs> createStartUpBlocs() async {
   await APIManager.shared.setupWithConfig(naRemoteConfig);
   return blocs;
 }
+
 class NewsApp extends StatefulWidget {
 
   const NewsApp({Key? key}) : super(key: key);

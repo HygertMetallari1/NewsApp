@@ -35,7 +35,8 @@
   },
   "home": {
     "turn_on_location": "Enable location service on your device to see weather on your current location ",
-    "search": "Search news"
+    "search": "Search news",
+    "give_permission": "Give permissions to use you correct device location to see weather forecasting"
   },
   "pop_menu": {
     "order_by": "Order by",
@@ -52,6 +53,7 @@
     "try_again": "Try again"
   },
   "errors": {
+    "photo_error": "Couldn't load photo",
     "empty_saved_list": "There is no saved news",
     "saved_news_error": "Unable to load the saved news",
     "empty_list": "There is no news yet",
